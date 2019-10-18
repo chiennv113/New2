@@ -73,7 +73,6 @@ public class ListCallFragment extends Fragment {
             @Override
             public void onItemClick(int position, final int id, View view) {
                 Log.e("TAG", "onItemClick: "+id);
-
                 view.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
