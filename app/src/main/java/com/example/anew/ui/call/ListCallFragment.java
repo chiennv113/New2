@@ -47,9 +47,7 @@ public class ListCallFragment extends Fragment {
     private EditText mEdtInfoSearch;
     private ImageView mBtnSearch;
     private TextView mTvDateStart;
-    private Button mBtnShowDateStart;
     private TextView mTvDateEnd;
-    private Button mBtnShowDateEnd;
     private RecyclerView mRv;
     private Button mBtnFiler;
     private List<ModelListPhoneCall> modelListPhoneCalls = new ArrayList<>();
@@ -88,7 +86,7 @@ public class ListCallFragment extends Fragment {
                 search(mEdtInfoSearch.getText().toString().trim(), "search_customer", cookie, "application/x-www-form-urlencoded");
             }
         });
-        mBtnShowDateStart.setOnClickListener(new View.OnClickListener() {
+        mTvDateStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -111,7 +109,7 @@ public class ListCallFragment extends Fragment {
         });
 
 
-        mBtnShowDateEnd.setOnClickListener(new View.OnClickListener() {
+        mTvDateEnd.setOnClickListener(new View.OnClickListener() {
 
 
             @Override
@@ -195,9 +193,7 @@ public class ListCallFragment extends Fragment {
         mEdtInfoSearch = view.findViewById(R.id.edtInfoSearch);
         mBtnSearch = view.findViewById(R.id.btnSearch);
         mTvDateStart = view.findViewById(R.id.tvDateStart);
-        mBtnShowDateStart = view.findViewById(R.id.btnShowDateStart);
         mTvDateEnd = view.findViewById(R.id.tvDateEnd);
-        mBtnShowDateEnd = view.findViewById(R.id.btnShowDateEnd);
         mRv = view.findViewById(R.id.rv);
         mBtnFiler = view.findViewById(R.id.btn_filer);
     }

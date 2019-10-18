@@ -42,42 +42,24 @@
         android:orientation="horizontal">
 
         <TextView
+            android:padding="8dp"
             android:id="@+id/tvDateStart"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_weight="7"
+            android:layout_weight="1"
             android:hint="@string/frg_list_call_date_start" />
-
-        <Button
-            android:id="@+id/btnShowDateStart"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:text="@string/frg_list_call_btn_show" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
         <TextView
+            android:padding="8dp"
             android:id="@+id/tvDateEnd"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_weight="7"
+            android:layout_weight="1"
             android:hint="@string/frg_list_call_date_end" />
-
-        <Button
-            android:id="@+id/btnShowDateEnd"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:text="@string/frg_list_call_btn_show" />
     </LinearLayout>
+
     <Button
+        android:layout_margin="8dp"
+        android:background="@drawable/custom_btn_login"
         android:text="@string/frg_list_call_btn_filter"
         android:id="@+id/btn_filer"
         android:layout_width="match_parent"
