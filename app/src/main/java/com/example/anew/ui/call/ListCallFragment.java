@@ -68,6 +68,15 @@ public class ListCallFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         initView(view);
         mEdtInfoSearch.setText("0979090897");
+        adapter_list_call_phone_filter = new Adapter_List_Call_Phone_Filter(modelListPhoneCalls, new ItemClickRv() {
+            @Override
+            public void onItemClick(int position, int id) {
+                Toast.makeText(getContext(), "ID + " + id, Toast.LENGTH_SHORT).show();
+            }
+        });
+        mRv.setAdapter(adapter_list_call_phone_filter);
+        linearLayoutManager = new LinearLayoutManager(getActivity());
+        mRv.setLayoutManager(linearLayoutManager);
 
         SharedPreferences prefs = getActivity().getSharedPreferences("cookie", Context.MODE_PRIVATE);
         final String cookie = prefs.getString("cookie_name", "No name defined");
@@ -118,46 +127,44 @@ public class ListCallFragment extends Fragment {
                             @Override
                             public void onDateSet(DatePicker view, int year,
                                                   int monthOfYear, int dayOfMonth) {
-                                mTvDateEnd.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
+                                mTvDateEnd.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
                             }
                         }, mYear, mMonth, mDay);
                 datePickerDialog.show();
             }
         });
 
-        linearLayoutManager = new LinearLayoutManager(getActivity());
-        mRv.setLayoutManager(linearLayoutManager);
 
         mBtnFiler.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                try {
+                if (mTvDateEnd.getText().toString().equals("") ||
+                        mTvDateStart.getText().toString().equals("") ||
+                        (mTvDateStart.getText().toString().equals("") && mTvDateEnd.getText().toString().equals(""))) {
+                    Toast.makeText(getActivity(), "" + getResources().getString(R.string.no_data_entered), Toast.LENGTH_SHORT).show();
+                } else {
                     long date_start = convertStringToTimestampMilisecond(mTvDateStart.getText().toString());
                     long date_end = convertStringToTimestampMilisecond(mTvDateEnd.getText().toString());
 
                     ApiClient.getInstance().getListPhoneCall("ListPhoneCall", date_start, date_end, cookie).enqueue(new Callback<List<ModelListPhoneCall>>() {
                         @Override
                         public void onResponse(Call<List<ModelListPhoneCall>> call, Response<List<ModelListPhoneCall>> response) {
+                            modelListPhoneCalls.clear();
                             modelListPhoneCalls.addAll(response.body());
                             Log.e("TAG", "onResponse: " + response.body().size());
                             Log.e("TAG", "onResponse: " + modelListPhoneCalls.size());
+                            adapter_list_call_phone_filter.notifyDataSetChanged();
+
+                            if (response.body().size() == 0) {
+                                Toast.makeText(getContext(), "" + getResources().getString(R.string.no_data_in_this_time), Toast.LENGTH_SHORT).show();
+                            }
                         }
+
                         @Override
                         public void onFailure(Call<List<ModelListPhoneCall>> call, Throwable t) {
                         }
                     });
-                } catch (Exception e) {
-                    Toast.makeText(getActivity(), "" + getResources().getString(R.string.no_data_entered), Toast.LENGTH_SHORT).show();
                 }
-                adapter_list_call_phone_filter = new Adapter_List_Call_Phone_Filter(modelListPhoneCalls, getActivity(), new ItemClickRv() {
-                    @Override
-                    public void onItemClick(int position, int id) {
-                        Toast.makeText(getContext(), "ID + " + id, Toast.LENGTH_SHORT).show();
-                    }
-                });
-                mRv.setAdapter(adapter_list_call_phone_filter);
-                adapter_list_call_phone_filter.notifyDataSetChanged();
-
             }
         });
 
@@ -197,13 +204,13 @@ public class ListCallFragment extends Fragment {
 
     public long convertStringToTimestampMilisecond(String string) {
         DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-        Date date = null;
+        Date date = new Date();
         try {
-            date = formatter.parse(mTvDateStart.getText().toString());
+            date = formatter.parse(string);
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        long time = date.getTime();
+        long time = date.getTime() / 1000;
         return time;
     }
 

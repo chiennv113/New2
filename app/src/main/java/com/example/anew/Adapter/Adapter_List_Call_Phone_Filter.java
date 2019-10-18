@@ -18,12 +18,10 @@ import java.util.List;
 public class Adapter_List_Call_Phone_Filter extends RecyclerView.Adapter<Adapter_List_Call_Phone_Filter.ViewHolder> {
 
     private List<ModelListPhoneCall> modelListPhoneCalls;
-    private Context context;
     private ItemClickRv mitemClickRv;
 
-    public Adapter_List_Call_Phone_Filter(List<ModelListPhoneCall> modelListPhoneCalls, Context context, ItemClickRv itemClickRv) {
+    public Adapter_List_Call_Phone_Filter(List<ModelListPhoneCall> modelListPhoneCalls, ItemClickRv itemClickRv) {
         this.modelListPhoneCalls = modelListPhoneCalls;
-        this.context = context;
         mitemClickRv = itemClickRv;
     }
 

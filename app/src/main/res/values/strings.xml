@@ -64,6 +64,7 @@
     <string name="frg_list_call_btn_show">Chose</string>
     <string name="frg_list_call_btn_filter">Filter</string>
     <string name="no_data_entered">No data entered</string>
+    <string name="no_data_in_this_time">No call in this time</string>
 
 
 </resources>
