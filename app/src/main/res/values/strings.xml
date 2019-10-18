@@ -1,0 +1,68 @@
+<resources>
+    <string name="app_name">New</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="loggin_user">Username</string>
+    <string name="loggin_pass">Password</string>
+    <string name="tvQuenMK">Forgot Password</string>
+    <string name="tvDky">Đăng ký</string>
+    <string name="btn_login">Login</string>
+    <string name="sigup">Sign Up</string>
+    <string name="intro">Don\'t have an account?</string>
+    <string name="btn_SignIn">Sign In</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <string name="menu_tools">Tools</string>
+    <string name="menu_share">Share</string>
+    <string name="menu_send">Send</string>
+    <string name="nav_menu_dashboard">Dashboard</string>
+    <string name="nav_menu_call">Call</string>
+    <string name="nav_menu_ticket">Ticket</string>
+    <string name="nav_menu_sale">Sale</string>
+    <string name="nav_menu_customer">Customer</string>
+
+    <string name="tvTenKH">Name</string>
+    <string name="tvSdt">Phone Number</string>
+    <string name="tvEmail">Email</string>
+    <string name="frg_result_search">Data</string>
+    <string name="dialog_addCall">Do you want add call</string>
+    <string name="dialog_btn_ok">ok</string>
+    <string name="dialog_btn_no">no</string>
+    <string name="dialog_rs_search">Result</string>
+    <string name="act_add_phone">Phone Number</string>
+    <string name="act_add_edt_phone">Phone number</string>
+    <string name="act_add_edt_name">Name</string>
+    <string name="act_add_edt_email">Email</string>
+    <string name="act_add_edt_zalo">Zalo</string>
+    <string name="act_add_edt_skype">Skype</string>
+    <string name="tv_city">City</string>
+    <string name="act_add_edt_address">Address</string>
+    <string name="act_add_edt_dateOfBirth">Date Of Birth</string>
+    <string name="tv_soft_ware_care">Soft Ware Care</string>
+    <string name="tv_obj_customer">Object Customer</string>
+    <string name="act_add_edt_source_customer">Source Customer</string>
+    <string name="tv_customer_type">Customer Type</string>
+    <string name="act_add_edt_content">Content</string>
+    <string name="tv_customer_status">Customer Status</string>
+    <string name="act_add_note">Note</string>
+    <string name="btn_save">Save</string>
+    <string name="fragment_listCall_search">Search</string>
+    <string name="dialog_tb_ok">Success</string>
+    <string name="tv_source_customer">Customer Base</string>
+    <string name="act_add_layout_do_not_leave_blank">Do not leave blank</string>
+    <string name="act_add_actionbar">Add Call and New Customer</string>
+    <string name="frg_list_call_date_start">Date Start</string>
+    <string name="frg_list_call_date_end">Date End</string>
+    <string name="frg_list_call_btn_show">Chose</string>
+    <string name="frg_list_call_btn_filter">Filter</string>
+    <string name="no_data_entered">No data entered</string>
+
+
+</resources>

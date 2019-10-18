@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.example.anew.ui.dashboard.DashboardFragment"
+        android:label="@string/nav_menu_dashboard"
+        tools:layout="@layout/fragment_dashboard" />
+
+    <fragment
+        android:id="@+id/nav_gallery"
+        android:name="com.example.anew.ui.call.CallFragment"
+        android:label="@string/nav_menu_call"
+        tools:layout="@layout/fragment_gallery" />
+
+    <fragment
+        android:id="@+id/nav_slideshow"
+        android:name="com.example.anew.ui.ticket.TicketFragment"
+        android:label="@string/nav_menu_ticket"
+        tools:layout="@layout/fragment_ticket" />
+
+    <fragment
+        android:id="@+id/nav_tools"
+        android:name="com.example.anew.ui.sale.SaleFragment"
+        android:label="@string/nav_menu_sale"
+        tools:layout="@layout/fragment_sale" />
+    <fragment
+        android:id="@+id/nav_customer"
+        android:name="com.example.anew.ui.customer.CustomerFragment"
+        android:label="@string/nav_menu_customer"
+        tools:layout="@layout/fragment_customer" />
+
+
+
+
+</navigation>
