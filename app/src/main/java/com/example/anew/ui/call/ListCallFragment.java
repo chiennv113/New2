@@ -24,6 +24,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.anew.Adapter.Adapter_List_Call_Phone_Filter;
+import com.example.anew.Model.ModelDeleteCall;
 import com.example.anew.Model.ModelListPhoneCall.ModelListPhoneCall;
 import com.example.anew.Model.ModelSearchCu.Search;
 import com.example.anew.R;
@@ -66,19 +67,36 @@ public class ListCallFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         initView(view);
         mEdtInfoSearch.setText("0979090897");
-        adapter_list_call_phone_filter = new Adapter_List_Call_Phone_Filter(modelListPhoneCalls, new ItemClickRv() {
+        SharedPreferences prefs = getActivity().getSharedPreferences("cookie", Context.MODE_PRIVATE);
+        final String cookie = prefs.getString("cookie_name", "No name defined");
+        adapter_list_call_phone_filter = new Adapter_List_Call_Phone_Filter(modelListPhoneCalls, getContext(), new ItemClickRv() {
             @Override
-            public void onItemClick(int position, int id) {
-                Toast.makeText(getContext(), "ID + " + id, Toast.LENGTH_SHORT).show();
+            public void onItemClick(int position, final int id, View view) {
+                Log.e("TAG", "onItemClick: "+id);
+
+                view.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        ApiClient.getInstance().del("DeleteCall", id, cookie).enqueue(new Callback<ModelDeleteCall>() {
+                            @Override
+                            public void onResponse(Call<ModelDeleteCall> call, Response<ModelDeleteCall> response) {
+                                Toast.makeText(getContext(), "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                                adapter_list_call_phone_filter.notifyDataSetChanged();
+                            }
+                            @Override
+                            public void onFailure(Call<ModelDeleteCall> call, Throwable t) {
+
+                            }
+                        });
+                        adapter_list_call_phone_filter.notifyDataSetChanged();
+                    }
+                });
             }
         });
+        adapter_list_call_phone_filter.notifyDataSetChanged();
         mRv.setAdapter(adapter_list_call_phone_filter);
         linearLayoutManager = new LinearLayoutManager(getActivity());
         mRv.setLayoutManager(linearLayoutManager);
-
-        SharedPreferences prefs = getActivity().getSharedPreferences("cookie", Context.MODE_PRIVATE);
-        final String cookie = prefs.getString("cookie_name", "No name defined");
-        Log.e("sharedPre", "onViewCreated: " + cookie);
 
         mBtnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,7 +125,6 @@ public class ListCallFragment extends Fragment {
 
             }
         });
-
 
         mTvDateEnd.setOnClickListener(new View.OnClickListener() {
 

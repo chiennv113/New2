@@ -3,6 +3,7 @@ package com.example.anew.Retrofit;
 import com.example.anew.Model.ModelAdd;
 import com.example.anew.Model.ModelAddCallAndCustomerNew;
 import com.example.anew.Model.ModelCustomeFeelNew;
+import com.example.anew.Model.ModelDeleteCall;
 import com.example.anew.Model.ModelListPhoneCall.ModelListPhoneCall;
 import com.example.anew.Model.ModelLoadAllProduct;
 import com.example.anew.Model.ModelLoadCity;
@@ -114,4 +115,10 @@ public interface ServiceRetrofit {
                                               @Field("date_end") long date_end,
                                               @Header("Cookie") String cookie);
 
+    //Delete
+    @POST("api/phoneapi")
+    @FormUrlEncoded
+    Call<ModelDeleteCall> del(@Field("option") String option,
+                              @Field("id") int id,
+                              @Header("Cookie") String cookie);
 }
