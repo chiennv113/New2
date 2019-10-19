@@ -51,8 +51,8 @@ public class ListCallFragment extends Fragment {
     private TextView mTvDateEnd;
     private RecyclerView mRv;
     private Button mBtnFiler;
-    private List<ModelListPhoneCall> modelListPhoneCalls = new ArrayList<>();
 
+    private List<ModelListPhoneCall> modelListPhoneCalls = new ArrayList<>();
     private LinearLayoutManager linearLayoutManager;
     private Adapter_List_Call_Phone_Filter adapter_list_call_phone_filter;
 

@@ -35,7 +35,7 @@
     <string name="dialog_addCall">Do you want add call</string>
     <string name="dialog_btn_ok">ok</string>
     <string name="dialog_btn_no">no</string>
-    <string name="dialog_rs_search">Result</string>
+    <string name="dialog_rs_search">Do you want add call</string>
     <string name="act_add_phone">Phone Number</string>
     <string name="act_add_edt_phone">Phone number</string>
     <string name="act_add_edt_name">Name</string>
@@ -65,6 +65,13 @@
     <string name="frg_list_call_btn_filter">Filter</string>
     <string name="no_data_entered">No data entered</string>
     <string name="no_data_in_this_time">No call in this time</string>
+    <string name="frg_remind_btn_add">Add Remind</string>
+    <string name="dialog_addRemind">Add Remind</string>
+    <string name="dialog_search_customer">Search Customer</string>
+    <string name="dialog_reminder_date">Reminder Date</string>
+    <string name="tv_change_date">Date</string>
+    <string name="dialog_tv_search">Search</string>
+    <string name="dialog_btn_cancel">Cancel</string>
 
 
 </resources>

@@ -2,9 +2,12 @@ package com.example.anew.Retrofit;
 
 import com.example.anew.Model.ModelAdd;
 import com.example.anew.Model.ModelAddCallAndCustomerNew;
+import com.example.anew.Model.ModelAddRemind;
 import com.example.anew.Model.ModelCustomeFeelNew;
 import com.example.anew.Model.ModelDeleteCall;
+import com.example.anew.Model.ModelDeleteRemind;
 import com.example.anew.Model.ModelListPhoneCall.ModelListPhoneCall;
+import com.example.anew.Model.ModelListPhoneCallRemind.ModelListPhoneCallRemind;
 import com.example.anew.Model.ModelLoadAllProduct;
 import com.example.anew.Model.ModelLoadCity;
 import com.example.anew.Model.ModelLoadCustomerType;
@@ -111,14 +114,34 @@ public interface ServiceRetrofit {
     @POST("api/phoneapi")
     @FormUrlEncoded
     Call<List<ModelListPhoneCall>> getListPhoneCall(@Field("option") String option,
-                                              @Field("date_start") long date_start,
-                                              @Field("date_end") long date_end,
-                                              @Header("Cookie") String cookie);
+                                                    @Field("date_start") long date_start,
+                                                    @Field("date_end") long date_end,
+                                                    @Header("Cookie") String cookie);
 
-    //Delete
+    //Delete Call
     @POST("api/phoneapi")
     @FormUrlEncoded
     Call<ModelDeleteCall> del(@Field("option") String option,
                               @Field("id") int id,
                               @Header("Cookie") String cookie);
+
+    //Add remind call
+    @POST("api/phoneapi")
+    @FormUrlEncoded
+    Call<ModelAddRemind> addRemind(@Field("option") String option,
+                                   @Field("content") String content,
+                                   @Field("time") long time,
+                                   @Field("call_to") int id,
+                                   @Header("Cookie") String cookie);
+
+    @POST("api/phoneapi")
+    @FormUrlEncoded
+    Call<List<ModelListPhoneCallRemind>> getListRemind(@Field("option") String option,
+                                                       @Header("Cookie") String cookie);
+
+    @POST("api/phoneapi")
+    @FormUrlEncoded
+    Call<ModelDeleteRemind> deleteRemind(@Field("option") String option,
+                                         @Field("id") int id,
+                                         @Header("Cookie") String cookie);
 }
