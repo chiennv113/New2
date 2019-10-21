@@ -18,4 +18,8 @@
     <color name="start_color">#F9BA53</color>
     <color name="end_color">#f87e2e</color>
 
+    <color name="P_Dark">#c43c00</color>
+    <color name="P_Light">#ff9e40</color>
+    <color name="P_Accent">#ff6d00</color>
+
 </resources>

@@ -72,6 +72,14 @@
     <string name="tv_change_date">Date</string>
     <string name="dialog_tv_search">Search</string>
     <string name="dialog_btn_cancel">Cancel</string>
+    <string name="number">2</string>
+    <string name="numberofcall">Number of call</string>
+    <string name="amountCall">Amount</string>
+    <string name="oldCustomer">Old Customer</string>
+    <string name="newCustomer">New Customer</string>
+    <string name="tkcall">Thống kê cuộc gọi</string>
+    <string name="tkbanthan">All</string>
+    <string name="dashboard_banthan">Thống kê theo cuộc gọi bản thân</string>
 
 
 </resources>
