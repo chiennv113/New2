@@ -26,84 +26,73 @@
         app:srcCompat="@drawable/logo_ninja"
         tools:ignore="ContentDescription" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout2"
+    <EditText
+        android:id="@+id/edtUser"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
+        android:background="@drawable/shape_login_edt"
+        android:drawableStart="@drawable/ic_account_circle_black_24dp"
+        android:inputType="textPersonName"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:hint="@string/loggin_user"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imgLogo">
+        app:layout_constraintTop_toBottomOf="@+id/imgLogo"
+        tools:ignore="Autofill" />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edtUser"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/shape_login_edt"
-            android:drawableStart="@drawable/ic_account_circle_black_24dp"
-            android:hint="@string/loggin_user"
-            android:paddingStart="16dp"
-            tools:ignore="RtlSymmetry" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout5"
+    <EditText
+        android:id="@+id/edtPass"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
+        android:background="@drawable/shape_login_edt"
+        android:drawableStart="@drawable/ic_lock_black_24dp"
+        android:inputType="textPersonName"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:hint="@string/loggin_pass"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout2">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edtPass"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/shape_login_edt"
-            android:drawableStart="@drawable/ic_lock_black_24dp"
-            android:hint="@string/loggin_pass"
-            android:inputType="textPassword"
-            android:paddingStart="16dp"
-            tools:ignore="RtlSymmetry" />
-    </com.google.android.material.textfield.TextInputLayout>
+        app:layout_constraintTop_toBottomOf="@+id/edtUser"
+        tools:ignore="Autofill" />
 
     <Button
         android:id="@+id/btn_login"
+        android:background="@drawable/custom_btn_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="64dp"
         android:layout_marginTop="16dp"
+        android:layout_marginLeft="64dp"
         android:layout_marginRight="64dp"
-        android:background="@drawable/custom_btn_login"
-        android:text="@string/btn_SignIn"
+        android:text="@string/btn_login"
         android:textColor="@color/colorBackgroud"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout5" />
+        app:layout_constraintTop_toBottomOf="@+id/edtPass" />
 
     <TextView
-        android:id="@+id/tv_forgot_pass"
+        android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="@string/tvQuenMK"
-        android:textColor="@color/colorBackgroud"
+        android:text=""
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_login" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline"
+        android:id="@+id/guideline2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.8" />
+        app:layout_constraintGuide_percent="0.8016416" />
 
     <TextView
-        android:id="@+id/tv_signUp"
+        android:id="@+id/textView13"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/sigup"
@@ -111,19 +100,22 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/textView4"
-        app:layout_constraintTop_toTopOf="@+id/guideline" />
+        app:layout_constraintStart_toEndOf="@+id/textView14"
+        app:layout_constraintTop_toTopOf="@+id/guideline2" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:layout_marginRight="4dp"
+        android:id="@+id/textView14"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/intro"
         android:textColor="@color/colorBackgroud"
-        app:layout_constraintEnd_toStartOf="@+id/tv_signUp"
+        app:layout_constraintEnd_toStartOf="@+id/textView13"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline" />
+        app:layout_constraintTop_toTopOf="@+id/guideline2"
+        tools:ignore="RtlHardcoded" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
