@@ -77,10 +77,15 @@ public class Dialog_Add_Remind extends DialogFragment {
                 ApiClient.getInstance().search(info, "search_customer", cookie, "application/x-www-form-urlencoded").enqueue(new Callback<Search>() {
                     @Override
                     public void onResponse(Call<Search> call, Response<Search> response) {
-                        int id = response.body().getId();
-                        arrayList.add(id);
-                        mTvName.setText(response.body().getFullname());
-                        mTvEmail.setText("  (" + response.body().getEmail() + ")");
+                        try {
+                            int id = response.body().getId();
+                            arrayList.add(id);
+                            mTvName.setText(response.body().getFullname());
+                            mTvEmail.setText("  (" + response.body().getEmail() + ")");
+                        } catch (Exception e) {
+                            Toast.makeText(context, "" + "Thông tin nhập không khớp", Toast.LENGTH_SHORT).show();
+                        }
+
                     }
 
                     @Override

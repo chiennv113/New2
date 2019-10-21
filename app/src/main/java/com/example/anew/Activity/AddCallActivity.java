@@ -12,7 +12,6 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.anew.Model.ModelAddCallAndCustomerNew;
@@ -57,12 +56,20 @@ public class AddCallActivity extends AppCompatActivity {
     private TextInputLayout mLayoutName;
     private TextInputLayout mLayoutEmail;
     private TextInputLayout mLayoutNote;
+    private Button mBtnCancel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_call);
         initView();
+
+        mBtnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         SharedPreferences prefs = getSharedPreferences("cookie", Context.MODE_PRIVATE);
         final String cookie = prefs.getString("cookie_name", "No name defined");
@@ -262,6 +269,7 @@ public class AddCallActivity extends AppCompatActivity {
         mLayoutName = findViewById(R.id.layoutName);
         mLayoutEmail = findViewById(R.id.layoutEmail);
         mLayoutNote = findViewById(R.id.layoutNote);
+        mBtnCancel = findViewById(R.id.btnCancel);
     }
 
     private void LoadCity(String cookie) {
