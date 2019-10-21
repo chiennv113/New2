@@ -8,35 +8,29 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.anew.Model.ModelDeleteRemind;
 import com.example.anew.Model.ModelListPhoneCallRemind.ModelListPhoneCallRemind;
 import com.example.anew.R;
-import com.example.anew.Retrofit.ApiClient;
+import com.example.anew.helper.ItemClickRv;
 
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class Adapter_List_Call_Remind extends RecyclerView.Adapter<Adapter_List_Call_Remind.ViewHolder> {
 
     private List<ModelListPhoneCallRemind> modelListPhoneCallReminds;
     private Context context;
+    private ItemClickRv mitemClickRv;
 
-    public Adapter_List_Call_Remind(List<ModelListPhoneCallRemind> modelListPhoneCallReminds, Context context) {
+    public Adapter_List_Call_Remind(List<ModelListPhoneCallRemind> modelListPhoneCallReminds, Context context, ItemClickRv itemClickRv) {
         this.modelListPhoneCallReminds = modelListPhoneCallReminds;
         this.context = context;
+        mitemClickRv = itemClickRv;
     }
 
     @NonNull
@@ -55,35 +49,13 @@ public class Adapter_List_Call_Remind extends RecyclerView.Adapter<Adapter_List_
         holder.tvName.setText(modelListPhoneCallRemind.getCallTo().getFullname());
         holder.tvEmail.setText(modelListPhoneCallRemind.getCallTo().getEmail());
         holder.tvContent.setText(modelListPhoneCallRemind.getRemindContent());
-        Log.e("TAG", "onBindViewHolder: "+modelListPhoneCallRemind.getRemindTime());
+        Log.e("TAG", "onBindViewHolder: " + modelListPhoneCallRemind.getRemindTime());
 
+        Date d = new Date((long) modelListPhoneCallRemind.getRemindTime()*1000);
+        DateFormat f = new SimpleDateFormat("dd/MM/yyyy");
+        holder.tvTimeRemind.setText(f.format(d));
 
-//        String date = DateFormat.format("dd-MM-yyyy hh:mm:ss",).toString();
-
-        SharedPreferences prefs = context.getSharedPreferences("cookie", Context.MODE_PRIVATE);
-        final String cookie = prefs.getString("cookie_name", "No name defined");
-
-        holder.imgDel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ApiClient.getInstance().deleteRemind("delete_phone_remind", modelListPhoneCallRemind.getId(), cookie).enqueue(new Callback<ModelDeleteRemind>() {
-                    @Override
-                    public void onResponse(Call<ModelDeleteRemind> call, Response<ModelDeleteRemind> response) {
-                        try {
-                            Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                            notifyDataSetChanged();
-                        } catch (Exception e) {
-                            Toast.makeText(context, "" + response.body().getError(), Toast.LENGTH_SHORT).show();
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<ModelDeleteRemind> call, Throwable t) {
-
-                    }
-                });
-            }
-        });
+        mitemClickRv.onItemClick(position, modelListPhoneCallRemind.getId(), holder.imgDel);
     }
 
     @Override

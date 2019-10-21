@@ -66,7 +66,6 @@ public class ListCallFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initView(view);
-        mEdtInfoSearch.setText("0979090897");
         SharedPreferences prefs = getActivity().getSharedPreferences("cookie", Context.MODE_PRIVATE);
         final String cookie = prefs.getString("cookie_name", "No name defined");
         adapter_list_call_phone_filter = new Adapter_List_Call_Phone_Filter(modelListPhoneCalls, getContext(), new ItemClickRv() {
@@ -97,12 +96,12 @@ public class ListCallFragment extends Fragment {
         linearLayoutManager = new LinearLayoutManager(getActivity());
         mRv.setLayoutManager(linearLayoutManager);
 
-        mBtnSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                search(mEdtInfoSearch.getText().toString().trim(), "search_customer", cookie, "application/x-www-form-urlencoded");
-            }
-        });
+//        mBtnSearch.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                search(mEdtInfoSearch.getText().toString().trim(), "search_customer", cookie, "application/x-www-form-urlencoded");
+//            }
+//        });
         mTvDateStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -206,8 +205,6 @@ public class ListCallFragment extends Fragment {
     }
 
     private void initView(View view) {
-        mEdtInfoSearch = view.findViewById(R.id.edtInfoSearch);
-        mBtnSearch = view.findViewById(R.id.btnSearch);
         mTvDateStart = view.findViewById(R.id.tvDateStart);
         mTvDateEnd = view.findViewById(R.id.tvDateEnd);
         mRv = view.findViewById(R.id.rv);

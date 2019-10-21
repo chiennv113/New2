@@ -1,75 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:gravity="center"
-        android:orientation="horizontal">
-
-        <EditText
-            android:id="@+id/edtInfoSearch"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_weight="2"
-            android:background="@drawable/shape_search_btn"
-            android:hint="@string/fragment_listCall_search"
-            android:paddingStart="12dp"
-            android:textSize="24sp"
-            tools:ignore="Autofill,RtlSymmetry,TextFields" />
-
-        <ImageView
-            android:id="@+id/btnSearch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:padding="3dp"
-            android:src="@drawable/bsearch"
-            tools:ignore="ContentDescription,ObsoleteLayoutParam" />
-    </LinearLayout>
-
-    <LinearLayout
+        android:padding="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
         <TextView
-            android:padding="8dp"
             android:id="@+id/tvDateStart"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:hint="@string/frg_list_call_date_start" />
+            android:hint="@string/frg_list_call_date_start"
+            android:padding="8dp" />
+
         <TextView
-            android:padding="8dp"
             android:id="@+id/tvDateEnd"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:hint="@string/frg_list_call_date_end" />
+            android:hint="@string/frg_list_call_date_end"
+            android:padding="8dp" />
+        <Button
+            android:layout_weight="1"
+            android:id="@+id/btn_filer"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/custom_btn_login"
+            android:text="@string/frg_list_call_btn_filter" />
     </LinearLayout>
-
-    <Button
-        android:layout_margin="8dp"
-        android:background="@drawable/custom_btn_login"
-        android:text="@string/frg_list_call_btn_filter"
-        android:id="@+id/btn_filer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </Button>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
     </androidx.recyclerview.widget.RecyclerView>
 </LinearLayout>

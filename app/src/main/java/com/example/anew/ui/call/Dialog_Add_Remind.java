@@ -21,7 +21,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
+import com.example.anew.Adapter.Adapter_List_Call_Remind;
 import com.example.anew.Model.ModelAddRemind;
+import com.example.anew.Model.ModelListPhoneCallRemind.ModelListPhoneCallRemind;
 import com.example.anew.Model.ModelSearchCu.Search;
 import com.example.anew.R;
 import com.example.anew.Retrofit.ApiClient;
@@ -33,6 +35,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -48,6 +51,10 @@ public class Dialog_Add_Remind extends DialogFragment {
     private Button mBtnOk;
     private Button mBtnCancel;
     private Context context;
+    private List<ModelListPhoneCallRemind> modelListPhoneCallReminds;
+
+
+    private Adapter_List_Call_Remind adapter_list_call_remind;
 
     private ArrayList<Integer> arrayList = new ArrayList();
 
@@ -113,6 +120,8 @@ public class Dialog_Add_Remind extends DialogFragment {
                     public void onResponse(Call<ModelAddRemind> call, Response<ModelAddRemind> response) {
                         try {
                             Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+//                            adapter_list_call_remind.notifyDataSetChanged();
+//                            getData(cookie);
                             dismiss();
                         } catch (Exception e) {
                             Toast.makeText(context, "" + response.body().getError(), Toast.LENGTH_SHORT).show();
@@ -173,5 +182,19 @@ public class Dialog_Add_Remind extends DialogFragment {
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         this.context = context;
+    }
+
+    private void getData(String cookie) {
+        ApiClient.getInstance().getListRemind("load_phone_remind", cookie).enqueue(new Callback<List<ModelListPhoneCallRemind>>() {
+            @Override
+            public void onResponse(Call<List<ModelListPhoneCallRemind>> call, Response<List<ModelListPhoneCallRemind>> response) {
+                modelListPhoneCallReminds.addAll(response.body());
+                adapter_list_call_remind.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailure(Call<List<ModelListPhoneCallRemind>> call, Throwable t) {
+            }
+        });
     }
 }
