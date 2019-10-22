@@ -45,14 +45,9 @@ public class Adapter_List_Call_Phone_Filter extends RecyclerView.Adapter<Adapter
         holder.tvPhone.setText(modelListPhoneCall.getCustomer().getPhone1());
         holder.tvName.setText(modelListPhoneCall.getCustomer().getFullname());
         holder.tvCusfeel.setText(modelListPhoneCall.getCustomerFeel());
-
-        SharedPreferences prefs = context.getSharedPreferences("cookie", Context.MODE_PRIVATE);
-        final String cookie = prefs.getString("cookie_name", "No name defined");
         holder.img_del.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                int id = modelListPhoneCall.getId();
                 mitemClickRv.onItemClick(position);
             }
         });

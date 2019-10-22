@@ -1,10 +1,12 @@
 package com.example.anew.ui.call;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,6 +21,7 @@ import com.example.anew.Model.ModelListPhoneCallRemind.ModelListPhoneCallRemind;
 import com.example.anew.R;
 import com.example.anew.Retrofit.ApiClient;
 import com.example.anew.helper.IDialogClick;
+import com.example.anew.helper.IRemoveRemid;
 import com.example.anew.helper.ItemClickRv;
 import com.example.anew.utills.Constans;
 import com.example.anew.utills.ConvertHelper;
@@ -31,13 +34,12 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class RemindFragment extends Fragment implements ItemClickRv {
+public class RemindFragment extends Fragment implements IRemoveRemid {
     private RecyclerView mRv;
     private Button mBtnAdd;
     private String cookie;
 
     private List<ModelListPhoneCallRemind> modelListPhoneCallReminds = new ArrayList<>();
-    private LinearLayoutManager linearLayoutManager;
     private Adapter_List_Call_Remind adapter_list_call_remind;
 
     @Override
@@ -66,13 +68,13 @@ public class RemindFragment extends Fragment implements ItemClickRv {
         mBtnAdd = view.findViewById(R.id.btn_add);
     }
 
-    private void initAdapter(){
+    private void initAdapter() {
         adapter_list_call_remind = new Adapter_List_Call_Remind(modelListPhoneCallReminds, getActivity(), this);
         mRv.setAdapter(adapter_list_call_remind);
         mRv.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
 
-    private void showDialogRemind(){
+    private void showDialogRemind() {
         final Dialog_Add_Remind dialog_add_remind = new Dialog_Add_Remind();
         dialog_add_remind.setOnClickPositive(new IDialogClick() {
             @Override
@@ -112,24 +114,23 @@ public class RemindFragment extends Fragment implements ItemClickRv {
         });
     }
 
-
     @Override
-    public void onItemClick(int position) {
-        new ItemClickRv() {
+    public void onItemClick(int position, int id) {
+        ApiClient.getInstance().deleteRemind("delete_phone_remind", id, cookie).enqueue(new Callback<ModelDeleteRemind>() {
             @Override
-            public void onItemClick(int position) {
-                ApiClient.getInstance().deleteRemind("delete_phone_remind", modelListPhoneCallReminds.get(position).getId(), cookie).enqueue(new Callback<ModelDeleteRemind>() {
-                    @Override
-                    public void onResponse(Call<ModelDeleteRemind> call, Response<ModelDeleteRemind> response) {
-                        if (response.code() == Constans.SERVER_SUCCESS) {
-                            requestLoadPhoneRemid();
-                        }
-                    }
+            public void onResponse(Call<ModelDeleteRemind> call, Response<ModelDeleteRemind> response) {
+                Log.e("GGG", "onResponse: " + response.code());
+                if (response.code() == Constans.SERVER_SUCCESS) {
+                    requestLoadPhoneRemid();
+                    Toast.makeText(getActivity(), "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    Log.e("GGG", "onResponse: ");
+                }
+            }
 
-                    @Override
-                    public void onFailure(Call<ModelDeleteRemind> call, Throwable t) { }
-                });
+            @Override
+            public void onFailure(Call<ModelDeleteRemind> call, Throwable t) {
 
-        }};
+            }
+        });
     }
 }

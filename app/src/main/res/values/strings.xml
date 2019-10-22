@@ -80,9 +80,9 @@
     <string name="tkcall">Thống kê cuộc gọi</string>
     <string name="tkbanthan">All</string>
     <string name="dashboard_banthan">Thống kê theo cuộc gọi bản thân</string>
-    <string name="Dashboard_inCall_All">All</string>
-    <string name="Dashboard_inCall_Old">Old</string>
-    <string name="Dashboard_inCall_New">New</string>
+    <string name="Dashboard_inCall_All">All : </string>
+    <string name="Dashboard_inCall_Old">Old : </string>
+    <string name="Dashboard_inCall_New">New : </string>
     <string name="textview">TextView</string>
     <string name="thongKeTheoTatCaDoHaiLongCuaKhachHang">Statistics according to all customer satisfaction</string>
     <string name="thongKeTheoDoHaiLongCuaKhachHang">Statistics according to customer satisfaction</string>

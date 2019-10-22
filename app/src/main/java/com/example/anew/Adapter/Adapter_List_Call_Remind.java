@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.anew.Model.ModelListPhoneCallRemind.ModelListPhoneCallRemind;
 import com.example.anew.R;
+import com.example.anew.helper.IRemoveRemid;
 import com.example.anew.helper.ItemClickRv;
 
 import java.text.DateFormat;
@@ -24,9 +25,9 @@ public class Adapter_List_Call_Remind extends RecyclerView.Adapter<Adapter_List_
 
     private List<ModelListPhoneCallRemind> modelListPhoneCallReminds;
     private Context context;
-    private ItemClickRv mitemClickRv;
+    private IRemoveRemid mitemClickRv;
 
-    public Adapter_List_Call_Remind(List<ModelListPhoneCallRemind> modelListPhoneCallReminds, Context context, ItemClickRv itemClickRv) {
+    public Adapter_List_Call_Remind(List<ModelListPhoneCallRemind> modelListPhoneCallReminds, Context context, IRemoveRemid itemClickRv) {
         this.modelListPhoneCallReminds = modelListPhoneCallReminds;
         this.context = context;
         mitemClickRv = itemClickRv;
@@ -44,12 +45,11 @@ public class Adapter_List_Call_Remind extends RecyclerView.Adapter<Adapter_List_
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         final ModelListPhoneCallRemind modelListPhoneCallRemind = modelListPhoneCallReminds.get(position);
-        if (modelListPhoneCallRemind.getCallTo()!= null) {
+        if (modelListPhoneCallRemind.getCallTo() != null) {
             holder.tvPhone.setText(String.valueOf(modelListPhoneCallRemind.getCallTo().getPhone1()));
             holder.tvName.setText(modelListPhoneCallRemind.getCallTo().getFullname());
             holder.tvEmail.setText(modelListPhoneCallRemind.getCallTo().getEmail());
             holder.tvContent.setText(modelListPhoneCallRemind.getRemindContent());
-            Log.e("TAG", "onBindViewHolder: " + modelListPhoneCallRemind.getRemindTime());
 
             Date d = new Date((long) modelListPhoneCallRemind.getRemindTime() * 1000);
             DateFormat f = new SimpleDateFormat("dd/MM/yyyy");
@@ -60,7 +60,8 @@ public class Adapter_List_Call_Remind extends RecyclerView.Adapter<Adapter_List_
         holder.imgDel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mitemClickRv.onItemClick(holder.getAdapterPosition());
+                mitemClickRv.onItemClick(holder.getAdapterPosition(), modelListPhoneCallRemind.getId());
+                Log.e("GGG", "onClick: " + modelListPhoneCallRemind.getId());
             }
         });
 
@@ -86,7 +87,7 @@ public class Adapter_List_Call_Remind extends RecyclerView.Adapter<Adapter_List_
         }
     }
 
-    public void updateData(List<ModelListPhoneCallRemind> list){
+    public void updateData(List<ModelListPhoneCallRemind> list) {
         modelListPhoneCallReminds.clear();
         modelListPhoneCallReminds.addAll(list);
         notifyDataSetChanged();
