@@ -15,6 +15,11 @@ import com.example.anew.Model.ModelLoadObjCustomer;
 import com.example.anew.Model.ModelLoadSourceCustomer;
 import com.example.anew.Model.ModelLogin.Login;
 import com.example.anew.Model.ModelSearchCu.Search;
+import com.example.anew.Model.ModelTKCuocGoiAdmin.ModelThongKeCuocGoiAdmin;
+import com.example.anew.Model.ModelTKCuocgoiBanThan.ModelThongKeCuocGoiBanThan;
+import com.example.anew.Model.ModelTKTheoDoHaiLongKH.ModelThongKeTheoDoHaiLongCuaKhachAdmin;
+import com.example.anew.Model.ModelTKTheoNV.ModelThongKeTheoNVAdmin;
+import com.example.anew.Model.ModelTKTheoTatcaDoHaiLong.ModelThongKeTheoTatCaDoHaiLongCuaKhachAdmin;
 
 import java.util.List;
 
@@ -144,4 +149,45 @@ public interface ServiceRetrofit {
     Call<ModelDeleteRemind> deleteRemind(@Field("option") String option,
                                          @Field("id") int id,
                                          @Header("Cookie") String cookie);
+
+    //Thống kê theo tất cả độ hài lòng của khách
+    @POST("api/phoneapi")
+    @FormUrlEncoded
+    Call<List<ModelThongKeTheoTatCaDoHaiLongCuaKhachAdmin>> tkTheoTatCaDoHaiLongCuaKhach(@Field("option") String option,
+                                                                                         @Field("start") long start,
+                                                                                         @Field("end") long end,
+                                                                                         @Header("cookie") String cookie);
+
+    //Thống kê theo độ hài lòng của khách
+    @POST("api/phoneapi")
+    @FormUrlEncoded
+    Call<List<ModelThongKeTheoDoHaiLongCuaKhachAdmin>> tkTheoDoHaiLongCuaKhach(@Field("option") String option,
+                                                                               @Field("start") long start,
+                                                                               @Field("end") long end,
+                                                                               @Field("customer_feel") int id,
+                                                                               @Header("cookie") String cookie);
+
+    //Thống kê theo nhân viên
+    @POST("api/phoneapi")
+    @FormUrlEncoded
+    Call<List<ModelThongKeTheoNVAdmin>> tkTheoNV(@Field("option") String option,
+                                                 @Field("start") long start,
+                                                 @Field("end") long end,
+                                                 @Header("cookie") String cookie);
+
+    //Thống kê theo cuộc gọi
+    @POST("api/phoneapi")
+    @FormUrlEncoded
+    Call<List<ModelThongKeCuocGoiAdmin>> tkTheoCuocGoi(@Field("option") String option,
+                                                       @Field("start") long start,
+                                                       @Field("end") long end,
+                                                       @Header("cookie") String cookie);
+
+    //Thống kê theo cuộc gọi bản thân
+    @POST("api/phoneapi")
+    @FormUrlEncoded
+    Call<List<ModelThongKeCuocGoiBanThan>> tkTheoCuocGoiBanThan(@Field("option") String option,
+                                                                @Field("start") long start,
+                                                                @Field("end") long end,
+                                                                @Header("cookie") String cookie);
 }

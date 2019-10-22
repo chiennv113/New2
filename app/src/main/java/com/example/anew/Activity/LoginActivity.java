@@ -1,7 +1,6 @@
 package com.example.anew.Activity;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -11,11 +10,11 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.anew.Model.ModelLoadCity;
 import com.example.anew.Model.ModelLogin.Login;
 import com.example.anew.R;
 import com.example.anew.Retrofit.ApiClient;
-import com.google.android.material.textfield.TextInputEditText;
+import com.example.anew.utills.Constans;
+import com.example.anew.utills.SharePrefs;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -80,27 +79,24 @@ public class LoginActivity extends AppCompatActivity {
         ApiClient.getInstance().createUser(new Login(email, password, option)).enqueue(new Callback<Login>() {
             @Override
             public void onResponse(Call<Login> call, Response<Login> response) {
-                Log.e("abc", "onResponse: " + response.body());
-                logins.add(response.body());
+                if (response.code() == Constans.SERVER_SUCCESS && response.body() !=null){
+                    logins.add(response.body());
+                    String name = response.body().getData().getName();
+                    String email = response.body().getData().getEmail();
 
-                String name = response.body().getData().getName();
-                String email = response.body().getData().getEmail();
+                    SharePrefs.getInstance().put(Constans.COOKIE, response.headers().get("Set-Cookie"));
 
-                String cookie = response.headers().get("Set-Cookie");
-                SharedPreferences.Editor editor = getSharedPreferences("cookie", MODE_PRIVATE).edit();
-                editor.putString("cookie_name", cookie);
-                editor.apply();
-
-                if (response.body().getMessage().equals("Đăng nhập thành công")) {
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    Bundle bundle = new Bundle();
-                    bundle.putString("name", name);
-                    bundle.putString("email", email);
-                    intent.putExtras(bundle);
-                    startActivity(intent);
+                    if (response.body().getMessage().equals("Đăng nhập thành công")) {
+                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putString("name", name);
+                        bundle.putString("email", email);
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+                    }
+                    String aaa = logins.get(0).getMessage();
+                    Toast.makeText(LoginActivity.this, "" + aaa, Toast.LENGTH_SHORT).show();
                 }
-                String aaa = logins.get(0).getMessage();
-                Toast.makeText(LoginActivity.this, "" + aaa, Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -108,13 +104,6 @@ public class LoginActivity extends AppCompatActivity {
 
             }
         });
-    }
-
-
-    public void ForgotPassword(View view) {
-    }
-
-    public void SignUpbtn(View view) {
     }
 
     private void initView() {

@@ -2,28 +2,21 @@ package com.example.anew.Adapter;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.anew.Model.ModelDeleteCall;
 import com.example.anew.Model.ModelListPhoneCall.ModelListPhoneCall;
 import com.example.anew.R;
-import com.example.anew.Retrofit.ApiClient;
 import com.example.anew.helper.ItemClickRv;
 
 import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class Adapter_List_Call_Phone_Filter extends RecyclerView.Adapter<Adapter_List_Call_Phone_Filter.ViewHolder> {
 
@@ -55,13 +48,12 @@ public class Adapter_List_Call_Phone_Filter extends RecyclerView.Adapter<Adapter
 
         SharedPreferences prefs = context.getSharedPreferences("cookie", Context.MODE_PRIVATE);
         final String cookie = prefs.getString("cookie_name", "No name defined");
-
-        Log.e("TAG", "onBindViewHolder: " + cookie);
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
+        holder.img_del.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 int id = modelListPhoneCall.getId();
-                mitemClickRv.onItemClick(position, id, holder.img_del);
+                mitemClickRv.onItemClick(position);
             }
         });
     }

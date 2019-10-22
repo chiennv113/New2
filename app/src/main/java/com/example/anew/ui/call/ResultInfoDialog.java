@@ -1,10 +1,7 @@
 package com.example.anew.ui.call;
 
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.SharedPreferences;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.util.Log;
@@ -27,6 +24,8 @@ import com.example.anew.Model.ModelAdd;
 import com.example.anew.Model.ModelCustomeFeelNew;
 import com.example.anew.R;
 import com.example.anew.Retrofit.ApiClient;
+import com.example.anew.utills.Constans;
+import com.example.anew.utills.SharePrefs;
 
 import java.util.List;
 
@@ -34,15 +33,16 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class Result_Info_Dialog extends DialogFragment {
+public class ResultInfoDialog extends DialogFragment {
+
     private TextView mTvRsName;
     private TextView mTvRsEmail;
     private Button mDialogBtnOk;
     private Button mDialogBtnNo;
     private Context context;
 
-    public static Result_Info_Dialog newInstance(String name, String email, String content, int cus_id) {
-        Result_Info_Dialog dialog = new Result_Info_Dialog();
+    public static ResultInfoDialog newInstance(String name, String email, String content, int cus_id) {
+        ResultInfoDialog dialog = new ResultInfoDialog();
         Bundle args = new Bundle();
         args.putString("name", name);
         args.putString("email", email);
@@ -72,15 +72,15 @@ public class Result_Info_Dialog extends DialogFragment {
         mDialogBtnOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getCustomerFeel("get_PhoneCallFeel");
-                getDialog().dismiss();
+                getCustomerFeel();
+                dismiss();
             }
         });
 
         mDialogBtnNo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getDialog().dismiss();
+                dismiss();
             }
         });
     }
@@ -92,16 +92,14 @@ public class Result_Info_Dialog extends DialogFragment {
         mDialogBtnNo = view.findViewById(R.id.dialog_btn_no);
     }
 
-    private void getCustomerFeel(final String option) {
+    private void getCustomerFeel() {
         if (getArguments() != null) {
-            SharedPreferences prefs = getActivity().getSharedPreferences("cookie", Context.MODE_PRIVATE);
-            final String cookie = prefs.getString("cookie_name", "No name defined");
+            final String cookie = SharePrefs.getInstance().get(Constans.COOKIE, String.class);
             final String content = getArguments().getString("content");
             final int cus_id = getArguments().getInt("cus_id", 0);
-            ApiClient.getInstance().getFeel(option).enqueue(new Callback<List<ModelCustomeFeelNew>>() {
+            ApiClient.getInstance().getFeel("get_PhoneCallFeel").enqueue(new Callback<List<ModelCustomeFeelNew>>() {
                 @Override
                 public void onResponse(Call<List<ModelCustomeFeelNew>> call, Response<List<ModelCustomeFeelNew>> response) {
-                    Log.e("size", "onResponse: " + response.body().size());
                     if (response.isSuccessful() && response.body() != null) {
                         for (int i = 0; i < response.body().size(); i++) {
                             Log.e("feel", "onResponse: " + response.body().get(i).getName());

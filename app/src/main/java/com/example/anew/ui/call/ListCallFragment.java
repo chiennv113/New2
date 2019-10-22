@@ -1,14 +1,10 @@
 package com.example.anew.ui.call;
 
 import android.app.DatePickerDialog;
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -30,6 +26,8 @@ import com.example.anew.Model.ModelSearchCu.Search;
 import com.example.anew.R;
 import com.example.anew.Retrofit.ApiClient;
 import com.example.anew.helper.ItemClickRv;
+import com.example.anew.utills.Constans;
+import com.example.anew.utills.SharePrefs;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -66,42 +64,32 @@ public class ListCallFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initView(view);
-        SharedPreferences prefs = getActivity().getSharedPreferences("cookie", Context.MODE_PRIVATE);
-        final String cookie = prefs.getString("cookie_name", "No name defined");
+
+        final String cookie = SharePrefs.getInstance().get(Constans.COOKIE, String.class);
+
         adapter_list_call_phone_filter = new Adapter_List_Call_Phone_Filter(modelListPhoneCalls, getContext(), new ItemClickRv() {
             @Override
-            public void onItemClick(int position, final int id, View view) {
-                Log.e("TAG", "onItemClick: "+id);
-                view.setOnClickListener(new View.OnClickListener() {
+            public void onItemClick(final int position) {
+                ApiClient.getInstance().del("DeleteCall", modelListPhoneCalls.get(position).getId(), cookie).enqueue(new Callback<ModelDeleteCall>() {
                     @Override
-                    public void onClick(View view) {
-                        ApiClient.getInstance().del("DeleteCall", id, cookie).enqueue(new Callback<ModelDeleteCall>() {
-                            @Override
-                            public void onResponse(Call<ModelDeleteCall> call, Response<ModelDeleteCall> response) {
-                                Toast.makeText(getContext(), "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                                adapter_list_call_phone_filter.notifyDataSetChanged();
-                            }
-                            @Override
-                            public void onFailure(Call<ModelDeleteCall> call, Throwable t) {
-
-                            }
-                        });
+                    public void onResponse(Call<ModelDeleteCall> call, Response<ModelDeleteCall> response) {
+                        Toast.makeText(getContext(), "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                        modelListPhoneCalls.remove(position);
                         adapter_list_call_phone_filter.notifyDataSetChanged();
                     }
+
+                    @Override
+                    public void onFailure(Call<ModelDeleteCall> call, Throwable t) {
+
+                    }
                 });
+
             }
         });
-        adapter_list_call_phone_filter.notifyDataSetChanged();
         mRv.setAdapter(adapter_list_call_phone_filter);
         linearLayoutManager = new LinearLayoutManager(getActivity());
         mRv.setLayoutManager(linearLayoutManager);
 
-//        mBtnSearch.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                search(mEdtInfoSearch.getText().toString().trim(), "search_customer", cookie, "application/x-www-form-urlencoded");
-//            }
-//        });
         mTvDateStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -125,8 +113,6 @@ public class ListCallFragment extends Fragment {
         });
 
         mTvDateEnd.setOnClickListener(new View.OnClickListener() {
-
-
             @Override
             public void onClick(View view) {
                 Calendar c = Calendar.getInstance();
@@ -164,8 +150,6 @@ public class ListCallFragment extends Fragment {
                         public void onResponse(Call<List<ModelListPhoneCall>> call, Response<List<ModelListPhoneCall>> response) {
                             modelListPhoneCalls.clear();
                             modelListPhoneCalls.addAll(response.body());
-                            Log.e("TAG", "onResponse: " + response.body().size());
-                            Log.e("TAG", "onResponse: " + modelListPhoneCalls.size());
                             adapter_list_call_phone_filter.notifyDataSetChanged();
 
                             if (response.body().size() == 0) {
@@ -193,7 +177,7 @@ public class ListCallFragment extends Fragment {
                 String name = response.body().getFullname();
                 String email = response.body().getEmail();
                 FragmentManager fm = getActivity().getSupportFragmentManager();
-                Result_Info_Dialog result_info_dialog = Result_Info_Dialog.newInstance(name, email, content, customer_id);
+                ResultInfoDialog result_info_dialog = ResultInfoDialog.newInstance(name, email, content, customer_id);
                 result_info_dialog.show(fm, null);
             }
 
