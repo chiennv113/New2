@@ -168,7 +168,7 @@ public class ListCallFragment extends Fragment {
     }
 
     public void search(String info, String option, final String cookie, String content) {
-        ApiClient.getInstance().search(info, option, cookie, content).enqueue(new Callback<Search>() {
+        ApiClient.getInstance().search(info, option, cookie).enqueue(new Callback<Search>() {
 
             @Override
             public void onResponse(Call<Search> call, Response<Search> response) {

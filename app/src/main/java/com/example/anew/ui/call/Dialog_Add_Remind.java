@@ -69,7 +69,7 @@ public class Dialog_Add_Remind extends DialogFragment {
             @Override
             public void onClick(View view) {
                 String info = mEdtSearchCu.getText().toString().trim();
-                ApiClient.getInstance().search(info, "search_customer", cookie, "application/x-www-form-urlencoded").enqueue(new Callback<Search>() {
+                ApiClient.getInstance().search(info, "search_customer", cookie).enqueue(new Callback<Search>() {
                     @Override
                     public void onResponse(Call<Search> call, Response<Search> response) {
                         try {

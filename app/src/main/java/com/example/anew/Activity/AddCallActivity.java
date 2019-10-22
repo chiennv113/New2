@@ -1,15 +1,15 @@
 package com.example.anew.Activity;
 
-import android.content.Context;
-import android.content.SharedPreferences;
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,12 +21,16 @@ import com.example.anew.Model.ModelLoadCity;
 import com.example.anew.Model.ModelLoadCustomerType;
 import com.example.anew.Model.ModelLoadObjCustomer;
 import com.example.anew.Model.ModelLoadSourceCustomer;
+import com.example.anew.Model.ModelSearchCu.Search;
 import com.example.anew.R;
 import com.example.anew.Retrofit.ApiClient;
+import com.example.anew.utills.Constans;
+import com.example.anew.utills.SharePrefs;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import retrofit2.Call;
@@ -42,7 +46,7 @@ public class AddCallActivity extends AppCompatActivity {
     private TextInputEditText mEdtSkype;
     private Spinner mLayoutCity;
     private TextInputEditText mEdtAddress;
-    private TextInputEditText mEdtDateOfBirth;
+    private TextView mEdtDateOfBirth;
     private Spinner mLayoutSoftWareCare;
     private Spinner mLayoutObjCustome;
     private Spinner mLayoutSourceCustomer;
@@ -57,12 +61,16 @@ public class AddCallActivity extends AppCompatActivity {
     private TextInputLayout mLayoutEmail;
     private TextInputLayout mLayoutNote;
     private Button mBtnCancel;
+    private TextView mTvRsEmail;
+    private TextView mTvRsName;
+    private TextView mTvSearchCu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_call);
         initView();
+        final String cookie = SharePrefs.getInstance().get(Constans.COOKIE, String.class);
 
         mBtnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,8 +79,13 @@ public class AddCallActivity extends AppCompatActivity {
             }
         });
 
-        SharedPreferences prefs = getSharedPreferences("cookie", Context.MODE_PRIVATE);
-        final String cookie = prefs.getString("cookie_name", "No name defined");
+        mTvSearchCu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SearchCu(mEdtPhone.getText().toString().trim(), cookie);
+            }
+        });
+
 
         LoadCity(cookie);
         LoadAllProduct(cookie);
@@ -181,6 +194,26 @@ public class AddCallActivity extends AppCompatActivity {
             }
         });
 
+        mEdtDateOfBirth.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Calendar c = Calendar.getInstance();
+                int mYear = c.get(Calendar.YEAR);
+                int mMonth = c.get(Calendar.MONTH);
+                int mDay = c.get(Calendar.DAY_OF_MONTH);
+
+                DatePickerDialog datePickerDialog = new DatePickerDialog(AddCallActivity.this,
+                        new DatePickerDialog.OnDateSetListener() {
+
+                            @Override
+                            public void onDateSet(DatePicker view, int year,
+                                                  int monthOfYear, int dayOfMonth) {
+                                mEdtDateOfBirth.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+                            }
+                        }, mYear, mMonth, mDay);
+                datePickerDialog.show();
+            }
+        });
 
         mBtnSave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -196,12 +229,9 @@ public class AddCallActivity extends AppCompatActivity {
                 String skype = mEdtSkype.getText().toString().trim();
                 String zalo = mEdtZalo.getText().toString().trim();
 
-                Log.e("TAG", "onClick: " + phone);
 
                 String city = mLayoutCity.getSelectedItem().toString();
-                Log.e("TAG", "onClick: " + phone);
                 String product = mLayoutSoftWareCare.getSelectedItem().toString();
-                Log.e("TAG", "onClick: " + product);
                 String cus_type = mLayoutCustomerType.getSelectedItem().toString();
                 String obj_cus = mLayoutObjCustome.getSelectedItem().toString();
                 String source_cus = mLayoutSourceCustomer.getSelectedItem().toString();
@@ -270,6 +300,9 @@ public class AddCallActivity extends AppCompatActivity {
         mLayoutEmail = findViewById(R.id.layoutEmail);
         mLayoutNote = findViewById(R.id.layoutNote);
         mBtnCancel = findViewById(R.id.btnCancel);
+        mTvRsEmail = findViewById(R.id.tvRsEmail);
+        mTvRsName = findViewById(R.id.tvRsName);
+        mTvSearchCu = findViewById(R.id.tvSearchCu);
     }
 
     private void LoadCity(String cookie) {
@@ -399,6 +432,26 @@ public class AddCallActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<ModelCustomeFeelNew>> call, Throwable t) {
+
+            }
+        });
+    }
+
+    private void SearchCu(String info, String cookie) {
+        ApiClient.getInstance().search(info, "search_customer", cookie).enqueue(new Callback<Search>() {
+            @Override
+            public void onResponse(Call<Search> call, Response<Search> response) {
+                if (response.code() == Constans.SERVER_SUCCESS && response.body() != null) {
+                    mTvRsName.setText(response.body().getFullname());
+                    mTvRsEmail.setText("(" + response.body().getEmail() + ")");
+                    mEdtZalo.setText(mEdtPhone.getText().toString().trim());
+                    mEdtName.setText(mTvRsName.getText().toString().trim());
+                    mEdtEmail.setText(response.body().getEmail());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Search> call, Throwable t) {
 
             }
         });

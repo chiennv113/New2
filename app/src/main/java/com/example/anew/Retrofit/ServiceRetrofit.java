@@ -43,8 +43,7 @@ public interface ServiceRetrofit {
     @POST("api/userapi")
     Call<Search> search(@Query("infocheck") String info,
                         @Query("option") String option,
-                        @Header("Cookie") String cookie,
-                        @Header("Content-Type") String content);
+                        @Header("Cookie") String cookie);
 
     //https://crm.phanmemninja.com/api/phoneapi
 
