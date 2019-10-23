@@ -88,6 +88,7 @@
     <string name="thongKeTheoDoHaiLongCuaKhachHang">Statistics according to customer satisfaction</string>
     <string name="thongKeCuocGoi">Call statistics</string>
     <string name="thongKeTheoNhanVien">Statistics by staff</string>
+    <string name="act_addCall">Add Call</string>
 
 
 </resources>

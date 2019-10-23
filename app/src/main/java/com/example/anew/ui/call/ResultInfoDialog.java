@@ -106,7 +106,7 @@ public class ResultInfoDialog extends DialogFragment {
                         }
                         int positonRandom = (int) Math.floor(Math.random() * response.body().size());
                         add("add_phone_call", cus_id, content, response.body().get(positonRandom).getName(),
-                                cookie, "application/x-www-form-urlencoded");
+                                cookie);
                     }
                 }
 
@@ -119,8 +119,8 @@ public class ResultInfoDialog extends DialogFragment {
 
     }
 
-    private void add(String option, int id, String content, String cus_feel, String cookie, String type) {
-        ApiClient.getInstance().add(option, id, content, cus_feel, cookie, type).enqueue(new Callback<ModelAdd>() {
+    private void add(String option, int id, String content, String cus_feel, String cookie) {
+        ApiClient.getInstance().add(option, id, content, cus_feel, cookie).enqueue(new Callback<ModelAdd>() {
             @Override
             public void onResponse(Call<ModelAdd> call, Response<ModelAdd> response) {
                 Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();

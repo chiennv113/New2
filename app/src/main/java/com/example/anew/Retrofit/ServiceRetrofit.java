@@ -59,8 +59,7 @@ public interface ServiceRetrofit {
                        @Query("customer_id") int customer_id,
                        @Query("content") String content,
                        @Query("customer_feel") String customer_feel,
-                       @Header("Cookie") String cookie,
-                       @Header("Content-Type") String type);
+                       @Header("Cookie") String cookie);
 
 
     //Load City

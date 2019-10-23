@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.anew.Model.ModelAdd;
 import com.example.anew.Model.ModelAddCallAndCustomerNew;
 import com.example.anew.Model.ModelCustomeFeelNew;
 import com.example.anew.Model.ModelLoadAllProduct;
@@ -222,7 +223,7 @@ public class AddCallActivity extends AppCompatActivity {
                 String phone = mEdtPhone.getText().toString().trim();
                 String address = mEdtAddress.getText().toString().trim();
                 String birthday = mEdtDateOfBirth.getText().toString().trim();
-                String content = mEdtContent.getText().toString().trim();
+                final String content = mEdtContent.getText().toString().trim();
                 String email = mEdtEmail.getText().toString().trim();
                 String fullname = mEdtName.getText().toString().trim();
                 String note = mEdtNote.getText().toString().trim();
@@ -235,7 +236,7 @@ public class AddCallActivity extends AppCompatActivity {
                 String cus_type = mLayoutCustomerType.getSelectedItem().toString();
                 String obj_cus = mLayoutObjCustome.getSelectedItem().toString();
                 String source_cus = mLayoutSourceCustomer.getSelectedItem().toString();
-                String cus_feel = mLayoutCustomerStatus.getSelectedItem().toString();
+                final String cus_feel = mLayoutCustomerStatus.getSelectedItem().toString();
                 ApiClient.getInstance().addCallAndCus("add_register_phone_call",
                         phone,
                         address,
@@ -260,7 +261,19 @@ public class AddCallActivity extends AppCompatActivity {
                                     Toast.makeText(AddCallActivity.this, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
                                     finish();
                                 } else {
-                                    Toast.makeText(AddCallActivity.this, "" + response.body().getError(), Toast.LENGTH_SHORT).show();
+                                    int id = SharePrefs.getInstance().get(Constans.ID_CUSAFTERSEARCH, Integer.class);
+                                    ApiClient.getInstance().add("add_phone_call", id, content,
+                                            cus_feel, cookie).enqueue(new Callback<ModelAdd>() {
+                                        @Override
+                                        public void onResponse(Call<ModelAdd> call, Response<ModelAdd> response) {
+                                            Toast.makeText(AddCallActivity.this, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                                        }
+
+                                        @Override
+                                        public void onFailure(Call<ModelAdd> call, Throwable t) {
+
+                                        }
+                                    });
                                 }
                             }
 
@@ -447,6 +460,8 @@ public class AddCallActivity extends AppCompatActivity {
                     mEdtZalo.setText(mEdtPhone.getText().toString().trim());
                     mEdtName.setText(mTvRsName.getText().toString().trim());
                     mEdtEmail.setText(response.body().getEmail());
+
+                    SharePrefs.getInstance().put(Constans.ID_CUSAFTERSEARCH, response.body().getId());
                 }
             }
 

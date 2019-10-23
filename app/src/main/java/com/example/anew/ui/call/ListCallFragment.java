@@ -167,27 +167,6 @@ public class ListCallFragment extends Fragment {
 
     }
 
-    public void search(String info, String option, final String cookie, String content) {
-        ApiClient.getInstance().search(info, option, cookie).enqueue(new Callback<Search>() {
-
-            @Override
-            public void onResponse(Call<Search> call, Response<Search> response) {
-                int customer_id = response.body().getPhonecall().get(0).getCustomerId();
-                String content = response.body().getPhonecall().get(0).getContent();
-                String name = response.body().getFullname();
-                String email = response.body().getEmail();
-                FragmentManager fm = getActivity().getSupportFragmentManager();
-                ResultInfoDialog result_info_dialog = ResultInfoDialog.newInstance(name, email, content, customer_id);
-                result_info_dialog.show(fm, null);
-            }
-
-            @Override
-            public void onFailure(Call<Search> call, Throwable t) {
-
-            }
-        });
-    }
-
     private void initView(View view) {
         mTvDateStart = view.findViewById(R.id.tvDateStart);
         mTvDateEnd = view.findViewById(R.id.tvDateEnd);

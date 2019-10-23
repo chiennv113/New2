@@ -13,11 +13,11 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:textStyle="italic"
             android:id="@+id/tvRsEmail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView"
+            android:text="@string/textview"
+            android:textStyle="italic"
             app:layout_constraintBottom_toBottomOf="@+id/tvRsName"
             app:layout_constraintStart_toEndOf="@+id/tvRsName"
             app:layout_constraintTop_toTopOf="@+id/tvRsName" />
@@ -27,7 +27,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
-            android:text="TextView"
+            android:text="@string/textview"
             app:layout_constraintBottom_toBottomOf="@+id/tvSearchCu"
             app:layout_constraintStart_toEndOf="@+id/tvSearchCu"
             app:layout_constraintTop_toTopOf="@+id/tvSearchCu" />
@@ -53,8 +53,8 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="ABC"
-                android:textSize="24sp"></TextView>
+                android:text="@string/act_addCall"
+                android:textSize="24sp" />
         </androidx.appcompat.widget.Toolbar>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -147,7 +147,7 @@
             android:text="@string/tv_city"
             android:textSize="17sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layoutSkype"></TextView>
+            app:layout_constraintTop_toBottomOf="@id/layoutSkype" />
 
         <Spinner
             android:id="@+id/layoutCity"
@@ -155,7 +155,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_city"></Spinner>
+            app:layout_constraintTop_toBottomOf="@id/tv_city" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/layoutAddress"
@@ -174,16 +174,16 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
-            android:layout_marginStart="5dp"
-            android:textSize="17sp"
             android:id="@+id/edt_date_of_birth"
-            android:hint="@string/act_add_edt_dateOfBirth"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:hint="@string/act_add_edt_dateOfBirth"
+            android:textSize="17sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/layoutAddress"
-            tools:layout_editor_absoluteY="56dp"/>
+            tools:layout_editor_absoluteY="56dp" />
 
         <TextView
             android:id="@+id/tv_soft_ware_care"
@@ -194,7 +194,7 @@
             android:text="@string/tv_soft_ware_care"
             android:textSize="17sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/edt_date_of_birth"></TextView>
+            app:layout_constraintTop_toBottomOf="@id/edt_date_of_birth" />
 
         <Spinner
             android:id="@+id/layoutSoftWareCare"
@@ -202,7 +202,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_soft_ware_care"></Spinner>
+            app:layout_constraintTop_toBottomOf="@id/tv_soft_ware_care" />
 
         <TextView
             android:id="@+id/tv_obj_customer"
@@ -213,7 +213,7 @@
             android:text="@string/tv_obj_customer"
             android:textSize="17sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layoutSoftWareCare"></TextView>
+            app:layout_constraintTop_toBottomOf="@id/layoutSoftWareCare" />
 
         <Spinner
             android:id="@+id/layoutObjCustome"
@@ -221,7 +221,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_obj_customer"></Spinner>
+            app:layout_constraintTop_toBottomOf="@id/tv_obj_customer" />
 
         <TextView
             android:id="@+id/tv_source_customer"
@@ -232,7 +232,7 @@
             android:text="@string/tv_source_customer"
             android:textSize="17sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layoutObjCustome"></TextView>
+            app:layout_constraintTop_toBottomOf="@id/layoutObjCustome" />
 
         <Spinner
             android:id="@+id/layoutSourceCustomer"
@@ -240,7 +240,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_source_customer"></Spinner>
+            app:layout_constraintTop_toBottomOf="@id/tv_source_customer" />
 
         <TextView
             android:id="@+id/tv_customer_type"
@@ -251,7 +251,7 @@
             android:text="@string/tv_customer_type"
             android:textSize="17sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layoutSourceCustomer"></TextView>
+            app:layout_constraintTop_toBottomOf="@id/layoutSourceCustomer" />
 
         <Spinner
             android:id="@+id/layoutCustomerType"
@@ -259,7 +259,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_customer_type"></Spinner>
+            app:layout_constraintTop_toBottomOf="@id/tv_customer_type" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/layoutContent"
@@ -286,7 +286,7 @@
             android:text="@string/tv_customer_status"
             android:textSize="17sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layoutContent"></TextView>
+            app:layout_constraintTop_toBottomOf="@id/layoutContent" />
 
         <Spinner
             android:id="@+id/layoutCustomerStatus"
@@ -294,7 +294,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_customer_status"></Spinner>
+            app:layout_constraintTop_toBottomOf="@id/tv_customer_status" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/layoutNote"
@@ -321,22 +321,25 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/layoutNote"
             tools:ignore="MissingConstraints">
-            <Button
-                android:id="@+id/btnCancel"
-                android:layout_weight="1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/custom_btn_login"
-                android:text="@string/btn_calcel" />
 
             <Button
-                android:layout_marginLeft="8dp"
-                android:id="@+id/btnSave"
-                android:layout_weight="1"
+                android:id="@+id/btnCancel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:background="@drawable/custom_btn_login"
-                android:text="@string/btn_save" />
+                android:text="@string/btn_calcel"
+                tools:ignore="ButtonStyle" />
+
+            <Button
+                android:id="@+id/btnSave"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_weight="1"
+                android:background="@drawable/custom_btn_login"
+                android:text="@string/btn_save"
+                tools:ignore="ButtonStyle" />
 
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
