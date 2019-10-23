@@ -27,6 +27,7 @@ import com.example.anew.R;
 import com.example.anew.Retrofit.ApiClient;
 import com.example.anew.helper.ItemClickRv;
 import com.example.anew.utills.Constans;
+import com.example.anew.utills.ConvertHelper;
 import com.example.anew.utills.SharePrefs;
 
 import java.text.DateFormat;
@@ -142,8 +143,8 @@ public class ListCallFragment extends Fragment {
                         (mTvDateStart.getText().toString().equals("") && mTvDateEnd.getText().toString().equals(""))) {
                     Toast.makeText(getActivity(), "" + getResources().getString(R.string.no_data_entered), Toast.LENGTH_SHORT).show();
                 } else {
-                    long date_start = convertStringToTimestampMilisecond(mTvDateStart.getText().toString());
-                    long date_end = convertStringToTimestampMilisecond(mTvDateEnd.getText().toString());
+                    long date_start = ConvertHelper.convertStringToTimestampMilisecond(mTvDateStart.getText().toString());
+                    long date_end = ConvertHelper.convertStringToTimestampMilisecond(mTvDateEnd.getText().toString());
 
                     ApiClient.getInstance().getListPhoneCall("ListPhoneCall", date_start, date_end, cookie).enqueue(new Callback<List<ModelListPhoneCall>>() {
                         @Override
@@ -174,16 +175,5 @@ public class ListCallFragment extends Fragment {
         mBtnFiler = view.findViewById(R.id.btn_filer);
     }
 
-    public long convertStringToTimestampMilisecond(String string) {
-        DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-        Date date = new Date();
-        try {
-            date = formatter.parse(string);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        long time = date.getTime() / 1000;
-        return time;
-    }
 
 }
