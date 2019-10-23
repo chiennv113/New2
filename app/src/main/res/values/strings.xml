@@ -89,6 +89,11 @@
     <string name="thongKeCuocGoi">Call statistics</string>
     <string name="thongKeTheoNhanVien">Statistics by staff</string>
     <string name="act_addCall">Add Call</string>
+    <string name="personnel_name">Ten nhan vien</string>
+    <string name="SoCuocGoi">So cuoc goi</string>
+    <string name="KHcu">Khach hang cu</string>
+    <string name="KHmoi">Khach hang moi</string>
+    <string name="blank">_________</string>
 
 
 </resources>
