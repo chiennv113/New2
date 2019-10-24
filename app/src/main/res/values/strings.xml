@@ -1,11 +1,11 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">New</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Android Studio</string>
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
-    <string name="action_logout">Đăng xuất</string>
+    <string name="action_logout" tools:ignore="ExtraTranslation">Đăng xuất</string>
 
     <string name="loggin_user">Tên đăng nhập</string>
     <string name="loggin_pass">Mật khẩu</string>
@@ -92,7 +92,11 @@
     <string name="KHcu">Khach hang cu</string>
     <string name="KHmoi">Khach hang moi</string>
     <string name="blank">_________</string>
->>>>>>> ae10bd8d9e60a1695f140cd4a2303ec6afb29a1c
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="titleInf">Thông tin</string>
+    <string name="titleAll">Thống kê</string>
 
 
 </resources>

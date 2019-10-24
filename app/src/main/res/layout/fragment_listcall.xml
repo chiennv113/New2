@@ -5,33 +5,41 @@
     android:orientation="vertical">
 
     <LinearLayout
+        android:background="@color/colorGray2"
         android:padding="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+        <ImageView
+            android:id="@+id/img_filter"
+            android:padding="8dp"
+            android:src="@drawable/filter_menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
-        <TextView
-            android:id="@+id/tvDateStart"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:hint="@string/frg_list_call_date_start"
-            android:padding="8dp" />
 
-        <TextView
-            android:id="@+id/tvDateEnd"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:hint="@string/frg_list_call_date_end"
-            android:padding="8dp" />
-        <Button
-            android:layout_weight="1"
-            android:id="@+id/btn_filer"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/custom_btn_login"
-            android:text="@string/frg_list_call_btn_filter" />
+<!--        <TextView-->
+<!--            android:id="@+id/tvDateStart"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_weight="1"-->
+<!--            android:hint="@string/frg_list_call_date_start"-->
+<!--            android:padding="8dp" />-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/tvDateEnd"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_weight="1"-->
+<!--            android:hint="@string/frg_list_call_date_end"-->
+<!--            android:padding="8dp" />-->
+<!--        <Button-->
+<!--            android:layout_weight="1"-->
+<!--            android:id="@+id/btn_filer"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:background="@drawable/custom_btn_login"-->
+<!--            android:text="@string/frg_list_call_btn_filter" />-->
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView

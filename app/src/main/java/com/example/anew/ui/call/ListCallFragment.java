@@ -1,6 +1,7 @@
 package com.example.anew.ui.call;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,10 +47,12 @@ public class ListCallFragment extends Fragment {
 
     private EditText mEdtInfoSearch;
     private ImageView mBtnSearch;
-    private TextView mTvDateStart;
-    private TextView mTvDateEnd;
+//    private TextView mTvDateStart;
+//    private TextView mTvDateEnd;
     private RecyclerView mRv;
     private Button mBtnFiler;
+
+    ImageView imgFilter;
 
     private List<ModelListPhoneCall> modelListPhoneCalls = new ArrayList<>();
     private LinearLayoutManager linearLayoutManager;
@@ -91,88 +94,92 @@ public class ListCallFragment extends Fragment {
         linearLayoutManager = new LinearLayoutManager(getActivity());
         mRv.setLayoutManager(linearLayoutManager);
 
-        mTvDateStart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                Calendar c = Calendar.getInstance();
-                int mYear = c.get(Calendar.YEAR);
-                int mMonth = c.get(Calendar.MONTH);
-                int mDay = c.get(Calendar.DAY_OF_MONTH);
-                DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(),
-                        new DatePickerDialog.OnDateSetListener() {
-                            @Override
-                            public void onDateSet(DatePicker view, int year,
-                                                  int monthOfYear, int dayOfMonth) {
-                                mTvDateStart.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
-
-                            }
-                        }, mYear, mMonth, mDay);
-                datePickerDialog.show();
-
-            }
-        });
-
-        mTvDateEnd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Calendar c = Calendar.getInstance();
-                int mYear = c.get(Calendar.YEAR);
-                int mMonth = c.get(Calendar.MONTH);
-                int mDay = c.get(Calendar.DAY_OF_MONTH);
-
-                DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(),
-                        new DatePickerDialog.OnDateSetListener() {
-
-                            @Override
-                            public void onDateSet(DatePicker view, int year,
-                                                  int monthOfYear, int dayOfMonth) {
-                                mTvDateEnd.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
-                            }
-                        }, mYear, mMonth, mDay);
-                datePickerDialog.show();
-            }
-        });
 
 
-        mBtnFiler.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (mTvDateEnd.getText().toString().equals("") ||
-                        mTvDateStart.getText().toString().equals("") ||
-                        (mTvDateStart.getText().toString().equals("") && mTvDateEnd.getText().toString().equals(""))) {
-                    Toast.makeText(getActivity(), "" + getResources().getString(R.string.no_data_entered), Toast.LENGTH_SHORT).show();
-                } else {
-                    long date_start = ConvertHelper.convertStringToTimestampMilisecond(mTvDateStart.getText().toString());
-                    long date_end = ConvertHelper.convertStringToTimestampMilisecond(mTvDateEnd.getText().toString());
+//        mTvDateStart.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//                Calendar c = Calendar.getInstance();
+//                int mYear = c.get(Calendar.YEAR);
+//                int mMonth = c.get(Calendar.MONTH);
+//                int mDay = c.get(Calendar.DAY_OF_MONTH);
+//                DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(),
+//                        new DatePickerDialog.OnDateSetListener() {
+//                            @Override
+//                            public void onDateSet(DatePicker view, int year,
+//                                                  int monthOfYear, int dayOfMonth) {
+//                                mTvDateStart.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+//
+//                            }
+//                        }, mYear, mMonth, mDay);
+//                datePickerDialog.show();
+//
+//            }
+//        });
 
-                    ApiClient.getInstance().getListPhoneCall("ListPhoneCall", date_start, date_end, cookie).enqueue(new Callback<List<ModelListPhoneCall>>() {
-                        @Override
-                        public void onResponse(Call<List<ModelListPhoneCall>> call, Response<List<ModelListPhoneCall>> response) {
-                            modelListPhoneCalls.clear();
-                            modelListPhoneCalls.addAll(response.body());
-                            adapter_list_call_phone_filter.notifyDataSetChanged();
+//        mTvDateEnd.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Calendar c = Calendar.getInstance();
+//                int mYear = c.get(Calendar.YEAR);
+//                int mMonth = c.get(Calendar.MONTH);
+//                int mDay = c.get(Calendar.DAY_OF_MONTH);
+//
+//                DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(),
+//                        new DatePickerDialog.OnDateSetListener() {
+//
+//                            @Override
+//                            public void onDateSet(DatePicker view, int year,
+//                                                  int monthOfYear, int dayOfMonth) {
+//                                mTvDateEnd.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+//                            }
+//                        }, mYear, mMonth, mDay);
+//                datePickerDialog.show();
+//            }
+//        });
 
-                            if (response.body().size() == 0) {
-                                Toast.makeText(getContext(), "" + getResources().getString(R.string.no_data_in_this_time), Toast.LENGTH_SHORT).show();
-                            }
-                        }
 
-                        @Override
-                        public void onFailure(Call<List<ModelListPhoneCall>> call, Throwable t) {
-                        }
-                    });
-                }
-            }
-        });
+//        mBtnFiler.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                if (mTvDateEnd.getText().toString().equals("") ||
+//                        mTvDateStart.getText().toString().equals("") ||
+//                        (mTvDateStart.getText().toString().equals("") && mTvDateEnd.getText().toString().equals(""))) {
+//                    Toast.makeText(getActivity(), "" + getResources().getString(R.string.no_data_entered), Toast.LENGTH_SHORT).show();
+//                } else {
+//                    long date_start = ConvertHelper.convertStringToTimestampMilisecond(mTvDateStart.getText().toString());
+//                    long date_end = ConvertHelper.convertStringToTimestampMilisecond(mTvDateEnd.getText().toString());
+//
+//                    ApiClient.getInstance().getListPhoneCall("ListPhoneCall", date_start, date_end, cookie).enqueue(new Callback<List<ModelListPhoneCall>>() {
+//                        @Override
+//                        public void onResponse(Call<List<ModelListPhoneCall>> call, Response<List<ModelListPhoneCall>> response) {
+//                            modelListPhoneCalls.clear();
+//                            modelListPhoneCalls.addAll(response.body());
+//                            adapter_list_call_phone_filter.notifyDataSetChanged();
+//
+//                            if (response.body().size() == 0) {
+//                                Toast.makeText(getContext(), "" + getResources().getString(R.string.no_data_in_this_time), Toast.LENGTH_SHORT).show();
+//                            }
+//                        }
+//
+//                        @Override
+//                        public void onFailure(Call<List<ModelListPhoneCall>> call, Throwable t) {
+//                        }
+//                    });
+//                }
+//            }
+//        });
 
     }
 
     private void initView(View view) {
-        mTvDateStart = view.findViewById(R.id.tvDateStart);
-        mTvDateEnd = view.findViewById(R.id.tvDateEnd);
+//        mTvDateStart = view.findViewById(R.id.tvDateStart);
+//        mTvDateEnd = view.findViewById(R.id.tvDateEnd);
         mRv = view.findViewById(R.id.rv);
-        mBtnFiler = view.findViewById(R.id.btn_filer);
+      //  mBtnFiler = view.findViewById(R.id.btn_filer);
+
+        imgFilter=view.findViewById(R.id.img_filter);
     }
 
 
