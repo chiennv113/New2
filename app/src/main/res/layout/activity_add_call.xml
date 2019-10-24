@@ -16,7 +16,6 @@
             android:id="@+id/tvRsEmail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/textview"
             android:textStyle="italic"
             app:layout_constraintBottom_toBottomOf="@+id/tvRsName"
             app:layout_constraintStart_toEndOf="@+id/tvRsName"
@@ -27,7 +26,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
-            android:text="@string/textview"
             app:layout_constraintBottom_toBottomOf="@+id/tvSearchCu"
             app:layout_constraintStart_toEndOf="@+id/tvSearchCu"
             app:layout_constraintTop_toTopOf="@+id/tvSearchCu" />
@@ -36,6 +34,8 @@
             android:id="@+id/tvSearchCu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
             android:text="@string/dialog_tv_search"
             app:layout_constraintBottom_toBottomOf="@+id/layoutPhone"
             app:layout_constraintStart_toStartOf="parent"
@@ -61,6 +61,9 @@
             android:id="@+id/layoutPhone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
             app:errorEnabled="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -78,7 +81,9 @@
             android:id="@+id/layoutName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/layoutPhone">
@@ -94,10 +99,11 @@
             android:id="@+id/layoutEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layoutName"
-            tools:layout_editor_absoluteY="56dp">
+            app:layout_constraintTop_toBottomOf="@id/layoutName">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edt_email"
@@ -110,10 +116,11 @@
             android:id="@+id/layoutZalo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layoutEmail"
-            tools:layout_editor_absoluteY="56dp">
+            app:layout_constraintTop_toBottomOf="@id/layoutEmail">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edt_zalo"
@@ -126,10 +133,11 @@
             android:id="@+id/layoutSkype"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layoutZalo"
-            tools:layout_editor_absoluteY="56dp">
+            app:layout_constraintTop_toBottomOf="@id/layoutZalo">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edt_skype"
@@ -142,7 +150,7 @@
             android:id="@+id/tv_city"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="10dp"
             android:text="@string/tv_city"
             android:textSize="17sp"
@@ -153,6 +161,8 @@
             android:id="@+id/layoutCity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_city" />
@@ -161,10 +171,11 @@
             android:id="@+id/layoutAddress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layoutCity"
-            tools:layout_editor_absoluteY="56dp">
+            app:layout_constraintTop_toBottomOf="@id/layoutCity">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edt_address"
@@ -177,20 +188,19 @@
             android:id="@+id/edt_date_of_birth"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
+            android:layout_marginStart="16dp"
             android:hint="@string/act_add_edt_dateOfBirth"
             android:textSize="17sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layoutAddress"
-            tools:layout_editor_absoluteY="56dp" />
+            app:layout_constraintTop_toBottomOf="@id/layoutAddress" />
 
         <TextView
             android:id="@+id/tv_soft_ware_care"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
             android:text="@string/tv_soft_ware_care"
             android:textSize="17sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -200,6 +210,8 @@
             android:id="@+id/layoutSoftWareCare"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_soft_ware_care" />
@@ -208,7 +220,7 @@
             android:id="@+id/tv_obj_customer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="10dp"
             android:text="@string/tv_obj_customer"
             android:textSize="17sp"
@@ -219,6 +231,8 @@
             android:id="@+id/layoutObjCustome"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_obj_customer" />
@@ -227,7 +241,7 @@
             android:id="@+id/tv_source_customer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="10dp"
             android:text="@string/tv_source_customer"
             android:textSize="17sp"
@@ -238,6 +252,8 @@
             android:id="@+id/layoutSourceCustomer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_source_customer" />
@@ -246,7 +262,7 @@
             android:id="@+id/tv_customer_type"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="10dp"
             android:text="@string/tv_customer_type"
             android:textSize="17sp"
@@ -254,6 +270,8 @@
             app:layout_constraintTop_toBottomOf="@id/layoutSourceCustomer" />
 
         <Spinner
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
             android:id="@+id/layoutCustomerType"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -265,10 +283,11 @@
             android:id="@+id/layoutContent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layoutCustomerType"
-            tools:layout_editor_absoluteY="56dp">
+            app:layout_constraintTop_toBottomOf="@id/layoutCustomerType">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edt_content"
@@ -281,7 +300,7 @@
             android:id="@+id/tv_customer_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="10dp"
             android:text="@string/tv_customer_status"
             android:textSize="17sp"
@@ -292,6 +311,8 @@
             android:id="@+id/layoutCustomerStatus"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_customer_status" />
@@ -300,10 +321,11 @@
             android:id="@+id/layoutNote"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layoutCustomerStatus"
-            tools:layout_editor_absoluteY="56dp">
+            app:layout_constraintTop_toBottomOf="@id/layoutCustomerStatus">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edt_note"
@@ -323,6 +345,7 @@
             tools:ignore="MissingConstraints">
 
             <Button
+                android:layout_marginStart="16dp"
                 android:id="@+id/btnCancel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -332,6 +355,7 @@
                 tools:ignore="ButtonStyle" />
 
             <Button
+                android:layout_marginEnd="16dp"
                 android:id="@+id/btnSave"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

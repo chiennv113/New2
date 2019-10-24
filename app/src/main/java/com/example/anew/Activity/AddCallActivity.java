@@ -216,10 +216,11 @@ public class AddCallActivity extends AppCompatActivity {
             }
         });
 
+
         mBtnSave.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
-
                 String phone = mEdtPhone.getText().toString().trim();
                 String address = mEdtAddress.getText().toString().trim();
                 String birthday = mEdtDateOfBirth.getText().toString().trim();
@@ -229,59 +230,64 @@ public class AddCallActivity extends AppCompatActivity {
                 String note = mEdtNote.getText().toString().trim();
                 String skype = mEdtSkype.getText().toString().trim();
                 String zalo = mEdtZalo.getText().toString().trim();
-
-
                 String city = mLayoutCity.getSelectedItem().toString();
                 String product = mLayoutSoftWareCare.getSelectedItem().toString();
                 String cus_type = mLayoutCustomerType.getSelectedItem().toString();
                 String obj_cus = mLayoutObjCustome.getSelectedItem().toString();
                 String source_cus = mLayoutSourceCustomer.getSelectedItem().toString();
                 final String cus_feel = mLayoutCustomerStatus.getSelectedItem().toString();
-                ApiClient.getInstance().addCallAndCus("add_register_phone_call",
-                        phone,
-                        address,
-                        birthday,
-                        city,
-                        content,
-                        source_cus,
-                        cus_feel,
-                        obj_cus,
-                        email,
-                        fullname,
-                        note,
-                        skype,
-                        product,
-                        cus_type,
-                        zalo,
-                        cookie).
-                        enqueue(new Callback<ModelAddCallAndCustomerNew>() {
-                            @Override
-                            public void onResponse(Call<ModelAddCallAndCustomerNew> call, Response<ModelAddCallAndCustomerNew> response) {
-                                if (response.body().getMessage() != null && response.body().getMessage().equals("Đã thêm thành công")) {
-                                    Toast.makeText(AddCallActivity.this, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                                    finish();
-                                } else {
-                                    int id = SharePrefs.getInstance().get(Constans.ID_CUSAFTERSEARCH, Integer.class);
-                                    ApiClient.getInstance().add("add_phone_call", id, content,
-                                            cus_feel, cookie).enqueue(new Callback<ModelAdd>() {
-                                        @Override
-                                        public void onResponse(Call<ModelAdd> call, Response<ModelAdd> response) {
-                                            Toast.makeText(AddCallActivity.this, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                                        }
 
-                                        @Override
-                                        public void onFailure(Call<ModelAdd> call, Throwable t) {
+                if (phone.equals("") || content.equals("") || fullname.equals("")) {
+                    Toast.makeText(AddCallActivity.this, "Chưa nhập đủ thông tin", Toast.LENGTH_SHORT).show();
+                } else {
+                    ApiClient.getInstance().addCallAndCus("add_register_phone_call",
+                            phone,
+                            address,
+                            birthday,
+                            city,
+                            content,
+                            source_cus,
+                            cus_feel,
+                            obj_cus,
+                            email,
+                            fullname,
+                            note,
+                            skype,
+                            product,
+                            cus_type,
+                            zalo,
+                            cookie).
+                            enqueue(new Callback<ModelAddCallAndCustomerNew>() {
+                                @Override
+                                public void onResponse(Call<ModelAddCallAndCustomerNew> call, Response<ModelAddCallAndCustomerNew> response) {
+                                    if (response.body().getMessage() != null && response.body().getMessage().equals("Đã thêm thành công")) {
+                                        Toast.makeText(AddCallActivity.this, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                                        finish();
+                                    } else {
+                                        int id = SharePrefs.getInstance().get(Constans.ID_CUSAFTERSEARCH, Integer.class);
+                                        ApiClient.getInstance().add("add_phone_call", id, content,
+                                                cus_feel, cookie).enqueue(new Callback<ModelAdd>() {
+                                            @Override
+                                            public void onResponse(Call<ModelAdd> call, Response<ModelAdd> response) {
+                                                Toast.makeText(AddCallActivity.this, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                                            }
 
-                                        }
-                                    });
+                                            @Override
+                                            public void onFailure(Call<ModelAdd> call, Throwable t) {
+
+                                            }
+                                        });
+                                    }
                                 }
-                            }
 
-                            @Override
-                            public void onFailure(Call<ModelAddCallAndCustomerNew> call, Throwable t) {
+                                @Override
+                                public void onFailure(Call<ModelAddCallAndCustomerNew> call, Throwable t) {
 
-                            }
-                        });
+                                }
+                            });
+
+                    finish();
+                }
 
 
             }

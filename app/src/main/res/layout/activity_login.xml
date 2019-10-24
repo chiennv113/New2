@@ -53,10 +53,10 @@
         android:layout_marginEnd="16dp"
         android:background="@drawable/shape_login_edt"
         android:drawableStart="@drawable/ic_lock_black_24dp"
-        android:inputType="textPersonName"
+        android:hint="@string/loggin_pass"
+        android:inputType="textPassword"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
-        android:hint="@string/loggin_pass"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edtUser"
@@ -64,12 +64,12 @@
 
     <Button
         android:id="@+id/btn_login"
-        android:background="@drawable/custom_btn_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:layout_marginLeft="64dp"
+        android:layout_marginTop="16dp"
         android:layout_marginRight="64dp"
+        android:background="@drawable/custom_btn_login"
         android:text="@string/btn_login"
         android:textColor="@color/colorBackgroud"
         app:layout_constraintEnd_toEndOf="parent"
@@ -105,10 +105,10 @@
         app:layout_constraintTop_toTopOf="@+id/guideline2" />
 
     <TextView
-        android:layout_marginRight="4dp"
         android:id="@+id/textView14"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginRight="4dp"
         android:text="@string/intro"
         android:textColor="@color/colorBackgroud"
         app:layout_constraintEnd_toStartOf="@+id/textView13"

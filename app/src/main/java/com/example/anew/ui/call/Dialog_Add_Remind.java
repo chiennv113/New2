@@ -19,6 +19,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
+
 import com.example.anew.Model.ModelSearchCu.Search;
 import com.example.anew.R;
 import com.example.anew.Retrofit.ApiClient;
@@ -49,7 +50,7 @@ public class Dialog_Add_Remind extends DialogFragment {
 
     private IDialogClick iDialogClick;
 
-    void setOnClickPositive(IDialogClick iDialogClick){
+    void setOnClickPositive(IDialogClick iDialogClick) {
         this.iDialogClick = iDialogClick;
     }
 
@@ -63,7 +64,22 @@ public class Dialog_Add_Remind extends DialogFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initView(view);
-        final String cookie = SharePrefs.getInstance().get(Constans.COOKIE,String.class);
+        final String cookie = SharePrefs.getInstance().get(Constans.COOKIE, String.class);
+
+        mBtnOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String content = mEdtContent.getText().toString().trim();
+                String timeConvert = mTvChangeDate.getText().toString().trim();
+                String search = mTvSearch.getText().toString().trim();
+                if (content.equals("") || search.equals("")) {
+                    Toast.makeText(context, "Chưa có nội dung", Toast.LENGTH_SHORT).show();
+                } else {
+                    int id = arrayList.get(0);
+                    iDialogClick.clickPositive(content, timeConvert, id);
+                }
+            }
+        });
 
         mTvSearch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,10 +89,13 @@ public class Dialog_Add_Remind extends DialogFragment {
                     @Override
                     public void onResponse(Call<Search> call, Response<Search> response) {
                         try {
+                            Toast.makeText(context, "Chưa nhập thông tin cần tìm kiếm", Toast.LENGTH_SHORT).show();
                             int id = response.body().getId();
+                            SharePrefs.getInstance().put(Constans.ID_SEARCH, id);
                             arrayList.add(id);
                             mTvName.setText(response.body().getFullname());
                             mTvEmail.setText("  (" + response.body().getEmail() + ")");
+
                         } catch (Exception e) {
                             Toast.makeText(context, "" + "Thông tin nhập không khớp", Toast.LENGTH_SHORT).show();
                         }
@@ -115,8 +134,17 @@ public class Dialog_Add_Remind extends DialogFragment {
             public void onClick(View view) {
                 String content = mEdtContent.getText().toString().trim();
                 String timeConvert = mTvChangeDate.getText().toString().trim();
-                int id = arrayList.get(0);
-                iDialogClick.clickPositive(content, timeConvert, id);
+                String search = mTvSearch.getText().toString().trim();
+                if (content.equals("") || search.equals("")) {
+                    Toast.makeText(context, "Chưa có nội dung", Toast.LENGTH_SHORT).show();
+                } else {
+                    if (arrayList.isEmpty()) {
+                        Toast.makeText(context, "Chưa nhập thông tin cần tìm kiếm", Toast.LENGTH_SHORT).show();
+                    } else {
+                        int id = SharePrefs.getInstance().get(Constans.ID_SEARCH, Integer.class);
+                        iDialogClick.clickPositive(content, timeConvert, id);
+                    }
+                }
             }
         });
 
@@ -149,7 +177,6 @@ public class Dialog_Add_Remind extends DialogFragment {
         mBtnOk = view.findViewById(R.id.btn_ok);
         mBtnCancel = view.findViewById(R.id.btn_cancel);
     }
-
 
 
     @Override

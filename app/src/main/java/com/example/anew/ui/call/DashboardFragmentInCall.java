@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.Spinner;
@@ -15,13 +16,17 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.anew.Model.ModelCustomeFeelNew;
+import com.example.anew.Model.ModelTKCuocGoiAdmin.ModelThongKeCuocGoiAdmin;
 import com.example.anew.Model.ModelTKCuocgoiBanThan.ModelThongKeCuocGoiBanThan;
+import com.example.anew.Model.ModelTKTheoDoHaiLongKH.ModelThongKeTheoDoHaiLongCuaKhachAdmin;
 import com.example.anew.R;
 import com.example.anew.Retrofit.ApiClient;
 import com.example.anew.utills.Constans;
 import com.example.anew.utills.ConvertHelper;
 import com.example.anew.utills.SharePrefs;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -45,6 +50,8 @@ public class DashboardFragmentInCall extends Fragment {
     private TextView mTvOldCall;
     private TextView mTvNewCall;
 
+    ModelCustomeFeelNew modelCustomeFeelNew;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -57,7 +64,7 @@ public class DashboardFragmentInCall extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         final String cookie = SharePrefs.getInstance().get(Constans.COOKIE, String.class);
         initView(view);
-
+        LoadCustomerFeel();
 
         mTvDateEnd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,12 +107,64 @@ public class DashboardFragmentInCall extends Fragment {
         mBtnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 getDataTKCuocgoiBanthan(ConvertHelper.convertStringToTimestampMilisecond(mTvDateStart.getText().toString().trim())
+                        , ConvertHelper.convertStringToTimestampMilisecond(mTvDateEnd.getText().toString().trim()), cookie);
+                thongKeCuocGoi(ConvertHelper.convertStringToTimestampMilisecond(mTvDateStart.getText().toString().trim())
                         , ConvertHelper.convertStringToTimestampMilisecond(mTvDateEnd.getText().toString().trim()), cookie);
             }
         });
 
+        Calendar c = Calendar.getInstance();
+        int month = c.get(Calendar.MONTH);//+1
+        int year = c.get(Calendar.YEAR);
+        int realMonth = month + 1;
+        if (realMonth == 1 || realMonth == 3 || realMonth == 5 || realMonth == 7 || realMonth == 8 || realMonth == 10 || realMonth == 12) {
+            String start = "1/" + realMonth + "/" + year;
+            String end = "31/" + realMonth + "/" + year;
+            getDataTKCuocgoiBanthan(ConvertHelper.convertStringToTimestampMilisecond(start),
+                    ConvertHelper.convertStringToTimestampMilisecond(end), cookie);
+            thongKeCuocGoi(ConvertHelper.convertStringToTimestampMilisecond(start),
+                    ConvertHelper.convertStringToTimestampMilisecond(end), cookie);
+        } else {
+            String start = "1/" + realMonth + "/" + year;
+            String end = "30/" + realMonth + "/" + year;
+            getDataTKCuocgoiBanthan(ConvertHelper.convertStringToTimestampMilisecond(start),
+                    ConvertHelper.convertStringToTimestampMilisecond(end), cookie);
+            thongKeCuocGoi(ConvertHelper.convertStringToTimestampMilisecond(start),
+                    ConvertHelper.convertStringToTimestampMilisecond(end), cookie);
+        }
 
+
+    }
+
+    public void thongKeCuocGoi(long start, long end, String cookie) {
+        ApiClient.getInstance().tkTheoCuocGoi("StatisticsPhones", start, end, cookie).enqueue(new Callback<List<ModelThongKeCuocGoiAdmin>>() {
+            @Override
+            public void onResponse(Call<List<ModelThongKeCuocGoiAdmin>> call, Response<List<ModelThongKeCuocGoiAdmin>> response) {
+                int demAllNew = 0;
+                int demAllOld = 0;
+                int demAll = 0;
+                if (response.isSuccessful() && response.body() != null) {
+                    for (int i = 0; i < response.body().size(); i++) {
+                        int a = response.body().get(i).getCustomernew().size();
+                        int b = response.body().get(i).getCustomerold().size();
+                        int c = response.body().get(i).getPhone().size();
+                        demAllNew = demAllNew + a;
+                        demAllOld = demAllOld + b;
+                        demAll = demAll + c;
+                    }
+                }
+                mTvOldCall.setText(String.valueOf(demAllOld));
+                mTvNewCall.setText(String.valueOf(demAllNew));
+                mTvAllCall.setText(String.valueOf(demAll));
+            }
+
+            @Override
+            public void onFailure(Call<List<ModelThongKeCuocGoiAdmin>> call, Throwable t) {
+
+            }
+        });
     }
 
 
@@ -156,5 +215,60 @@ public class DashboardFragmentInCall extends Fragment {
         this.context = context;
     }
 
+
+    private void LoadCustomerFeel() {
+        ApiClient.getInstance().getFeel("get_PhoneCallFeel").enqueue(new Callback<List<ModelCustomeFeelNew>>() {
+            @Override
+            public void onResponse(Call<List<ModelCustomeFeelNew>> call, Response<List<ModelCustomeFeelNew>> response) {
+                ArrayList<String> arrayList = new ArrayList<>();
+                arrayList.add(0, "Customer Feel");
+                ArrayList<Integer> arrID = new ArrayList<>();
+                if (response.isSuccessful() && response.body() != null) {
+                    for (int i = 0; i < response.body().size(); i++) {
+                        arrayList.add(response.body().get(i).getName());
+                        arrID.add(response.body().get(i).getId());
+                        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, arrayList);
+                        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        mSpinerFeel.setAdapter(arrayAdapter);
+
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<ModelCustomeFeelNew>> call, Throwable t) {
+
+            }
+        });
+    }
+
+    private void thongKeTheoTrangThaiKH(long start, long end, int id, String cookie) {
+        ApiClient.getInstance().tkTheoDoHaiLongCuaKhach("statistic_phone_customer_feel", start, end, id, cookie).enqueue(new Callback<List<ModelThongKeTheoDoHaiLongCuaKhachAdmin>>() {
+            @Override
+            public void onResponse(Call<List<ModelThongKeTheoDoHaiLongCuaKhachAdmin>> call, Response<List<ModelThongKeTheoDoHaiLongCuaKhachAdmin>> response) {
+                int demFeelNew = 0;
+                int demFeelOld = 0;
+                int demFeel = 0;
+                if (response.isSuccessful() && response.body() != null) {
+                    for (int i = 0; i < response.body().size(); i++) {
+                        int a = response.body().get(i).getCustomernew().size();
+                        int b = response.body().get(i).getCustomerold().size();
+                        int c = response.body().get(i).getPhone().size();
+                        demFeelNew = demFeelNew + a;
+                        demFeelOld = demFeelOld + b;
+                        demFeel = demFeel + c;
+                    }
+                }
+                mTvOldCall.setText(String.valueOf(demFeelOld));
+                mTvNewCall.setText(String.valueOf(demFeelNew));
+                mTvAllCall.setText(String.valueOf(demFeel));
+            }
+
+            @Override
+            public void onFailure(Call<List<ModelThongKeTheoDoHaiLongCuaKhachAdmin>> call, Throwable t) {
+
+            }
+        });
+    }
 
 }

@@ -42,13 +42,13 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
         String title = "";
         switch (position){
             case 0:
-                title = "Search Call";
+                title = "Tìm cuộc gọi";
                 break;
             case 1:
-                title = "Remind";
+                title = "Nhắc nhở";
                 break;
             case 2:
-                title = "Dashboard";
+                title = "Thống kê";
                 break;
         }
         return title;    }
