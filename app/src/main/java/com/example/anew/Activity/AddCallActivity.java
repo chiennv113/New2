@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -45,23 +46,23 @@ public class AddCallActivity extends AppCompatActivity {
     private TextInputEditText mEdtEmail;
     private TextInputEditText mEdtZalo;
     private TextInputEditText mEdtSkype;
-    private Spinner mLayoutCity;
+    private ImageView mLayoutCity;
     private TextInputEditText mEdtAddress;
     private TextView mEdtDateOfBirth;
-    private Spinner mLayoutSoftWareCare;
-    private Spinner mLayoutObjCustome;
-    private Spinner mLayoutSourceCustomer;
-    private Spinner mLayoutCustomerType;
+    private ImageView mLayoutSoftWareCare;
+    private ImageView mLayoutObjCustome;
+    private ImageView mLayoutSourceCustomer;
+    private ImageView mLayoutCustomerType;
     private TextInputEditText mEdtContent;
-    private Spinner mLayoutCustomerStatus;
+    private ImageView mLayoutCustomerStatus;
     private TextInputEditText mEdtNote;
-    private Button mBtnSave;
+    private TextView mBtnSave;
     private TextInputLayout mLayoutPhone;
     private TextInputLayout mLayoutContent;
     private TextInputLayout mLayoutName;
     private TextInputLayout mLayoutEmail;
     private TextInputLayout mLayoutNote;
-    private Button mBtnCancel;
+    private ImageView mBtnCancel;
     private TextView mTvRsEmail;
     private TextView mTvRsName;
     private TextView mTvSearchCu;
@@ -88,12 +89,12 @@ public class AddCallActivity extends AppCompatActivity {
         });
 
 
-        LoadCity(cookie);
-        LoadAllProduct(cookie);
-        LoadCustomerType(cookie);
-        LoadObjCustomer(cookie);
-        LoadSourceCustomer(cookie);
-        LoadCustomerFeel();
+//        LoadCity(cookie);
+//        LoadAllProduct(cookie);
+//        LoadCustomerType(cookie);
+//        LoadObjCustomer(cookie);
+//        LoadSourceCustomer(cookie);
+//        LoadCustomerFeel();
 
         mEdtPhone.addTextChangedListener(new TextWatcher() {
             @Override
@@ -217,81 +218,81 @@ public class AddCallActivity extends AppCompatActivity {
         });
 
 
-        mBtnSave.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                String phone = mEdtPhone.getText().toString().trim();
-                String address = mEdtAddress.getText().toString().trim();
-                String birthday = mEdtDateOfBirth.getText().toString().trim();
-                final String content = mEdtContent.getText().toString().trim();
-                String email = mEdtEmail.getText().toString().trim();
-                String fullname = mEdtName.getText().toString().trim();
-                String note = mEdtNote.getText().toString().trim();
-                String skype = mEdtSkype.getText().toString().trim();
-                String zalo = mEdtZalo.getText().toString().trim();
-                String city = mLayoutCity.getSelectedItem().toString();
-                String product = mLayoutSoftWareCare.getSelectedItem().toString();
-                String cus_type = mLayoutCustomerType.getSelectedItem().toString();
-                String obj_cus = mLayoutObjCustome.getSelectedItem().toString();
-                String source_cus = mLayoutSourceCustomer.getSelectedItem().toString();
-                final String cus_feel = mLayoutCustomerStatus.getSelectedItem().toString();
-
-                if (phone.equals("") || content.equals("") || fullname.equals("")) {
-                    Toast.makeText(AddCallActivity.this, "Chưa nhập đủ thông tin", Toast.LENGTH_SHORT).show();
-                } else {
-                    ApiClient.getInstance().addCallAndCus("add_register_phone_call",
-                            phone,
-                            address,
-                            birthday,
-                            city,
-                            content,
-                            source_cus,
-                            cus_feel,
-                            obj_cus,
-                            email,
-                            fullname,
-                            note,
-                            skype,
-                            product,
-                            cus_type,
-                            zalo,
-                            cookie).
-                            enqueue(new Callback<ModelAddCallAndCustomerNew>() {
-                                @Override
-                                public void onResponse(Call<ModelAddCallAndCustomerNew> call, Response<ModelAddCallAndCustomerNew> response) {
-                                    if (response.body().getMessage() != null && response.body().getMessage().equals("Đã thêm thành công")) {
-                                        Toast.makeText(AddCallActivity.this, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                                        finish();
-                                    } else {
-                                        int id = SharePrefs.getInstance().get(Constans.ID_CUSAFTERSEARCH, Integer.class);
-                                        ApiClient.getInstance().add("add_phone_call", id, content,
-                                                cus_feel, cookie).enqueue(new Callback<ModelAdd>() {
-                                            @Override
-                                            public void onResponse(Call<ModelAdd> call, Response<ModelAdd> response) {
-                                                Toast.makeText(AddCallActivity.this, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                                            }
-
-                                            @Override
-                                            public void onFailure(Call<ModelAdd> call, Throwable t) {
-
-                                            }
-                                        });
-                                    }
-                                }
-
-                                @Override
-                                public void onFailure(Call<ModelAddCallAndCustomerNew> call, Throwable t) {
-
-                                }
-                            });
-
-                    finish();
-                }
-
-
-            }
-        });
+//        mBtnSave.setOnClickListener(new View.OnClickListener() {
+//
+//            @Override
+//            public void onClick(View view) {
+//                String phone = mEdtPhone.getText().toString().trim();
+//                String address = mEdtAddress.getText().toString().trim();
+//                String birthday = mEdtDateOfBirth.getText().toString().trim();
+//                final String content = mEdtContent.getText().toString().trim();
+//                String email = mEdtEmail.getText().toString().trim();
+//                String fullname = mEdtName.getText().toString().trim();
+//                String note = mEdtNote.getText().toString().trim();
+//                String skype = mEdtSkype.getText().toString().trim();
+//                String zalo = mEdtZalo.getText().toString().trim();
+//                String city = mLayoutCity.getSelectedItem().toString();
+//                String product = mLayoutSoftWareCare.getSelectedItem().toString();
+//                String cus_type = mLayoutCustomerType.getSelectedItem().toString();
+//                String obj_cus = mLayoutObjCustome.getSelectedItem().toString();
+//                String source_cus = mLayoutSourceCustomer.getSelectedItem().toString();
+//                final String cus_feel = mLayoutCustomerStatus.getSelectedItem().toString();
+//
+//                if (phone.equals("") || content.equals("") || fullname.equals("")) {
+//                    Toast.makeText(AddCallActivity.this, "Chưa nhập đủ thông tin", Toast.LENGTH_SHORT).show();
+//                } else {
+//                    ApiClient.getInstance().addCallAndCus("add_register_phone_call",
+//                            phone,
+//                            address,
+//                            birthday,
+//                            city,
+//                            content,
+//                            source_cus,
+//                            cus_feel,
+//                            obj_cus,
+//                            email,
+//                            fullname,
+//                            note,
+//                            skype,
+//                            product,
+//                            cus_type,
+//                            zalo,
+//                            cookie).
+//                            enqueue(new Callback<ModelAddCallAndCustomerNew>() {
+//                                @Override
+//                                public void onResponse(Call<ModelAddCallAndCustomerNew> call, Response<ModelAddCallAndCustomerNew> response) {
+//                                    if (response.body().getMessage() != null && response.body().getMessage().equals("Đã thêm thành công")) {
+//                                        Toast.makeText(AddCallActivity.this, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+//                                        finish();
+//                                    } else {
+//                                        int id = SharePrefs.getInstance().get(Constans.ID_CUSAFTERSEARCH, Integer.class);
+//                                        ApiClient.getInstance().add("add_phone_call", id, content,
+//                                                cus_feel, cookie).enqueue(new Callback<ModelAdd>() {
+//                                            @Override
+//                                            public void onResponse(Call<ModelAdd> call, Response<ModelAdd> response) {
+//                                                Toast.makeText(AddCallActivity.this, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+//                                            }
+//
+//                                            @Override
+//                                            public void onFailure(Call<ModelAdd> call, Throwable t) {
+//
+//                                            }
+//                                        });
+//                                    }
+//                                }
+//
+//                                @Override
+//                                public void onFailure(Call<ModelAddCallAndCustomerNew> call, Throwable t) {
+//
+//                                }
+//                            });
+//
+//                    finish();
+//                }
+//
+//
+//            }
+//        });
     }
 
 
@@ -324,137 +325,137 @@ public class AddCallActivity extends AppCompatActivity {
         mTvSearchCu = findViewById(R.id.tvSearchCu);
     }
 
-    private void LoadCity(String cookie) {
-        ApiClient.getInstance().getCity("load_city", cookie).enqueue(new Callback<List<ModelLoadCity>>() {
-            @Override
-            public void onResponse(Call<List<ModelLoadCity>> call, Response<List<ModelLoadCity>> response) {
-                ArrayList<String> arrayList = new ArrayList<>();
-                if (response.isSuccessful() && response.body() != null) {
-                    for (int i = 0; i < response.body().size(); i++) {
-                        arrayList.add(response.body().get(i).getName());
-                        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(AddCallActivity.this, android.R.layout.simple_spinner_item, arrayList);
-                        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                        mLayoutCity.setAdapter(arrayAdapter);
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<ModelLoadCity>> call, Throwable t) {
-
-            }
-        });
-    }
-
-    private void LoadCustomerType(String cookie) {
-        ApiClient.getInstance().getCustomerType("get_CustomerType", cookie).enqueue(new Callback<List<ModelLoadCustomerType>>() {
-            @Override
-            public void onResponse(Call<List<ModelLoadCustomerType>> call, Response<List<ModelLoadCustomerType>> response) {
-                ArrayList<String> arrayList = new ArrayList<>();
-                if (response.isSuccessful() && response.body() != null) {
-                    for (int i = 0; i < response.body().size(); i++) {
-                        arrayList.add(response.body().get(i).getName());
-                        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(AddCallActivity.this, android.R.layout.simple_spinner_item, arrayList);
-                        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                        mLayoutCustomerType.setAdapter(arrayAdapter);
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<ModelLoadCustomerType>> call, Throwable t) {
-
-            }
-        });
-    }
-
-    private void LoadObjCustomer(String cookie) {
-        ApiClient.getInstance().getObjCustomer("get_customer_type", cookie).enqueue(new Callback<List<ModelLoadObjCustomer>>() {
-            @Override
-            public void onResponse(Call<List<ModelLoadObjCustomer>> call, Response<List<ModelLoadObjCustomer>> response) {
-                ArrayList<String> arrayList = new ArrayList<>();
-                if (response.isSuccessful() && response.body() != null) {
-                    for (int i = 0; i < response.body().size(); i++) {
-                        arrayList.add(response.body().get(i).getName());
-                        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(AddCallActivity.this, android.R.layout.simple_spinner_item, arrayList);
-                        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                        mLayoutObjCustome.setAdapter(arrayAdapter);
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<ModelLoadObjCustomer>> call, Throwable t) {
-
-            }
-        });
-    }
-
-    private void LoadSourceCustomer(String cookie) {
-        ApiClient.getInstance().getSourceCustomer("get_customer_base", cookie).enqueue(new Callback<List<ModelLoadSourceCustomer>>() {
-            @Override
-            public void onResponse(Call<List<ModelLoadSourceCustomer>> call, Response<List<ModelLoadSourceCustomer>> response) {
-                ArrayList<String> arrayList = new ArrayList<>();
-                if (response.isSuccessful() && response.body() != null) {
-                    for (int i = 0; i < response.body().size(); i++) {
-                        arrayList.add(response.body().get(i).getName());
-                        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(AddCallActivity.this, android.R.layout.simple_spinner_item, arrayList);
-                        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                        mLayoutSourceCustomer.setAdapter(arrayAdapter);
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<ModelLoadSourceCustomer>> call, Throwable t) {
-
-            }
-        });
-    }
-
-    private void LoadAllProduct(String cookie) {
-        ApiClient.getInstance().getAllProduct("get_allProduct", cookie).enqueue(new Callback<List<ModelLoadAllProduct>>() {
-            @Override
-            public void onResponse(Call<List<ModelLoadAllProduct>> call, Response<List<ModelLoadAllProduct>> response) {
-                ArrayList<String> arrayList = new ArrayList<>();
-                if (response.isSuccessful() && response.body() != null) {
-                    for (int i = 0; i < response.body().size(); i++) {
-                        arrayList.add(response.body().get(i).getName());
-                        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(AddCallActivity.this, android.R.layout.simple_spinner_item, arrayList);
-                        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                        mLayoutSoftWareCare.setAdapter(arrayAdapter);
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<ModelLoadAllProduct>> call, Throwable t) {
-
-            }
-        });
-    }
-
-    private void LoadCustomerFeel() {
-        ApiClient.getInstance().getFeel("get_PhoneCallFeel").enqueue(new Callback<List<ModelCustomeFeelNew>>() {
-            @Override
-            public void onResponse(Call<List<ModelCustomeFeelNew>> call, Response<List<ModelCustomeFeelNew>> response) {
-                ArrayList<String> arrayList = new ArrayList<>();
-                if (response.isSuccessful() && response.body() != null) {
-                    for (int i = 0; i < response.body().size(); i++) {
-                        arrayList.add(response.body().get(i).getName());
-                        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(AddCallActivity.this, android.R.layout.simple_spinner_item, arrayList);
-                        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                        mLayoutCustomerStatus.setAdapter(arrayAdapter);
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<ModelCustomeFeelNew>> call, Throwable t) {
-
-            }
-        });
-    }
+//    private void LoadCity(String cookie) {
+//        ApiClient.getInstance().getCity("load_city", cookie).enqueue(new Callback<List<ModelLoadCity>>() {
+//            @Override
+//            public void onResponse(Call<List<ModelLoadCity>> call, Response<List<ModelLoadCity>> response) {
+//                ArrayList<String> arrayList = new ArrayList<>();
+//                if (response.isSuccessful() && response.body() != null) {
+//                    for (int i = 0; i < response.body().size(); i++) {
+//                        arrayList.add(response.body().get(i).getName());
+//                        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(AddCallActivity.this, android.R.layout.simple_spinner_item, arrayList);
+//                        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//                        mLayoutCity.setAdapter(arrayAdapter);
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<List<ModelLoadCity>> call, Throwable t) {
+//
+//            }
+//        });
+//    }
+//
+//    private void LoadCustomerType(String cookie) {
+//        ApiClient.getInstance().getCustomerType("get_CustomerType", cookie).enqueue(new Callback<List<ModelLoadCustomerType>>() {
+//            @Override
+//            public void onResponse(Call<List<ModelLoadCustomerType>> call, Response<List<ModelLoadCustomerType>> response) {
+//                ArrayList<String> arrayList = new ArrayList<>();
+//                if (response.isSuccessful() && response.body() != null) {
+//                    for (int i = 0; i < response.body().size(); i++) {
+//                        arrayList.add(response.body().get(i).getName());
+//                        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(AddCallActivity.this, android.R.layout.simple_spinner_item, arrayList);
+//                        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//                        mLayoutCustomerType.setAdapter(arrayAdapter);
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<List<ModelLoadCustomerType>> call, Throwable t) {
+//
+//            }
+//        });
+//    }
+//
+//    private void LoadObjCustomer(String cookie) {
+//        ApiClient.getInstance().getObjCustomer("get_customer_type", cookie).enqueue(new Callback<List<ModelLoadObjCustomer>>() {
+//            @Override
+//            public void onResponse(Call<List<ModelLoadObjCustomer>> call, Response<List<ModelLoadObjCustomer>> response) {
+//                ArrayList<String> arrayList = new ArrayList<>();
+//                if (response.isSuccessful() && response.body() != null) {
+//                    for (int i = 0; i < response.body().size(); i++) {
+//                        arrayList.add(response.body().get(i).getName());
+//                        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(AddCallActivity.this, android.R.layout.simple_spinner_item, arrayList);
+//                        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//                        mLayoutObjCustome.setAdapter(arrayAdapter);
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<List<ModelLoadObjCustomer>> call, Throwable t) {
+//
+//            }
+//        });
+//    }
+//
+//    private void LoadSourceCustomer(String cookie) {
+//        ApiClient.getInstance().getSourceCustomer("get_customer_base", cookie).enqueue(new Callback<List<ModelLoadSourceCustomer>>() {
+//            @Override
+//            public void onResponse(Call<List<ModelLoadSourceCustomer>> call, Response<List<ModelLoadSourceCustomer>> response) {
+//                ArrayList<String> arrayList = new ArrayList<>();
+//                if (response.isSuccessful() && response.body() != null) {
+//                    for (int i = 0; i < response.body().size(); i++) {
+//                        arrayList.add(response.body().get(i).getName());
+//                        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(AddCallActivity.this, android.R.layout.simple_spinner_item, arrayList);
+//                        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//                        mLayoutSourceCustomer.setAdapter(arrayAdapter);
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<List<ModelLoadSourceCustomer>> call, Throwable t) {
+//
+//            }
+//        });
+//    }
+//
+//    private void LoadAllProduct(String cookie) {
+//        ApiClient.getInstance().getAllProduct("get_allProduct", cookie).enqueue(new Callback<List<ModelLoadAllProduct>>() {
+//            @Override
+//            public void onResponse(Call<List<ModelLoadAllProduct>> call, Response<List<ModelLoadAllProduct>> response) {
+//                ArrayList<String> arrayList = new ArrayList<>();
+//                if (response.isSuccessful() && response.body() != null) {
+//                    for (int i = 0; i < response.body().size(); i++) {
+//                        arrayList.add(response.body().get(i).getName());
+//                        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(AddCallActivity.this, android.R.layout.simple_spinner_item, arrayList);
+//                        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//                        mLayoutSoftWareCare.setAdapter(arrayAdapter);
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<List<ModelLoadAllProduct>> call, Throwable t) {
+//
+//            }
+//        });
+//    }
+//
+//    private void LoadCustomerFeel() {
+//        ApiClient.getInstance().getFeel("get_PhoneCallFeel").enqueue(new Callback<List<ModelCustomeFeelNew>>() {
+//            @Override
+//            public void onResponse(Call<List<ModelCustomeFeelNew>> call, Response<List<ModelCustomeFeelNew>> response) {
+//                ArrayList<String> arrayList = new ArrayList<>();
+//                if (response.isSuccessful() && response.body() != null) {
+//                    for (int i = 0; i < response.body().size(); i++) {
+//                        arrayList.add(response.body().get(i).getName());
+//                        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(AddCallActivity.this, android.R.layout.simple_spinner_item, arrayList);
+//                        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//                        mLayoutCustomerStatus.setAdapter(arrayAdapter);
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<List<ModelCustomeFeelNew>> call, Throwable t) {
+//
+//            }
+//        });
+//    }
 
     private void SearchCu(String info, String cookie) {
         ApiClient.getInstance().search(info, "search_customer", cookie).enqueue(new Callback<Search>() {

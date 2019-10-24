@@ -3,28 +3,28 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_home">
+    app:startDestination="@+id/nav_ThongKe">
 
     <fragment
-        android:id="@+id/nav_home"
+        android:id="@+id/nav_ThongKe"
         android:name="com.example.anew.ui.dashboard.DashboardFragment"
         android:label="@string/nav_menu_dashboard"
         tools:layout="@layout/fragment_dashboard" />
 
     <fragment
-        android:id="@+id/nav_gallery"
+        android:id="@+id/nav_CuocGoi"
         android:name="com.example.anew.ui.call.CallFragment"
         android:label="@string/nav_menu_call"
         tools:layout="@layout/fragment_gallery" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
+        android:id="@+id/nav_Ticket"
         android:name="com.example.anew.ui.ticket.TicketFragment"
         android:label="@string/nav_menu_ticket"
         tools:layout="@layout/fragment_ticket" />
 
     <fragment
-        android:id="@+id/nav_tools"
+        android:id="@+id/nav_Sale"
         android:name="com.example.anew.ui.sale.SaleFragment"
         android:label="@string/nav_menu_sale"
         tools:layout="@layout/fragment_sale" />
