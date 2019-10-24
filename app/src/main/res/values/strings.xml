@@ -87,6 +87,12 @@
     <string name="thongKeCuocGoi">Thống kê cuộc gọi</string>
     <string name="thongKeTheoNhanVien">Thống kê cuộc gọi theo nhân viên</string>
     <string name="act_addCall">Thêm cuộc gọi</string>
+    <string name="personnel_name">Ten nhan vien</string>
+    <string name="SoCuocGoi">So cuoc goi</string>
+    <string name="KHcu">Khach hang cu</string>
+    <string name="KHmoi">Khach hang moi</string>
+    <string name="blank">_________</string>
+>>>>>>> ae10bd8d9e60a1695f140cd4a2303ec6afb29a1c
 
 
 </resources>
