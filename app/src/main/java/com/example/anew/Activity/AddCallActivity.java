@@ -5,24 +5,13 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
+
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.anew.Model.ModelAdd;
-import com.example.anew.Model.ModelAddCallAndCustomerNew;
-import com.example.anew.Model.ModelCustomeFeelNew;
-import com.example.anew.Model.ModelLoadAllProduct;
-import com.example.anew.Model.ModelLoadCity;
-import com.example.anew.Model.ModelLoadCustomerType;
-import com.example.anew.Model.ModelLoadObjCustomer;
-import com.example.anew.Model.ModelLoadSourceCustomer;
 import com.example.anew.Model.ModelSearchCu.Search;
 import com.example.anew.R;
 import com.example.anew.Retrofit.ApiClient;
@@ -31,9 +20,7 @@ import com.example.anew.utills.SharePrefs;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -303,15 +290,15 @@ public class AddCallActivity extends AppCompatActivity {
         mEdtEmail = findViewById(R.id.edt_email);
         mEdtZalo = findViewById(R.id.edt_zalo);
         mEdtSkype = findViewById(R.id.edt_skype);
-        mLayoutCity = findViewById(R.id.layoutCity);
+        mLayoutCity = findViewById(R.id.choseCity);
         mEdtAddress = findViewById(R.id.edt_address);
         mEdtDateOfBirth = findViewById(R.id.edt_date_of_birth);
-        mLayoutSoftWareCare = findViewById(R.id.layoutSoftWareCare);
-        mLayoutObjCustome = findViewById(R.id.layoutObjCustome);
-        mLayoutSourceCustomer = findViewById(R.id.layoutSourceCustomer);
-        mLayoutCustomerType = findViewById(R.id.layoutCustomerType);
+        mLayoutSoftWareCare = findViewById(R.id.choseSoftWareCare);
+        mLayoutObjCustome = findViewById(R.id.choseObjCustome);
+        mLayoutSourceCustomer = findViewById(R.id.choseSourceCustomer);
+        mLayoutCustomerType = findViewById(R.id.choseCustomerType);
         mEdtContent = findViewById(R.id.edt_content);
-        mLayoutCustomerStatus = findViewById(R.id.layoutCustomerStatus);
+        mLayoutCustomerStatus = findViewById(R.id.choseCustomerStatus);
         mEdtNote = findViewById(R.id.edt_note);
         mBtnSave = findViewById(R.id.btnSave);
         mLayoutPhone = findViewById(R.id.layoutPhone);

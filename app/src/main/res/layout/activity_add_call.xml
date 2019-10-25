@@ -121,18 +121,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/layoutPhone">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:textSize="15sp"
                 android:id="@+id/edt_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/act_add_edt_name" />
+                android:hint="@string/act_add_edt_name"
+                android:textSize="15sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -140,17 +140,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/layoutName">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:textSize="15sp"
                 android:id="@+id/edt_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/act_add_edt_email" />
+                android:hint="@string/act_add_edt_email"
+                android:textSize="15sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -158,17 +159,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/layoutEmail">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:textSize="15sp"
                 android:id="@+id/edt_zalo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/act_add_edt_zalo" />
+                android:hint="@string/act_add_edt_zalo"
+                android:textSize="15sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -176,17 +178,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/layoutZalo">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:textSize="15sp"
                 android:id="@+id/edt_skype"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/act_add_edt_skype" />
+                android:hint="@string/act_add_edt_skype"
+                android:textSize="15sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
@@ -194,14 +197,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="16dp"
             android:text="@string/tv_city"
             android:textSize="15sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/layoutSkype" />
 
         <ImageView
-            android:id="@+id/layoutCity"
+            android:id="@+id/choseCity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
@@ -215,17 +218,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layoutCity">
+            app:layout_constraintTop_toBottomOf="@id/choseCity">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:textSize="15sp"
                 android:id="@+id/edt_address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/act_add_edt_address" />
+                android:hint="@string/act_add_edt_address"
+                android:textSize="15sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
@@ -233,6 +237,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
             android:hint="@string/act_add_edt_dateOfBirth"
             android:textSize="15sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -251,7 +256,7 @@
             app:layout_constraintTop_toBottomOf="@id/edt_date_of_birth" />
 
         <ImageView
-            android:id="@+id/layoutSoftWareCare"
+            android:id="@+id/choseSoftWareCare"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
@@ -265,14 +270,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="16dp"
             android:text="@string/tv_obj_customer"
             android:textSize="15sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layoutSoftWareCare" />
+            app:layout_constraintTop_toBottomOf="@id/choseSoftWareCare" />
 
         <ImageView
-            android:id="@+id/layoutObjCustome"
+            android:id="@+id/choseObjCustome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
@@ -286,14 +291,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="16dp"
             android:text="@string/tv_source_customer"
             android:textSize="15sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layoutObjCustome" />
+            app:layout_constraintTop_toBottomOf="@id/choseObjCustome" />
 
         <ImageView
-            android:id="@+id/layoutSourceCustomer"
+            android:id="@+id/choseSourceCustomer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
@@ -307,14 +312,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="16dp"
             android:text="@string/tv_customer_type"
             android:textSize="15sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layoutSourceCustomer" />
+            app:layout_constraintTop_toBottomOf="@id/choseSourceCustomer" />
 
         <ImageView
-            android:id="@+id/layoutCustomerType"
+            android:id="@+id/choseCustomerType"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
@@ -328,17 +333,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layoutCustomerType">
+            app:layout_constraintTop_toBottomOf="@id/choseCustomerType">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:textSize="15sp"
                 android:id="@+id/edt_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/act_add_edt_content" />
+                android:hint="@string/act_add_edt_content"
+                android:textSize="15sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
@@ -346,14 +352,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="16dp"
             android:text="@string/tv_customer_status"
             android:textSize="15sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/layoutContent" />
 
         <ImageView
-            android:id="@+id/layoutCustomerStatus"
+            android:id="@+id/choseCustomerStatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
@@ -368,18 +374,75 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layoutCustomerStatus">
+            app:layout_constraintTop_toBottomOf="@id/choseCustomerStatus">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:textSize="15sp"
                 android:id="@+id/edt_note"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/act_add_note" />
+                android:hint="@string/act_add_note"
+                android:textSize="15sp" />
+
         </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/tvChangeCity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_weight="1"
+            app:layout_constraintBottom_toBottomOf="@+id/choseCity"
+            app:layout_constraintEnd_toStartOf="@+id/choseCity"
+            app:layout_constraintTop_toTopOf="@+id/choseCity" />
+
+        <TextView
+            android:id="@+id/tvChangePhanMemQuanTam"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintBottom_toBottomOf="@+id/choseSoftWareCare"
+            app:layout_constraintEnd_toStartOf="@+id/choseSoftWareCare"
+            app:layout_constraintTop_toTopOf="@+id/choseSoftWareCare" />
+
+        <TextView
+            android:id="@+id/tvChagneDoiTuongKH"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintBottom_toBottomOf="@+id/choseObjCustome"
+            app:layout_constraintEnd_toStartOf="@+id/choseObjCustome"
+            app:layout_constraintTop_toTopOf="@+id/choseObjCustome" />
+
+        <TextView
+            android:id="@+id/tvChangeNguanKH"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintBottom_toBottomOf="@+id/choseSourceCustomer"
+            app:layout_constraintEnd_toStartOf="@+id/choseSourceCustomer"
+            app:layout_constraintTop_toTopOf="@+id/choseSourceCustomer" />
+
+        <TextView
+            android:id="@+id/tvChangeLoaiKH"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintBottom_toBottomOf="@+id/choseCustomerType"
+            app:layout_constraintEnd_toStartOf="@+id/choseCustomerType"
+            app:layout_constraintTop_toTopOf="@+id/choseCustomerType" />
+
+        <TextView
+            android:id="@+id/tvChangeTTKH"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintBottom_toBottomOf="@+id/choseCustomerStatus"
+            app:layout_constraintEnd_toStartOf="@+id/choseCustomerStatus"
+            app:layout_constraintTop_toTopOf="@+id/choseCustomerStatus" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
