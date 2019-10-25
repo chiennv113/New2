@@ -3,11 +3,14 @@
     android:shape="rectangle">
 
     <!-- radius should be half of the desired TabLayout height -->
+    <stroke
+        android:color="@color/colorBackgroud"
+        android:width="1.5dp"/>
     <corners
         android:radius="18dp"/>
 
     <!-- TabLayout background color -->
     <solid
-        android:color="@color/colorPrimaryDark"/>
+        android:color="@color/P_Accent"/>
 
 </shape>
