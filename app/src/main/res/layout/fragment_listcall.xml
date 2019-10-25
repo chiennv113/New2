@@ -13,6 +13,7 @@
         android:orientation="horizontal">
 
         <TextView
+            android:textColor="@color/DarkOrange"
             android:id="@+id/tvDateEnd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -24,6 +25,7 @@
             app:layout_constraintTop_toTopOf="@+id/tvDateStart" />
 
         <TextView
+            android:textColor="@color/DarkOrange"
             android:id="@+id/tvDateStart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -38,9 +40,9 @@
             android:id="@+id/img_filter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
             android:padding="8dp"
             android:src="@drawable/filter_menu"
             app:layout_constraintBottom_toBottomOf="parent"

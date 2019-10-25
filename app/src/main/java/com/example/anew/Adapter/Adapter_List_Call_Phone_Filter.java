@@ -36,7 +36,7 @@ public class Adapter_List_Call_Phone_Filter extends RecyclerView.Adapter<Adapter
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.item_rv_list_phone_call, parent, false);
+        View view = inflater.inflate(R.layout.item_list_call, parent, false);
         return new ViewHolder(view);
     }
 
@@ -45,7 +45,7 @@ public class Adapter_List_Call_Phone_Filter extends RecyclerView.Adapter<Adapter
         final ModelListPhoneCall modelListPhoneCall = modelListPhoneCalls.get(position);
         holder.tvPhone.setText(modelListPhoneCall.getCustomer().getPhone1());
         holder.tvName.setText(modelListPhoneCall.getCustomer().getFullname());
-        holder.tvCusfeel.setText(modelListPhoneCall.getCustomerFeel());
+//        holder.tvCusfeel.setText(modelListPhoneCall.getCustomerFeel());
 
 
         holder.img_del.setOnClickListener(new View.OnClickListener() {
@@ -76,7 +76,7 @@ public class Adapter_List_Call_Phone_Filter extends RecyclerView.Adapter<Adapter
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             img_del = itemView.findViewById(R.id.icon_delete);
-            tvCusfeel = itemView.findViewById(R.id.item_tv_customer_feel);
+//            tvCusfeel = itemView.findViewById(R.id.item_tv_customer_feel);
             tvName = itemView.findViewById(R.id.item_tv_name);
             tvPhone = itemView.findViewById(R.id.item_tv_phone);
         }

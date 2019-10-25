@@ -61,34 +61,35 @@
                 tools:ignore="MissingConstraints">
 
                 <ImageView
-                    android:layout_gravity="center"
                     android:id="@+id/btnCancel"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:layout_weight="1"
-                    android:src="@drawable/close"/>
+                    android:src="@drawable/close" />
 
                 <TextView
-                    android:gravity="center"
-                    android:textColor="@color/cardview_light_background"
-                    android:textStyle="bold"
-                    android:layout_weight="6"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="6"
+                    android:gravity="center"
                     android:text="@string/act_addCall"
-                    android:textSize="24sp" />
-
-                <TextView
                     android:textColor="@color/cardview_light_background"
                     android:textSize="24sp"
-                    android:layout_gravity="center"
+                    android:textStyle="bold" />
+
+                <TextView
                     android:id="@+id/btnSave"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:layout_marginStart="8dp"
                     android:layout_weight="2"
                     android:gravity="center"
-                    android:text="@string/btn_save" />
+                    android:text="@string/btn_save"
+                    android:textColor="@color/cardview_light_background"
+                    android:textSize="24sp"
+                    tools:ignore="PrivateResource" />
 
             </LinearLayout>
 
@@ -108,11 +109,11 @@
             app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:textSize="15sp"
                 android:id="@+id/edt_phone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/act_add_edt_phone" />
+                android:hint="@string/act_add_edt_phone"
+                android:textSize="15sp" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -201,14 +202,13 @@
             android:text="@string/tv_city"
             android:textSize="15sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layoutSkype" />
+            app:layout_constraintTop_toBottomOf="@+id/layoutSkype" />
 
-        <ImageView
-            android:id="@+id/choseCity"
+        <Spinner
+            android:id="@+id/spChoseCity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
-            android:src="@drawable/chevron_right"
             app:layout_constraintBottom_toBottomOf="@+id/tv_city"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/tv_city" />
@@ -222,7 +222,7 @@
             android:layout_marginEnd="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/choseCity">
+            app:layout_constraintTop_toBottomOf="@+id/tv_city">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edt_address"
@@ -255,15 +255,22 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/edt_date_of_birth" />
 
-        <ImageView
-            android:id="@+id/choseSoftWareCare"
+        <Spinner
+            android:id="@+id/tvChoseDoiTuongKH"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
-            android:src="@drawable/chevron_right"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_soft_ware_care"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_obj_customer"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tv_soft_ware_care" />
+            app:layout_constraintTop_toTopOf="@+id/tv_obj_customer" />
+
+        <Spinner
+            android:id="@+id/spChosePhanMem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_soft_ware_care" />
 
         <TextView
             android:id="@+id/tv_obj_customer"
@@ -274,17 +281,16 @@
             android:text="@string/tv_obj_customer"
             android:textSize="15sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/choseSoftWareCare" />
+            app:layout_constraintTop_toBottomOf="@+id/spChosePhanMem" />
 
-        <ImageView
-            android:id="@+id/choseObjCustome"
+        <Spinner
+            android:id="@+id/tvChoseNguonKH"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
-            android:src="@drawable/chevron_right"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_obj_customer"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_source_customer"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tv_obj_customer" />
+            app:layout_constraintTop_toTopOf="@+id/tv_source_customer" />
 
         <TextView
             android:id="@+id/tv_source_customer"
@@ -295,17 +301,7 @@
             android:text="@string/tv_source_customer"
             android:textSize="15sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/choseObjCustome" />
-
-        <ImageView
-            android:id="@+id/choseSourceCustomer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:src="@drawable/chevron_right"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_source_customer"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tv_source_customer" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_obj_customer" />
 
         <TextView
             android:id="@+id/tv_customer_type"
@@ -316,14 +312,13 @@
             android:text="@string/tv_customer_type"
             android:textSize="15sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/choseSourceCustomer" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_source_customer" />
 
-        <ImageView
-            android:id="@+id/choseCustomerType"
+        <Spinner
+            android:id="@+id/tvChoseLoaiKH"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
-            android:src="@drawable/chevron_right"
             app:layout_constraintBottom_toBottomOf="@+id/tv_customer_type"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/tv_customer_type" />
@@ -337,7 +332,7 @@
             android:layout_marginEnd="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/choseCustomerType">
+            app:layout_constraintTop_toBottomOf="@+id/tv_customer_type">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edt_content"
@@ -358,15 +353,14 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/layoutContent" />
 
-        <ImageView
-            android:id="@+id/choseCustomerStatus"
+        <Spinner
+            android:id="@+id/tvChoseTTKH"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
-            android:src="@drawable/chevron_right"
+            android:layout_weight="1"
             app:layout_constraintBottom_toBottomOf="@+id/tv_customer_status"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_customer_status"
             app:layout_constraintTop_toTopOf="@+id/tv_customer_status" />
 
         <com.google.android.material.textfield.TextInputLayout
@@ -378,7 +372,7 @@
             android:layout_marginEnd="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/choseCustomerStatus">
+            app:layout_constraintTop_toBottomOf="@+id/tv_customer_status">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edt_note"
@@ -388,61 +382,6 @@
                 android:textSize="15sp" />
 
         </com.google.android.material.textfield.TextInputLayout>
-
-        <TextView
-            android:id="@+id/tvChangeCity"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_weight="1"
-            app:layout_constraintBottom_toBottomOf="@+id/choseCity"
-            app:layout_constraintEnd_toStartOf="@+id/choseCity"
-            app:layout_constraintTop_toTopOf="@+id/choseCity" />
-
-        <TextView
-            android:id="@+id/tvChangePhanMemQuanTam"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            app:layout_constraintBottom_toBottomOf="@+id/choseSoftWareCare"
-            app:layout_constraintEnd_toStartOf="@+id/choseSoftWareCare"
-            app:layout_constraintTop_toTopOf="@+id/choseSoftWareCare" />
-
-        <TextView
-            android:id="@+id/tvChagneDoiTuongKH"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            app:layout_constraintBottom_toBottomOf="@+id/choseObjCustome"
-            app:layout_constraintEnd_toStartOf="@+id/choseObjCustome"
-            app:layout_constraintTop_toTopOf="@+id/choseObjCustome" />
-
-        <TextView
-            android:id="@+id/tvChangeNguanKH"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            app:layout_constraintBottom_toBottomOf="@+id/choseSourceCustomer"
-            app:layout_constraintEnd_toStartOf="@+id/choseSourceCustomer"
-            app:layout_constraintTop_toTopOf="@+id/choseSourceCustomer" />
-
-        <TextView
-            android:id="@+id/tvChangeLoaiKH"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            app:layout_constraintBottom_toBottomOf="@+id/choseCustomerType"
-            app:layout_constraintEnd_toStartOf="@+id/choseCustomerType"
-            app:layout_constraintTop_toTopOf="@+id/choseCustomerType" />
-
-        <TextView
-            android:id="@+id/tvChangeTTKH"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            app:layout_constraintBottom_toBottomOf="@+id/choseCustomerStatus"
-            app:layout_constraintEnd_toStartOf="@+id/choseCustomerStatus"
-            app:layout_constraintTop_toTopOf="@+id/choseCustomerStatus" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
