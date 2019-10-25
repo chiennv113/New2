@@ -1,6 +1,7 @@
 package com.example.anew.ui.call;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,9 +14,11 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.anew.Activity.ItemListCallUserActivity;
 import com.example.anew.Adapter.Adapter_List_Call_Phone_Filter;
 import com.example.anew.Model.ModelListPhoneCall.ModelListPhoneCall;
 import com.example.anew.R;
@@ -58,8 +61,16 @@ public class ListCallFragment extends Fragment {
 
         adapter_list_call_phone_filter = new Adapter_List_Call_Phone_Filter(modelListPhoneCalls, getContext(), new ItemClickRv() {
             @Override
-            public void onItemClick(final int position) {
+            public void onClickCall(int id) {
+                Toast.makeText(getActivity(), "Delete", Toast.LENGTH_SHORT).show();
+            }
 
+            @Override
+            public void onItemClick(String phone) {
+                Intent intent = new Intent(getContext(), ItemListCallUserActivity.class);
+                intent.putExtra(Constans.PASS_PHONE,phone);
+                getContext().startActivity(intent);
+                ListCallFragment.class.getName();
             }
         });
         mRv.setAdapter(adapter_list_call_phone_filter);

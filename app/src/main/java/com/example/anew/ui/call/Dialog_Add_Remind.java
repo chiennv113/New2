@@ -91,6 +91,7 @@ public class Dialog_Add_Remind extends DialogFragment {
                         try {
                             Toast.makeText(context, "Chưa nhập thông tin cần tìm kiếm", Toast.LENGTH_SHORT).show();
                             int id = response.body().getId();
+
                             SharePrefs.getInstance().put(Constans.ID_SEARCH, id);
                             arrayList.add(id);
                             mTvName.setText(response.body().getFullname());

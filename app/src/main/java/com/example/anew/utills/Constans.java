@@ -5,4 +5,5 @@ public class Constans {
     public static final int SERVER_SUCCESS = 200;
     public static final String ID_CUSAFTERSEARCH = "Constans.id_cusaftersearch";
     public static final String ID_SEARCH = "Constans.id_search";
+    public static final String PASS_PHONE = "Constans.pass_phone";
 }

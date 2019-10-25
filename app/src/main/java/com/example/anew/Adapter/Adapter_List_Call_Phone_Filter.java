@@ -2,8 +2,6 @@ package com.example.anew.Adapter;
 
 
 import android.content.Context;
-import android.content.pm.PackageManager;
-import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +9,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.anew.Model.ModelListPhoneCall.ModelListPhoneCall;
@@ -26,7 +23,6 @@ public class Adapter_List_Call_Phone_Filter extends RecyclerView.Adapter<Adapter
     private List<ModelListPhoneCall> modelListPhoneCalls;
     private ItemClickRv mitemClickRv;
     private Context context;
-
 
 
     public Adapter_List_Call_Phone_Filter(List<ModelListPhoneCall> modelListPhoneCalls, Context context, ItemClickRv itemClickRv) {
@@ -50,10 +46,19 @@ public class Adapter_List_Call_Phone_Filter extends RecyclerView.Adapter<Adapter
         holder.tvPhone.setText(modelListPhoneCall.getCustomer().getPhone1());
         holder.tvName.setText(modelListPhoneCall.getCustomer().getFullname());
         holder.tvCusfeel.setText(modelListPhoneCall.getCustomerFeel());
+
+
         holder.img_del.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mitemClickRv.onItemClick(position);
+                mitemClickRv.onClickCall(position);
+            }
+        });
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String phone = modelListPhoneCall.getCustomer().getPhone1();
+                mitemClickRv.onItemClick(phone);
             }
         });
     }

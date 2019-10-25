@@ -2,5 +2,6 @@ package com.example.anew.helper;
 
 
 public interface ItemClickRv {
-    void onItemClick(int id);
+    void onClickCall(int id);
+    void onItemClick(String phone);
 }
