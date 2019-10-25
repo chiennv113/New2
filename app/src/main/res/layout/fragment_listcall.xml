@@ -1,50 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:background="@color/colorGray2"
-        android:padding="5dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/colorGray2"
         android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tvDateEnd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            app:layout_constraintBottom_toBottomOf="@+id/tvDateStart"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/tvDateStart"
+            app:layout_constraintTop_toTopOf="@+id/tvDateStart" />
+
+        <TextView
+            android:id="@+id/tvDateStart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            app:layout_constraintBottom_toBottomOf="@+id/img_filter"
+            app:layout_constraintEnd_toStartOf="@+id/tvDateEnd"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/img_filter"
+            app:layout_constraintTop_toTopOf="@+id/img_filter" />
+
         <ImageView
             android:id="@+id/img_filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
             android:padding="8dp"
             android:src="@drawable/filter_menu"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-
-<!--        <TextView-->
-<!--            android:id="@+id/tvDateStart"-->
-<!--            android:layout_width="0dp"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_weight="1"-->
-<!--            android:hint="@string/frg_list_call_date_start"-->
-<!--            android:padding="8dp" />-->
-
-<!--        <TextView-->
-<!--            android:id="@+id/tvDateEnd"-->
-<!--            android:layout_width="0dp"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_weight="1"-->
-<!--            android:hint="@string/frg_list_call_date_end"-->
-<!--            android:padding="8dp" />-->
-<!--        <Button-->
-<!--            android:layout_weight="1"-->
-<!--            android:id="@+id/btn_filer"-->
-<!--            android:layout_width="0dp"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:background="@drawable/custom_btn_login"-->
-<!--            android:text="@string/frg_list_call_btn_filter" />-->
-    </LinearLayout>
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </androidx.recyclerview.widget.RecyclerView>
+        android:layout_height="wrap_content"></androidx.recyclerview.widget.RecyclerView>
 </LinearLayout>

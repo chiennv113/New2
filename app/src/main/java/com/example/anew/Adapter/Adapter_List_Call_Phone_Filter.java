@@ -1,7 +1,9 @@
 package com.example.anew.Adapter;
 
+
 import android.content.Context;
-import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.anew.Model.ModelListPhoneCall.ModelListPhoneCall;
@@ -23,6 +26,8 @@ public class Adapter_List_Call_Phone_Filter extends RecyclerView.Adapter<Adapter
     private List<ModelListPhoneCall> modelListPhoneCalls;
     private ItemClickRv mitemClickRv;
     private Context context;
+
+
 
     public Adapter_List_Call_Phone_Filter(List<ModelListPhoneCall> modelListPhoneCalls, Context context, ItemClickRv itemClickRv) {
         this.modelListPhoneCalls = modelListPhoneCalls;
@@ -52,6 +57,7 @@ public class Adapter_List_Call_Phone_Filter extends RecyclerView.Adapter<Adapter
             }
         });
     }
+
 
     @Override
     public int getItemCount() {

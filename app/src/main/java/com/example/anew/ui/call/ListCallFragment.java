@@ -1,14 +1,11 @@
 package com.example.anew.ui.call;
 
 import android.app.DatePickerDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,14 +13,11 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.anew.Adapter.Adapter_List_Call_Phone_Filter;
-import com.example.anew.Model.ModelDeleteCall;
 import com.example.anew.Model.ModelListPhoneCall.ModelListPhoneCall;
-import com.example.anew.Model.ModelSearchCu.Search;
 import com.example.anew.R;
 import com.example.anew.Retrofit.ApiClient;
 import com.example.anew.helper.ItemClickRv;
@@ -31,12 +25,8 @@ import com.example.anew.utills.Constans;
 import com.example.anew.utills.ConvertHelper;
 import com.example.anew.utills.SharePrefs;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import retrofit2.Call;
@@ -45,18 +35,13 @@ import retrofit2.Response;
 
 public class ListCallFragment extends Fragment {
 
-    private EditText mEdtInfoSearch;
-    private ImageView mBtnSearch;
-//    private TextView mTvDateStart;
-//    private TextView mTvDateEnd;
     private RecyclerView mRv;
-    private Button mBtnFiler;
-
-    ImageView imgFilter;
-
     private List<ModelListPhoneCall> modelListPhoneCalls = new ArrayList<>();
     private LinearLayoutManager linearLayoutManager;
     private Adapter_List_Call_Phone_Filter adapter_list_call_phone_filter;
+    private TextView mTvDateEnd;
+    private TextView mTvDateStart;
+    private ImageView mImgFilter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -74,19 +59,6 @@ public class ListCallFragment extends Fragment {
         adapter_list_call_phone_filter = new Adapter_List_Call_Phone_Filter(modelListPhoneCalls, getContext(), new ItemClickRv() {
             @Override
             public void onItemClick(final int position) {
-                ApiClient.getInstance().del("DeleteCall", modelListPhoneCalls.get(position).getId(), cookie).enqueue(new Callback<ModelDeleteCall>() {
-                    @Override
-                    public void onResponse(Call<ModelDeleteCall> call, Response<ModelDeleteCall> response) {
-                        Toast.makeText(getContext(), "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                        modelListPhoneCalls.remove(position);
-                        adapter_list_call_phone_filter.notifyDataSetChanged();
-                    }
-
-                    @Override
-                    public void onFailure(Call<ModelDeleteCall> call, Throwable t) {
-
-                    }
-                });
 
             }
         });
@@ -94,92 +66,131 @@ public class ListCallFragment extends Fragment {
         linearLayoutManager = new LinearLayoutManager(getActivity());
         mRv.setLayoutManager(linearLayoutManager);
 
+        getDateHienTai(cookie);
+        mTvDateStart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Calendar c = Calendar.getInstance();
+                int mYear = c.get(Calendar.YEAR);
+                int mMonth = c.get(Calendar.MONTH);
+                int mDay = c.get(Calendar.DAY_OF_MONTH);
+                DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(),
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year,
+                                                  int monthOfYear, int dayOfMonth) {
+                                mTvDateStart.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+
+                            }
+                        }, mYear, mMonth, mDay);
+                datePickerDialog.show();
+
+            }
+        });
+
+        mTvDateEnd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Calendar c = Calendar.getInstance();
+                int mYear = c.get(Calendar.YEAR);
+                int mMonth = c.get(Calendar.MONTH);
+                int mDay = c.get(Calendar.DAY_OF_MONTH);
+
+                DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(),
+                        new DatePickerDialog.OnDateSetListener() {
+
+                            @Override
+                            public void onDateSet(DatePicker view, int year,
+                                                  int monthOfYear, int dayOfMonth) {
+                                mTvDateEnd.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+                            }
+                        }, mYear, mMonth, mDay);
+                datePickerDialog.show();
+            }
+        });
 
 
-//        mTvDateStart.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//                Calendar c = Calendar.getInstance();
-//                int mYear = c.get(Calendar.YEAR);
-//                int mMonth = c.get(Calendar.MONTH);
-//                int mDay = c.get(Calendar.DAY_OF_MONTH);
-//                DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(),
-//                        new DatePickerDialog.OnDateSetListener() {
-//                            @Override
-//                            public void onDateSet(DatePicker view, int year,
-//                                                  int monthOfYear, int dayOfMonth) {
-//                                mTvDateStart.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
-//
-//                            }
-//                        }, mYear, mMonth, mDay);
-//                datePickerDialog.show();
-//
-//            }
-//        });
+        mImgFilter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mTvDateEnd.getText().toString().equals("") ||
+                        mTvDateStart.getText().toString().equals("") ||
+                        (mTvDateStart.getText().toString().equals("") && mTvDateEnd.getText().toString().equals(""))) {
+                    Toast.makeText(getActivity(), "" + getResources().getString(R.string.no_data_entered), Toast.LENGTH_SHORT).show();
+                } else {
+                    long date_start = ConvertHelper.convertStringToTimestampMilisecond(mTvDateStart.getText().toString());
+                    long date_end = ConvertHelper.convertStringToTimestampMilisecond(mTvDateEnd.getText().toString());
 
-//        mTvDateEnd.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Calendar c = Calendar.getInstance();
-//                int mYear = c.get(Calendar.YEAR);
-//                int mMonth = c.get(Calendar.MONTH);
-//                int mDay = c.get(Calendar.DAY_OF_MONTH);
-//
-//                DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(),
-//                        new DatePickerDialog.OnDateSetListener() {
-//
-//                            @Override
-//                            public void onDateSet(DatePicker view, int year,
-//                                                  int monthOfYear, int dayOfMonth) {
-//                                mTvDateEnd.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
-//                            }
-//                        }, mYear, mMonth, mDay);
-//                datePickerDialog.show();
-//            }
-//        });
+                    ApiClient.getInstance().getListPhoneCall("ListPhoneCall", date_start, date_end, cookie).enqueue(new Callback<List<ModelListPhoneCall>>() {
+                        @Override
+                        public void onResponse(Call<List<ModelListPhoneCall>> call, Response<List<ModelListPhoneCall>> response) {
+                            modelListPhoneCalls.clear();
+                            modelListPhoneCalls.addAll(response.body());
+                            adapter_list_call_phone_filter.notifyDataSetChanged();
 
+                            if (response.body().size() == 0) {
+                                Toast.makeText(getContext(), "" + getResources().getString(R.string.no_data_in_this_time), Toast.LENGTH_SHORT).show();
+                            }
+                        }
 
-//        mBtnFiler.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                if (mTvDateEnd.getText().toString().equals("") ||
-//                        mTvDateStart.getText().toString().equals("") ||
-//                        (mTvDateStart.getText().toString().equals("") && mTvDateEnd.getText().toString().equals(""))) {
-//                    Toast.makeText(getActivity(), "" + getResources().getString(R.string.no_data_entered), Toast.LENGTH_SHORT).show();
-//                } else {
-//                    long date_start = ConvertHelper.convertStringToTimestampMilisecond(mTvDateStart.getText().toString());
-//                    long date_end = ConvertHelper.convertStringToTimestampMilisecond(mTvDateEnd.getText().toString());
-//
-//                    ApiClient.getInstance().getListPhoneCall("ListPhoneCall", date_start, date_end, cookie).enqueue(new Callback<List<ModelListPhoneCall>>() {
-//                        @Override
-//                        public void onResponse(Call<List<ModelListPhoneCall>> call, Response<List<ModelListPhoneCall>> response) {
-//                            modelListPhoneCalls.clear();
-//                            modelListPhoneCalls.addAll(response.body());
-//                            adapter_list_call_phone_filter.notifyDataSetChanged();
-//
-//                            if (response.body().size() == 0) {
-//                                Toast.makeText(getContext(), "" + getResources().getString(R.string.no_data_in_this_time), Toast.LENGTH_SHORT).show();
-//                            }
-//                        }
-//
-//                        @Override
-//                        public void onFailure(Call<List<ModelListPhoneCall>> call, Throwable t) {
-//                        }
-//                    });
-//                }
-//            }
-//        });
+                        @Override
+                        public void onFailure(Call<List<ModelListPhoneCall>> call, Throwable t) {
+                        }
+                    });
+                }
+            }
+        });
 
     }
 
     private void initView(View view) {
-//        mTvDateStart = view.findViewById(R.id.tvDateStart);
-//        mTvDateEnd = view.findViewById(R.id.tvDateEnd);
         mRv = view.findViewById(R.id.rv);
-      //  mBtnFiler = view.findViewById(R.id.btn_filer);
+        mTvDateEnd = view.findViewById(R.id.tvDateEnd);
+        mTvDateStart = view.findViewById(R.id.tvDateStart);
+        mImgFilter = view.findViewById(R.id.img_filter);
+    }
 
-        imgFilter=view.findViewById(R.id.img_filter);
+    private void getDateHienTai(String cookie) {
+
+        Calendar c = Calendar.getInstance();
+        int month = c.get(Calendar.MONTH);//+1
+        int year = c.get(Calendar.YEAR);
+        int day = c.get(Calendar.DAY_OF_MONTH);
+        mTvDateStart.setText("1" + "/" + (month + 1) + "/" + year);
+        mTvDateEnd.setText(day + "/" + (month + 1) + "/" + year);
+
+        int realMonth = month + 1;
+
+        if (realMonth == 1 || realMonth == 3 || realMonth == 5 || realMonth == 7 || realMonth == 8 || realMonth == 10 || realMonth == 12) {
+            String startDate = "1/" + realMonth + "/" + year;
+            String endDate = "31/" + realMonth + "/" + year;
+            getListPhoneCall(ConvertHelper.convertStringToTimestampMilisecond(startDate),
+                    ConvertHelper.convertStringToTimestampMilisecond(endDate), cookie);
+        } else {
+            String startDate = "1/" + realMonth + "/" + year;
+            String endDate = "30/" + realMonth + "/" + year;
+            getListPhoneCall(ConvertHelper.convertStringToTimestampMilisecond(startDate),
+                    ConvertHelper.convertStringToTimestampMilisecond(endDate), cookie);
+        }
+
+
+    }
+
+    private void getListPhoneCall(long start, long end, String cookie) {
+        ApiClient.getInstance().getListPhoneCall("ListPhoneCall", start, end, cookie).enqueue(new Callback<List<ModelListPhoneCall>>() {
+            @Override
+            public void onResponse(Call<List<ModelListPhoneCall>> call, Response<List<ModelListPhoneCall>> response) {
+                modelListPhoneCalls.clear();
+                modelListPhoneCalls.addAll(response.body());
+                adapter_list_call_phone_filter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailure(Call<List<ModelListPhoneCall>> call, Throwable t) {
+
+            }
+        });
     }
 
 
