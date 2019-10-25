@@ -2,6 +2,7 @@ package com.example.anew.Activity;
 
 
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
@@ -49,12 +50,12 @@ public class ItemListCallUserActivity extends AppCompatActivity {
         tabLayout = findViewById(R.id.tab_layout);
         tabLayout.setupWithViewPager(viewPager);
 
-      //  viewPager.setAdapter(adapter);
+        //  viewPager.setAdapter(adapter);
 
         tabLayout.post(new Runnable() {
             @Override
             public void run() {
-              indicatorWidth = tabLayout.getWidth() / tabLayout.getTabCount();
+                indicatorWidth = tabLayout.getWidth() / tabLayout.getTabCount();
 
                 //Assign new width
                 FrameLayout.LayoutParams indicatorParams = (FrameLayout.LayoutParams) view.getLayoutParams();
@@ -123,6 +124,13 @@ public class ItemListCallUserActivity extends AppCompatActivity {
         public CharSequence getPageTitle(int position) {
             return mFragmentTitleList.get(position);
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_tb, menu);
+        return true;
     }
 
 }
