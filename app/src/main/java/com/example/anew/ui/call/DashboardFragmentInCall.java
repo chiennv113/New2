@@ -7,8 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -38,11 +38,10 @@ public class DashboardFragmentInCall extends Fragment {
     private Context context;
 
 
-    ModelThongKeCuocGoiBanThan modelThongKeCuocGoiBanThan;
     private TextView mTvDateStart;
     private TextView mTvDateEnd;
     private Spinner mSpinerFeel;
-    private Button mBtnSend;
+    private ImageView mBtnSend;
     private TextView mTvAllMySelf;
     private TextView mTvOldMySelf;
     private TextView mTvNewMyself;
@@ -50,7 +49,7 @@ public class DashboardFragmentInCall extends Fragment {
     private TextView mTvOldCall;
     private TextView mTvNewCall;
 
-    ModelCustomeFeelNew modelCustomeFeelNew;
+    private List<ModelCustomeFeelNew> modelThongKeTheoDoHaiLongCuaKhachAdmins = new ArrayList<>();
 
 
     @Override
@@ -108,16 +107,48 @@ public class DashboardFragmentInCall extends Fragment {
             @Override
             public void onClick(View view) {
 
+                if (mSpinerFeel.getSelectedItem().toString().equals("Tất cả")) {
+                    getDataTKCuocgoiBanthan(ConvertHelper.convertStringToTimestampMilisecond(mTvDateStart.getText().toString().trim()),
+                            ConvertHelper.convertStringToTimestampMilisecond(mTvDateEnd.getText().toString().trim()), cookie);
+                    thongKeCuocGoi(ConvertHelper.convertStringToTimestampMilisecond(mTvDateStart.getText().toString().trim()),
+                            ConvertHelper.convertStringToTimestampMilisecond(mTvDateEnd.getText().toString().trim()), cookie);
+                } else if (mSpinerFeel.getSelectedItem().toString().equals("Rất hài lòng")) {
+                    thongKeTheoDoHaiLong(ConvertHelper.convertStringToTimestampMilisecond(mTvDateStart.getText().toString().trim()),
+                            ConvertHelper.convertStringToTimestampMilisecond(mTvDateEnd.getText().toString().trim()),
+                            modelThongKeTheoDoHaiLongCuaKhachAdmins.get(0).getId(), cookie);
+                } else if (mSpinerFeel.getSelectedItem().toString().equals("Hài lòng")) {
+                    thongKeTheoDoHaiLong(ConvertHelper.convertStringToTimestampMilisecond(mTvDateStart.getText().toString().trim()),
+                            ConvertHelper.convertStringToTimestampMilisecond(mTvDateEnd.getText().toString().trim()),
+                            modelThongKeTheoDoHaiLongCuaKhachAdmins.get(1).getId(), cookie);
+                } else if (mSpinerFeel.getSelectedItem().toString().equals("Bình thường")) {
+                    thongKeTheoDoHaiLong(ConvertHelper.convertStringToTimestampMilisecond(mTvDateStart.getText().toString().trim()),
+                            ConvertHelper.convertStringToTimestampMilisecond(mTvDateEnd.getText().toString().trim()),
+                            modelThongKeTheoDoHaiLongCuaKhachAdmins.get(2).getId(), cookie);
+                } else if (mSpinerFeel.getSelectedItem().toString().equals("Tệ")) {
+                    thongKeTheoDoHaiLong(ConvertHelper.convertStringToTimestampMilisecond(mTvDateStart.getText().toString().trim()),
+                            ConvertHelper.convertStringToTimestampMilisecond(mTvDateEnd.getText().toString().trim()),
+                            modelThongKeTheoDoHaiLongCuaKhachAdmins.get(3).getId(), cookie);
+                } else if (mSpinerFeel.getSelectedItem().toString().equals("Rất tệ")) {
+                    thongKeTheoDoHaiLong(ConvertHelper.convertStringToTimestampMilisecond(mTvDateStart.getText().toString().trim()),
+                            ConvertHelper.convertStringToTimestampMilisecond(mTvDateEnd.getText().toString().trim()),
+                            modelThongKeTheoDoHaiLongCuaKhachAdmins.get(4).getId(), cookie);
+                } else {
+                    thongKeCuocGoi(ConvertHelper.convertStringToTimestampMilisecond(mTvDateStart.getText().toString().trim())
+                            , ConvertHelper.convertStringToTimestampMilisecond(mTvDateEnd.getText().toString().trim()), cookie);
+                }
                 getDataTKCuocgoiBanthan(ConvertHelper.convertStringToTimestampMilisecond(mTvDateStart.getText().toString().trim())
                         , ConvertHelper.convertStringToTimestampMilisecond(mTvDateEnd.getText().toString().trim()), cookie);
-                thongKeCuocGoi(ConvertHelper.convertStringToTimestampMilisecond(mTvDateStart.getText().toString().trim())
-                        , ConvertHelper.convertStringToTimestampMilisecond(mTvDateEnd.getText().toString().trim()), cookie);
+
             }
         });
 
         Calendar c = Calendar.getInstance();
         int month = c.get(Calendar.MONTH);//+1
         int year = c.get(Calendar.YEAR);
+        int day = c.get(Calendar.DAY_OF_MONTH);
+
+        mTvDateStart.setText("1" + "/" + (month + 1) + "/" + year);
+        mTvDateEnd.setText(day + "/" + (month + 1) + "/" + year);
         int realMonth = month + 1;
         if (realMonth == 1 || realMonth == 3 || realMonth == 5 || realMonth == 7 || realMonth == 8 || realMonth == 10 || realMonth == 12) {
             String start = "1/" + realMonth + "/" + year;
@@ -126,6 +157,7 @@ public class DashboardFragmentInCall extends Fragment {
                     ConvertHelper.convertStringToTimestampMilisecond(end), cookie);
             thongKeCuocGoi(ConvertHelper.convertStringToTimestampMilisecond(start),
                     ConvertHelper.convertStringToTimestampMilisecond(end), cookie);
+
         } else {
             String start = "1/" + realMonth + "/" + year;
             String end = "30/" + realMonth + "/" + year;
@@ -221,12 +253,11 @@ public class DashboardFragmentInCall extends Fragment {
             @Override
             public void onResponse(Call<List<ModelCustomeFeelNew>> call, Response<List<ModelCustomeFeelNew>> response) {
                 ArrayList<String> arrayList = new ArrayList<>();
-                arrayList.add(0, "Customer Feel");
-                ArrayList<Integer> arrID = new ArrayList<>();
+                arrayList.add(0, "Tất cả");
                 if (response.isSuccessful() && response.body() != null) {
+                    modelThongKeTheoDoHaiLongCuaKhachAdmins.addAll(response.body());
                     for (int i = 0; i < response.body().size(); i++) {
                         arrayList.add(response.body().get(i).getName());
-                        arrID.add(response.body().get(i).getId());
                         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, arrayList);
                         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         mSpinerFeel.setAdapter(arrayAdapter);
@@ -242,7 +273,7 @@ public class DashboardFragmentInCall extends Fragment {
         });
     }
 
-    private void thongKeTheoTrangThaiKH(long start, long end, int id, String cookie) {
+    private void thongKeTheoDoHaiLong(long start, long end, int id, String cookie) {
         ApiClient.getInstance().tkTheoDoHaiLongCuaKhach("statistic_phone_customer_feel", start, end, id, cookie).enqueue(new Callback<List<ModelThongKeTheoDoHaiLongCuaKhachAdmin>>() {
             @Override
             public void onResponse(Call<List<ModelThongKeTheoDoHaiLongCuaKhachAdmin>> call, Response<List<ModelThongKeTheoDoHaiLongCuaKhachAdmin>> response) {
