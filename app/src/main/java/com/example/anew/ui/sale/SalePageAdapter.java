@@ -55,19 +55,19 @@ public class SalePageAdapter extends FragmentStatePagerAdapter {
         String title = "";
         switch (position) {
             case 0:
-                title = "Danh sach";
+                title = "Danh sách";
                 break;
             case 1:
-                title = "Key dung thu";
+                title = "Key dùng thử";
                 break;
             case 2:
-                title = "Gia han";
+                title = "Gia hạn";
                 break;
             case 3:
-                title = "Ma giam gia";
+                title = "Mã giảm giá";
                 break;
             case 4:
-                title = "Loai thanh toan";
+                title = "Loại thanh toán";
                 break;
             case 5:
                 title = "Thống kê";
