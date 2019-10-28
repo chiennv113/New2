@@ -19,8 +19,6 @@ import com.example.anew.Retrofit.ApiClient;
 import com.example.anew.utills.Constans;
 import com.example.anew.utills.SharePrefs;
 
-import java.util.ArrayList;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -65,11 +63,11 @@ public class InfUserCallFragment extends Fragment {
                         Log.e("GGG", "onResponse: " + response.body());
                         Log.e("GGG", "onResponse: " + response.body().getFullname());
 
-                        mTvFullName.setText(response.body().getFullname());
+                        mTvFullName.setText(String.valueOf(response.body().getFullname()));
                         mTvSkype.setText(String.valueOf(response.body().getSkype()));
                         mTvPhone.setText(String.valueOf(response.body().getPhone1()));
                         mTvAddress.setText(String.valueOf(response.body().getAddress()));
-                        mTvEmail.setText(response.body().getEmail());
+                        mTvEmail.setText(String.valueOf(response.body().getEmail()));
 
                     }
                 }
@@ -90,6 +88,7 @@ public class InfUserCallFragment extends Fragment {
     }
 
     private void initView(View view) {
+
         mTvFullName = view.findViewById(R.id.tvFullName);
         mTvAddress = view.findViewById(R.id.tvAddress);
         mTvEmail = view.findViewById(R.id.tvEmail);
