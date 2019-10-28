@@ -1,6 +1,8 @@
 package com.example.anew.Activity;
 
 import android.app.DatePickerDialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -13,7 +15,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
 import com.example.anew.Model.ModelAdd;
 import com.example.anew.Model.ModelAddCallAndCustomerNew;
@@ -45,7 +46,6 @@ public class AddCallActivity extends AppCompatActivity {
     private TextView mTvRsEmail;
     private TextView mTvRsName;
     private TextView mTvSearchCu;
-    private Toolbar mToolbar;
     private ImageView mBtnCancel;
     private TextView mBtnSave;
     private TextInputLayout mLayoutPhone;
@@ -54,29 +54,23 @@ public class AddCallActivity extends AppCompatActivity {
     private TextInputEditText mEdtName;
     private TextInputLayout mLayoutEmail;
     private TextInputEditText mEdtEmail;
-    private TextInputLayout mLayoutZalo;
     private TextInputEditText mEdtZalo;
-    private TextInputLayout mLayoutSkype;
     private TextInputEditText mEdtSkype;
-    private TextView mTvCity;
     private Spinner mSpChoseCity;
-    private TextInputLayout mLayoutAddress;
     private TextInputEditText mEdtAddress;
     private TextView mEdtDateOfBirth;
-    private TextView mTvSoftWareCare;
     private Spinner mTvChoseDoiTuongKH;
     private Spinner mSpChosePhanMem;
-    private TextView mTvObjCustomer;
     private Spinner mTvChoseNguonKH;
-    private TextView mTvSourceCustomer;
-    private TextView mTvCustomerType;
     private Spinner mTvChoseLoaiKH;
     private TextInputLayout mLayoutContent;
     private TextInputEditText mEdtContent;
-    private TextView mTvCustomerStatus;
     private Spinner mTvChoseTTKH;
     private TextInputLayout mLayoutNote;
     private TextInputEditText mEdtNote;
+
+    private DatePickerDialog.OnDateSetListener mDateOfBirth;
+    private TextView mTvDateOfBirth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -216,17 +210,21 @@ public class AddCallActivity extends AppCompatActivity {
                 int mDay = c.get(Calendar.DAY_OF_MONTH);
 
                 DatePickerDialog datePickerDialog = new DatePickerDialog(AddCallActivity.this,
-                        new DatePickerDialog.OnDateSetListener() {
-
-                            @Override
-                            public void onDateSet(DatePicker view, int year,
-                                                  int monthOfYear, int dayOfMonth) {
-                                mEdtDateOfBirth.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
-                            }
-                        }, mYear, mMonth, mDay);
+                        android.R.style.Theme_Holo_Light_Dialog_MinWidth,
+                        mDateOfBirth, mYear, mMonth, mDay);
+                datePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 datePickerDialog.show();
             }
         });
+
+        mDateOfBirth = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                month = month + 1;
+                String date = day + "/" + month + "/" + year;
+                mTvDateOfBirth.setText(date);
+            }
+        };
 
 
         mBtnSave.setOnClickListener(new View.OnClickListener() {
@@ -312,7 +310,6 @@ public class AddCallActivity extends AppCompatActivity {
         mTvRsEmail = findViewById(R.id.tvRsEmail);
         mTvRsName = findViewById(R.id.tvRsName);
         mTvSearchCu = findViewById(R.id.tvSearchCu);
-        mToolbar = findViewById(R.id.toolbar);
         mBtnCancel = findViewById(R.id.btnCancel);
         mBtnSave = findViewById(R.id.btnSave);
         mLayoutPhone = findViewById(R.id.layoutPhone);
@@ -321,29 +318,21 @@ public class AddCallActivity extends AppCompatActivity {
         mEdtName = findViewById(R.id.edt_name);
         mLayoutEmail = findViewById(R.id.layoutEmail);
         mEdtEmail = findViewById(R.id.edt_email);
-        mLayoutZalo = findViewById(R.id.layoutZalo);
         mEdtZalo = findViewById(R.id.edt_zalo);
-        mLayoutSkype = findViewById(R.id.layoutSkype);
         mEdtSkype = findViewById(R.id.edt_skype);
-        mTvCity = findViewById(R.id.tv_city);
         mSpChoseCity = findViewById(R.id.spChoseCity);
-        mLayoutAddress = findViewById(R.id.layoutAddress);
         mEdtAddress = findViewById(R.id.edt_address);
         mEdtDateOfBirth = findViewById(R.id.edt_date_of_birth);
-        mTvSoftWareCare = findViewById(R.id.tv_soft_ware_care);
         mTvChoseDoiTuongKH = findViewById(R.id.tvChoseDoiTuongKH);
         mSpChosePhanMem = findViewById(R.id.spChosePhanMem);
-        mTvObjCustomer = findViewById(R.id.tv_obj_customer);
         mTvChoseNguonKH = findViewById(R.id.tvChoseNguonKH);
-        mTvSourceCustomer = findViewById(R.id.tv_source_customer);
-        mTvCustomerType = findViewById(R.id.tv_customer_type);
         mTvChoseLoaiKH = findViewById(R.id.tvChoseLoaiKH);
         mLayoutContent = findViewById(R.id.layoutContent);
         mEdtContent = findViewById(R.id.edt_content);
-        mTvCustomerStatus = findViewById(R.id.tv_customer_status);
         mTvChoseTTKH = findViewById(R.id.tvChoseTTKH);
         mLayoutNote = findViewById(R.id.layoutNote);
         mEdtNote = findViewById(R.id.edt_note);
+        mTvDateOfBirth = findViewById(R.id.tvDateOfBirth);
     }
 
     private void LoadCity(String cookie) {

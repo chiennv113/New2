@@ -7,18 +7,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.anew.Model.ModelListPhoneCall.ModelListPhoneCall;
 import com.example.anew.R;
 import com.example.anew.helper.ItemClickRv;
 
+
 import java.util.List;
 
 
-public class AdapterListCallPhoneFilter extends RecyclerView.Adapter<AdapterListCallPhoneFilter.ViewHolder> {
+public class AdapterListCallPhoneFilter extends RecyclerView.Adapter<AdapterListCallPhoneFilter.ViewHolder>{
 
     private List<ModelListPhoneCall> modelListPhoneCalls;
     private ItemClickRv mitemClickRv;
@@ -69,6 +68,7 @@ public class AdapterListCallPhoneFilter extends RecyclerView.Adapter<AdapterList
     public int getItemCount() {
         return modelListPhoneCalls.size();
     }
+
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         private TextView tvName, tvPhone, tvCusfeel;
