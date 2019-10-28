@@ -1,6 +1,8 @@
 package com.example.anew.Activity;
 
 import android.Manifest;
+import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -48,6 +50,8 @@ public class LoginActivity extends AppCompatActivity {
         mEdtPass.setText("123456");
         mEdtUser.setText("app@ninjateam.vn");
         logins = new ArrayList<>();
+
+
 
         mBtnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
