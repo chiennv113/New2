@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="">
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/textView17"
@@ -14,7 +12,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="Thống kê ticket"
+        android:text="Thống kê Ticket"
+        android:textColor="@color/DarkOrange"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -34,11 +33,11 @@
         android:id="@+id/imageView16"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
+        android:src="@drawable/account_new"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView19"
-        app:srcCompat="@drawable/account_new"/>
+        app:layout_constraintTop_toBottomOf="@+id/textView19" />
 
     <TextView
         android:id="@+id/textView21"
@@ -64,10 +63,10 @@
         android:id="@+id/imageView18"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="24dp"
+        android:src="@drawable/account_new"
         app:layout_constraintStart_toEndOf="@+id/textView23"
-        app:layout_constraintTop_toTopOf="@+id/imageView16"
-        app:srcCompat="@drawable/account_new" />
+        app:layout_constraintTop_toTopOf="@+id/imageView16" />
 
     <TextView
         android:id="@+id/textView20"
@@ -93,10 +92,10 @@
         android:id="@+id/imageView19"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="24dp"
+        android:src="@drawable/account_new"
         app:layout_constraintStart_toEndOf="@+id/textView24"
-        app:layout_constraintTop_toTopOf="@+id/imageView18"
-        app:srcCompat="@drawable/account_new" />
+        app:layout_constraintTop_toTopOf="@+id/imageView18" />
 
     <TextView
         android:id="@+id/textView25"
@@ -135,7 +134,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="Thống kê khách hàng đánh giá ticket"
+        android:text="Thống kê khách hàng đánh giá Ticket"
+        android:textColor="@color/DarkOrange"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/recyclerView" />
 
@@ -155,11 +155,11 @@
         android:id="@+id/imageView20"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
+        android:src="@drawable/account"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView37"
-        app:srcCompat="@drawable/account" />
+        app:layout_constraintTop_toBottomOf="@+id/textView37" />
 
     <TextView
         android:id="@+id/textView38"
@@ -186,9 +186,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
+        android:src="@drawable/account"
         app:layout_constraintStart_toEndOf="@+id/textView39"
-        app:layout_constraintTop_toTopOf="@+id/imageView20"
-        app:srcCompat="@drawable/account" />
+        app:layout_constraintTop_toTopOf="@+id/imageView20" />
 
     <TextView
         android:id="@+id/textView40"
@@ -215,9 +215,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
+        android:src="@drawable/account"
         app:layout_constraintStart_toEndOf="@+id/textView41"
-        app:layout_constraintTop_toTopOf="@+id/imageView22"
-        app:srcCompat="@drawable/account" />
+        app:layout_constraintTop_toTopOf="@+id/imageView22" />
 
     <TextView
         android:id="@+id/textView42"
@@ -243,9 +243,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:src="@drawable/account"
         app:layout_constraintStart_toStartOf="@+id/imageView20"
-        app:layout_constraintTop_toBottomOf="@+id/imageView20"
-        app:srcCompat="@drawable/account" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView20" />
 
     <TextView
         android:id="@+id/textView44"
@@ -271,9 +271,9 @@
         android:id="@+id/imageView26"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:src="@drawable/account"
         app:layout_constraintStart_toStartOf="@+id/imageView22"
-        app:layout_constraintTop_toTopOf="@+id/imageView25"
-        app:srcCompat="@drawable/account" />
+        app:layout_constraintTop_toTopOf="@+id/imageView25" />
 
     <TextView
         android:id="@+id/textView47"
@@ -298,9 +298,9 @@
         android:id="@+id/imageView27"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:src="@drawable/account"
         app:layout_constraintStart_toStartOf="@+id/imageView23"
-        app:layout_constraintTop_toTopOf="@+id/imageView26"
-        app:srcCompat="@drawable/account" />
+        app:layout_constraintTop_toTopOf="@+id/imageView26" />
 
     <TextView
         android:id="@+id/textView49"
@@ -345,7 +345,6 @@
         app:layout_constraintTop_toBottomOf="@+id/textView33">
 
     </androidx.recyclerview.widget.RecyclerView>
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
