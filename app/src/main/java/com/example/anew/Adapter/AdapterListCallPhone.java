@@ -7,8 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.anew.Model.ModelListPhoneCall.ModelListPhoneCall;
 import com.example.anew.R;
 import com.example.anew.helper.ItemClickRv;
@@ -17,14 +19,14 @@ import com.example.anew.helper.ItemClickRv;
 import java.util.List;
 
 
-public class AdapterListCallPhoneFilter extends RecyclerView.Adapter<AdapterListCallPhoneFilter.ViewHolder>{
+public class AdapterListCallPhone extends RecyclerView.Adapter<AdapterListCallPhone.ViewHolder> {
 
     private List<ModelListPhoneCall> modelListPhoneCalls;
     private ItemClickRv mitemClickRv;
     private Context context;
 
 
-    public AdapterListCallPhoneFilter(List<ModelListPhoneCall> modelListPhoneCalls, Context context, ItemClickRv itemClickRv) {
+    public AdapterListCallPhone(List<ModelListPhoneCall> modelListPhoneCalls, Context context, ItemClickRv itemClickRv) {
         this.modelListPhoneCalls = modelListPhoneCalls;
         this.context = context;
         mitemClickRv = itemClickRv;
@@ -44,14 +46,13 @@ public class AdapterListCallPhoneFilter extends RecyclerView.Adapter<AdapterList
         final ModelListPhoneCall modelListPhoneCall = modelListPhoneCalls.get(position);
         holder.tvPhone.setText(modelListPhoneCall.getCustomer().getPhone1());
         holder.tvName.setText(modelListPhoneCall.getCustomer().getFullname());
-//        holder.tvCusfeel.setText(modelListPhoneCall.getCustomerFeel());
-
+        holder.tvContent.setText(String.valueOf(modelListPhoneCall.getContent()));
 
         holder.img_del.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String phone = modelListPhoneCall.getCustomer().getPhone1();
-                mitemClickRv.onClickCall(position,phone);
+                mitemClickRv.onClickCall(position, phone);
             }
         });
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -71,7 +72,7 @@ public class AdapterListCallPhoneFilter extends RecyclerView.Adapter<AdapterList
 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView tvName, tvPhone, tvCusfeel;
+        private TextView tvName, tvPhone, tvContent;
         private ImageView img_del;
 
         public ViewHolder(@NonNull View itemView) {
@@ -80,6 +81,7 @@ public class AdapterListCallPhoneFilter extends RecyclerView.Adapter<AdapterList
 //            tvCusfeel = itemView.findViewById(R.id.item_tv_customer_feel);
             tvName = itemView.findViewById(R.id.item_tv_name);
             tvPhone = itemView.findViewById(R.id.item_tv_phone);
+            tvContent = itemView.findViewById(R.id.tvContent);
         }
     }
 }
