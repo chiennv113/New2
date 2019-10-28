@@ -1,6 +1,8 @@
 package com.example.anew.Activity;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -8,7 +10,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.example.anew.Model.ModelLogin.Login;
 import com.example.anew.R;
@@ -25,6 +30,7 @@ import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
 
+    private static final int MY_PERMISSIONS_REQUEST_CALL_PHONE = 200;
     private Button mBtnLogin;
     private EditText mEdtUser;
     private EditText mEdtPass;
@@ -58,6 +64,56 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        if (ContextCompat.checkSelfPermission(LoginActivity.this,
+                Manifest.permission.CALL_PHONE)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(LoginActivity.this,
+                    Manifest.permission.CALL_PHONE)) {
+
+                // Show an expanation to the user *asynchronously* -- don't block
+                // this thread waiting for the user's response! After the user
+                // sees the explanation, try again to request the permission.
+
+            } else {
+
+                // No explanation needed, we can request the permission.
+
+                ActivityCompat.requestPermissions(LoginActivity.this,
+                        new String[]{Manifest.permission.CALL_PHONE},
+                        MY_PERMISSIONS_REQUEST_CALL_PHONE);
+
+                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
+                // app-defined int constant. The callback method gets the
+                // result of the request.
+            }
+        }
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case MY_PERMISSIONS_REQUEST_CALL_PHONE: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    // permission was granted, yay! Do the
+                    // contacts-related task you need to do.
+
+                } else {
+
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                }
+                return;
+            }
+
+            // other 'case' lines to check for other
+            // permissions this app might request
+        }
     }
 
     private boolean checkValidation() {
@@ -79,7 +135,7 @@ public class LoginActivity extends AppCompatActivity {
         ApiClient.getInstance().createUser(new Login(email, password, option)).enqueue(new Callback<Login>() {
             @Override
             public void onResponse(Call<Login> call, Response<Login> response) {
-                if (response.code() == Constans.SERVER_SUCCESS && response.body() !=null){
+                if (response.code() == Constans.SERVER_SUCCESS && response.body() != null) {
                     logins.add(response.body());
                     String name = response.body().getData().getName();
                     String email = response.body().getData().getEmail();

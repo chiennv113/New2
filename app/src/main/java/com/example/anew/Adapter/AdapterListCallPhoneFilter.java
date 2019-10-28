@@ -18,14 +18,14 @@ import com.example.anew.helper.ItemClickRv;
 import java.util.List;
 
 
-public class Adapter_List_Call_Phone_Filter extends RecyclerView.Adapter<Adapter_List_Call_Phone_Filter.ViewHolder> {
+public class AdapterListCallPhoneFilter extends RecyclerView.Adapter<AdapterListCallPhoneFilter.ViewHolder> {
 
     private List<ModelListPhoneCall> modelListPhoneCalls;
     private ItemClickRv mitemClickRv;
     private Context context;
 
 
-    public Adapter_List_Call_Phone_Filter(List<ModelListPhoneCall> modelListPhoneCalls, Context context, ItemClickRv itemClickRv) {
+    public AdapterListCallPhoneFilter(List<ModelListPhoneCall> modelListPhoneCalls, Context context, ItemClickRv itemClickRv) {
         this.modelListPhoneCalls = modelListPhoneCalls;
         this.context = context;
         mitemClickRv = itemClickRv;
@@ -51,7 +51,8 @@ public class Adapter_List_Call_Phone_Filter extends RecyclerView.Adapter<Adapter
         holder.img_del.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mitemClickRv.onClickCall(position);
+                String phone = modelListPhoneCall.getCustomer().getPhone1();
+                mitemClickRv.onClickCall(position,phone);
             }
         });
         holder.itemView.setOnClickListener(new View.OnClickListener() {

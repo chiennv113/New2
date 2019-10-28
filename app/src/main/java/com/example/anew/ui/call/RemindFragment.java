@@ -14,7 +14,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.anew.Adapter.Adapter_List_Call_Remind;
+import com.example.anew.Adapter.AdapterListCallRemind;
 import com.example.anew.Model.ModelAddRemind;
 import com.example.anew.Model.ModelDeleteRemind;
 import com.example.anew.Model.ModelListPhoneCallRemind.ModelListPhoneCallRemind;
@@ -22,7 +22,6 @@ import com.example.anew.R;
 import com.example.anew.Retrofit.ApiClient;
 import com.example.anew.helper.IDialogClick;
 import com.example.anew.helper.IRemoveRemid;
-import com.example.anew.helper.ItemClickRv;
 import com.example.anew.utills.Constans;
 import com.example.anew.utills.ConvertHelper;
 import com.example.anew.utills.SharePrefs;
@@ -40,7 +39,7 @@ public class RemindFragment extends Fragment implements IRemoveRemid {
     private String cookie;
 
     private List<ModelListPhoneCallRemind> modelListPhoneCallReminds = new ArrayList<>();
-    private Adapter_List_Call_Remind adapter_list_call_remind;
+    private AdapterListCallRemind adapter_list_call_remind;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -69,7 +68,7 @@ public class RemindFragment extends Fragment implements IRemoveRemid {
     }
 
     private void initAdapter() {
-        adapter_list_call_remind = new Adapter_List_Call_Remind(modelListPhoneCallReminds, getActivity(), this);
+        adapter_list_call_remind = new AdapterListCallRemind(modelListPhoneCallReminds, getActivity(), this);
         mRv.setAdapter(adapter_list_call_remind);
         mRv.setLayoutManager(new LinearLayoutManager(getActivity()));
     }

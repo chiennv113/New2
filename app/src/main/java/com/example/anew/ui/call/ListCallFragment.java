@@ -2,6 +2,7 @@ package com.example.anew.ui.call;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,12 +15,11 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.anew.Activity.ItemListCallUserActivity;
-import com.example.anew.Adapter.Adapter_List_Call_Phone_Filter;
+import com.example.anew.Adapter.AdapterListCallPhoneFilter;
 import com.example.anew.Model.ModelListPhoneCall.ModelListPhoneCall;
 import com.example.anew.R;
 import com.example.anew.Retrofit.ApiClient;
@@ -41,7 +41,7 @@ public class ListCallFragment extends Fragment {
     private RecyclerView mRv;
     private List<ModelListPhoneCall> modelListPhoneCalls = new ArrayList<>();
     private LinearLayoutManager linearLayoutManager;
-    private Adapter_List_Call_Phone_Filter adapter_list_call_phone_filter;
+    private AdapterListCallPhoneFilter adapter_list_call_phone_filter;
     private TextView mTvDateEnd;
     private TextView mTvDateStart;
     private ImageView mImgFilter;
@@ -59,16 +59,18 @@ public class ListCallFragment extends Fragment {
 
         final String cookie = SharePrefs.getInstance().get(Constans.COOKIE, String.class);
 
-        adapter_list_call_phone_filter = new Adapter_List_Call_Phone_Filter(modelListPhoneCalls, getContext(), new ItemClickRv() {
+        adapter_list_call_phone_filter = new AdapterListCallPhoneFilter(modelListPhoneCalls, getContext(), new ItemClickRv() {
             @Override
-            public void onClickCall(int id) {
-                Toast.makeText(getActivity(), "Delete", Toast.LENGTH_SHORT).show();
+            public void onClickCall(int id, String phone) {
+                Intent callIntent = new Intent(Intent.ACTION_CALL);
+                callIntent.setData(Uri.parse("tel:" + phone));
+                startActivity(callIntent);
             }
 
             @Override
             public void onItemClick(String phone) {
                 Intent intent = new Intent(getContext(), ItemListCallUserActivity.class);
-                intent.putExtra(Constans.PASS_PHONE,phone);
+                intent.putExtra(Constans.PASS_PHONE, phone);
                 getContext().startActivity(intent);
                 ListCallFragment.class.getName();
             }

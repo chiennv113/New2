@@ -15,11 +15,15 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.anew.Adapter.AdapterTkTheoNV;
 import com.example.anew.Model.ModelCustomeFeelNew;
 import com.example.anew.Model.ModelTKCuocGoiAdmin.ModelThongKeCuocGoiAdmin;
 import com.example.anew.Model.ModelTKCuocgoiBanThan.ModelThongKeCuocGoiBanThan;
 import com.example.anew.Model.ModelTKTheoDoHaiLongKH.ModelThongKeTheoDoHaiLongCuaKhachAdmin;
+import com.example.anew.Model.ModelTKTheoNV.ModelThongKeTheoNVAdmin;
 import com.example.anew.R;
 import com.example.anew.Retrofit.ApiClient;
 import com.example.anew.utills.Constans;
@@ -51,6 +55,11 @@ public class DashboardFragmentInCall extends Fragment {
 
     private List<ModelCustomeFeelNew> modelThongKeTheoDoHaiLongCuaKhachAdmins = new ArrayList<>();
 
+    private List<ModelThongKeTheoNVAdmin> modelThongKeTheoNVAdmins = new ArrayList<>();
+    private RecyclerView mRvNV;
+    private LinearLayoutManager linearLayoutManager;
+    private AdapterTkTheoNV adapterTkTheoNV;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -64,6 +73,7 @@ public class DashboardFragmentInCall extends Fragment {
         final String cookie = SharePrefs.getInstance().get(Constans.COOKIE, String.class);
         initView(view);
         LoadCustomerFeel();
+
 
         mTvDateEnd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -142,6 +152,11 @@ public class DashboardFragmentInCall extends Fragment {
             }
         });
 
+        adapterTkTheoNV = new AdapterTkTheoNV(modelThongKeTheoNVAdmins, context);
+        mRvNV.setAdapter(adapterTkTheoNV);
+        linearLayoutManager = new LinearLayoutManager(getActivity());
+        mRvNV.setLayoutManager(linearLayoutManager);
+
         Calendar c = Calendar.getInstance();
         int month = c.get(Calendar.MONTH);//+1
         int year = c.get(Calendar.YEAR);
@@ -157,6 +172,8 @@ public class DashboardFragmentInCall extends Fragment {
                     ConvertHelper.convertStringToTimestampMilisecond(end), cookie);
             thongKeCuocGoi(ConvertHelper.convertStringToTimestampMilisecond(start),
                     ConvertHelper.convertStringToTimestampMilisecond(end), cookie);
+            ThongKeTheoNV(ConvertHelper.convertStringToTimestampMilisecond(start),
+                    ConvertHelper.convertStringToTimestampMilisecond(end), cookie);
 
         } else {
             String start = "1/" + realMonth + "/" + year;
@@ -164,6 +181,8 @@ public class DashboardFragmentInCall extends Fragment {
             getDataTKCuocgoiBanthan(ConvertHelper.convertStringToTimestampMilisecond(start),
                     ConvertHelper.convertStringToTimestampMilisecond(end), cookie);
             thongKeCuocGoi(ConvertHelper.convertStringToTimestampMilisecond(start),
+                    ConvertHelper.convertStringToTimestampMilisecond(end), cookie);
+            ThongKeTheoNV(ConvertHelper.convertStringToTimestampMilisecond(start),
                     ConvertHelper.convertStringToTimestampMilisecond(end), cookie);
         }
 
@@ -239,6 +258,7 @@ public class DashboardFragmentInCall extends Fragment {
         mTvAllCall = view.findViewById(R.id.tvAllCall);
         mTvOldCall = view.findViewById(R.id.tvOldCall);
         mTvNewCall = view.findViewById(R.id.tvNewCall);
+        mRvNV = view.findViewById(R.id.rvNV);
     }
 
     @Override
@@ -302,4 +322,19 @@ public class DashboardFragmentInCall extends Fragment {
         });
     }
 
+    private void ThongKeTheoNV(long start, long end, String cookie) {
+        ApiClient.getInstance().tkTheoNV("EmployeesStatisticPhones", start, end, cookie).enqueue(new Callback<List<ModelThongKeTheoNVAdmin>>() {
+            @Override
+            public void onResponse(Call<List<ModelThongKeTheoNVAdmin>> call, Response<List<ModelThongKeTheoNVAdmin>> response) {
+                modelThongKeTheoNVAdmins.clear();
+                modelThongKeTheoNVAdmins.addAll(response.body());
+                adapterTkTheoNV.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailure(Call<List<ModelThongKeTheoNVAdmin>> call, Throwable t) {
+
+            }
+        });
+    }
 }

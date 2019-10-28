@@ -14,20 +14,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.anew.Model.ModelListPhoneCallRemind.ModelListPhoneCallRemind;
 import com.example.anew.R;
 import com.example.anew.helper.IRemoveRemid;
-import com.example.anew.helper.ItemClickRv;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-public class Adapter_List_Call_Remind extends RecyclerView.Adapter<Adapter_List_Call_Remind.ViewHolder> {
+public class AdapterListCallRemind extends RecyclerView.Adapter<AdapterListCallRemind.ViewHolder> {
 
     private List<ModelListPhoneCallRemind> modelListPhoneCallReminds;
     private Context context;
     private IRemoveRemid mitemClickRv;
 
-    public Adapter_List_Call_Remind(List<ModelListPhoneCallRemind> modelListPhoneCallReminds, Context context, IRemoveRemid itemClickRv) {
+    public AdapterListCallRemind(List<ModelListPhoneCallRemind> modelListPhoneCallReminds, Context context, IRemoveRemid itemClickRv) {
         this.modelListPhoneCallReminds = modelListPhoneCallReminds;
         this.context = context;
         mitemClickRv = itemClickRv;
