@@ -13,11 +13,11 @@
         android:orientation="horizontal">
 
         <TextView
-            android:textColor="@color/DarkOrange"
             android:id="@+id/tvDateEnd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView"
+            android:text="@string/textview"
+            android:textColor="@color/DarkOrange"
             app:layout_constraintBottom_toBottomOf="@+id/tvDateStart"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -25,11 +25,11 @@
             app:layout_constraintTop_toTopOf="@+id/tvDateStart" />
 
         <TextView
-            android:textColor="@color/DarkOrange"
             android:id="@+id/tvDateStart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView"
+            android:text="@string/textview"
+            android:textColor="@color/DarkOrange"
             app:layout_constraintBottom_toBottomOf="@+id/img_filter"
             app:layout_constraintEnd_toStartOf="@+id/tvDateEnd"
             app:layout_constraintHorizontal_bias="0.5"
@@ -46,11 +46,12 @@
             android:src="@drawable/filter_menu"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"></androidx.recyclerview.widget.RecyclerView>
+        android:layout_height="wrap_content" />
 </LinearLayout>

@@ -6,14 +6,10 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.ImageView;
-import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,7 +20,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.anew.Activity.ItemListCallUserActivity;
-import com.example.anew.Adapter.AdapterListCallPhoneFilter;
+import com.example.anew.Adapter.AdapterListCallPhone;
 import com.example.anew.Model.ModelListPhoneCall.ModelListPhoneCall;
 import com.example.anew.R;
 import com.example.anew.Retrofit.ApiClient;
@@ -46,7 +42,7 @@ public class ListCallFragment extends Fragment {
     private RecyclerView mRv;
     private List<ModelListPhoneCall> modelListPhoneCalls = new ArrayList<>();
     private LinearLayoutManager linearLayoutManager;
-    private AdapterListCallPhoneFilter adapter_list_call_phone_filter;
+    private AdapterListCallPhone adapter_list_call_phone_filter;
     private TextView mTvDateEnd;
     private TextView mTvDateStart;
     private ImageView mImgFilter;
@@ -71,7 +67,7 @@ public class ListCallFragment extends Fragment {
 
         final String cookie = SharePrefs.getInstance().get(Constans.COOKIE, String.class);
 
-        adapter_list_call_phone_filter = new AdapterListCallPhoneFilter(modelListPhoneCalls, getContext(), new ItemClickRv() {
+        adapter_list_call_phone_filter = new AdapterListCallPhone(modelListPhoneCalls, getContext(), new ItemClickRv() {
             @Override
             public void onClickCall(int id, String phone) {
                 Intent callIntent = new Intent(Intent.ACTION_CALL);
