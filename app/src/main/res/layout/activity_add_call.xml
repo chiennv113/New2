@@ -1,390 +1,393 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".Activity.AddCallActivity">
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/DarkOrange"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layoutNote"
+            tools:ignore="MissingConstraints">
+
+            <ImageView
+                android:id="@+id/btnCancel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:src="@drawable/close"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="6"
+                android:gravity="center"
+                android:text="@string/act_addCall"
+                android:textColor="@color/cardview_light_background"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                tools:ignore="PrivateResource" />
+
+            <TextView
+                android:id="@+id/btnSave"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="8dp"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:text="@string/btn_save"
+                android:textColor="@color/cardview_light_background"
+                android:textSize="24sp"
+                tools:ignore="PrivateResource" />
+
+        </LinearLayout>
 
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    </androidx.appcompat.widget.Toolbar>
+
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/tvRsEmail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textStyle="italic"
-            app:layout_constraintBottom_toBottomOf="@+id/tvRsName"
-            app:layout_constraintStart_toEndOf="@+id/tvRsName"
-            app:layout_constraintTop_toTopOf="@+id/tvRsName" />
 
-        <TextView
-            android:id="@+id/tvRsName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            app:layout_constraintBottom_toBottomOf="@+id/tvSearchCu"
-            app:layout_constraintStart_toEndOf="@+id/tvSearchCu"
-            app:layout_constraintTop_toTopOf="@+id/tvSearchCu" />
-
-        <TextView
-            android:id="@+id/tvSearchCu"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:text="@string/dialog_tv_search"
-            app:layout_constraintBottom_toBottomOf="@+id/layoutPhone"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/layoutPhone" />
-
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/DarkOrange"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_height="wrap_content">
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/tvRsEmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="italic"
+                app:layout_constraintBottom_toBottomOf="@+id/tvRsName"
+                app:layout_constraintStart_toEndOf="@+id/tvRsName"
+                app:layout_constraintTop_toTopOf="@+id/tvRsName" />
+
+            <TextView
+                android:id="@+id/tvRsName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                app:layout_constraintBottom_toBottomOf="@+id/tvSearchCu"
+                app:layout_constraintStart_toEndOf="@+id/tvSearchCu"
+                app:layout_constraintTop_toTopOf="@+id/tvSearchCu" />
+
+            <TextView
+                android:id="@+id/tvSearchCu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/dialog_tv_search"
+                app:layout_constraintBottom_toBottomOf="@+id/layoutPhone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/layoutPhone" />
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layoutPhone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:orientation="horizontal"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                app:errorEnabled="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/layoutNote"
-                tools:ignore="MissingConstraints">
+                app:layout_constraintTop_toTopOf="parent">
 
-                <ImageView
-                    android:id="@+id/btnCancel"
-                    android:layout_width="0dp"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edt_phone"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:src="@drawable/close" />
+                    android:hint="@string/act_add_edt_phone"
+                    android:textSize="15sp" />
 
-                <TextView
-                    android:layout_width="0dp"
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layoutName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/layoutPhone">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edt_name"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="6"
-                    android:gravity="center"
-                    android:text="@string/act_addCall"
-                    android:textColor="@color/cardview_light_background"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
+                    android:hint="@string/act_add_edt_name"
+                    android:textSize="15sp" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-                <TextView
-                    android:id="@+id/btnSave"
-                    android:layout_width="0dp"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layoutEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/layoutName">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edt_email"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="8dp"
-                    android:layout_weight="2"
-                    android:gravity="center"
-                    android:text="@string/btn_save"
-                    android:textColor="@color/cardview_light_background"
-                    android:textSize="24sp"
-                    tools:ignore="PrivateResource" />
+                    android:hint="@string/act_add_edt_email"
+                    android:textSize="15sp" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            </LinearLayout>
-
-
-        </androidx.appcompat.widget.Toolbar>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/layoutPhone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            app:errorEnabled="true"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edt_phone"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layoutZalo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/act_add_edt_phone"
-                android:textSize="15sp" />
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/layoutEmail">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edt_zalo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/act_add_edt_zalo"
+                    android:textSize="15sp" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/layoutName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layoutPhone">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edt_name"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layoutSkype"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/act_add_edt_name"
-                android:textSize="15sp" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/layoutZalo">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/layoutEmail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layoutName">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edt_skype"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/act_add_edt_skype"
+                    android:textSize="15sp" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edt_email"
+            <TextView
+                android:id="@+id/tv_city"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/tv_city"
+                android:textSize="15sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/layoutSkype" />
+
+            <Spinner
+                android:id="@+id/spChoseCity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_city" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layoutAddress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/act_add_edt_email"
-                android:textSize="15sp" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spChoseCity">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/layoutZalo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layoutEmail">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edt_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/act_add_edt_address"
+                    android:textSize="15sp" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edt_zalo"
+            <TextView
+                android:id="@+id/edt_date_of_birth"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/act_add_edt_zalo"
-                android:textSize="15sp" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:hint="@string/act_add_edt_dateOfBirth"
+                android:textSize="15sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/layoutAddress" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/layoutSkype"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layoutZalo">
+            <TextView
+                android:id="@+id/tv_soft_ware_care"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/tv_soft_ware_care"
+                android:textSize="15sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/edt_date_of_birth" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edt_skype"
+            <Spinner
+                android:id="@+id/tvChoseDoiTuongKH"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_obj_customer" />
+
+             <Spinner
+                android:id="@+id/spChosePhanMem"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_soft_ware_care" />
+
+            <TextView
+                android:id="@+id/tv_obj_customer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/tv_obj_customer"
+                android:textSize="15sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spChosePhanMem" />
+
+            <Spinner
+                android:id="@+id/tvChoseNguonKH"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_source_customer" />
+
+            <TextView
+                android:id="@+id/tv_source_customer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/tv_source_customer"
+                android:textSize="15sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvChoseDoiTuongKH" />
+
+            <TextView
+                android:id="@+id/tv_customer_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/tv_customer_type"
+                android:textSize="15sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvChoseNguonKH" />
+
+            <Spinner
+                android:id="@+id/tvChoseLoaiKH"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_customer_type" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layoutContent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/act_add_edt_skype"
-                android:textSize="15sp" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvChoseLoaiKH">
 
-        <TextView
-            android:id="@+id/tv_city"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:text="@string/tv_city"
-            android:textSize="15sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/layoutSkype" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edt_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/act_add_edt_content"
+                    android:textSize="15sp" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <Spinner
-            android:id="@+id/spChoseCity"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_city"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tv_city" />
+            <TextView
+                android:id="@+id/tv_customer_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/tv_customer_status"
+                android:textSize="15sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/layoutContent" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/layoutAddress"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_city">
+            <Spinner
+                android:id="@+id/tvChoseTTKH"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_weight="1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_customer_status" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edt_address"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layoutNote"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/act_add_edt_address"
-                android:textSize="15sp" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvChoseTTKH">
 
-        <TextView
-            android:id="@+id/edt_date_of_birth"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:hint="@string/act_add_edt_dateOfBirth"
-            android:textSize="15sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layoutAddress" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edt_note"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/act_add_note"
+                    android:textSize="15sp" />
 
-        <TextView
-            android:id="@+id/tv_soft_ware_care"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:text="@string/tv_soft_ware_care"
-            android:textSize="15sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/edt_date_of_birth" />
-
-        <Spinner
-            android:id="@+id/tvChoseDoiTuongKH"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_obj_customer"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tv_obj_customer" />
-
-        <Spinner
-            android:id="@+id/spChosePhanMem"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_soft_ware_care" />
-
-        <TextView
-            android:id="@+id/tv_obj_customer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:text="@string/tv_obj_customer"
-            android:textSize="15sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/spChosePhanMem" />
-
-        <Spinner
-            android:id="@+id/tvChoseNguonKH"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_source_customer"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tv_source_customer" />
-
-        <TextView
-            android:id="@+id/tv_source_customer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:text="@string/tv_source_customer"
-            android:textSize="15sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_obj_customer" />
-
-        <TextView
-            android:id="@+id/tv_customer_type"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:text="@string/tv_customer_type"
-            android:textSize="15sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_source_customer" />
-
-        <Spinner
-            android:id="@+id/tvChoseLoaiKH"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_customer_type"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tv_customer_type" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/layoutContent"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_customer_type">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edt_content"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/act_add_edt_content"
-                android:textSize="15sp" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <TextView
-            android:id="@+id/tv_customer_status"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:text="@string/tv_customer_status"
-            android:textSize="15sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layoutContent" />
-
-        <Spinner
-            android:id="@+id/tvChoseTTKH"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_weight="1"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_customer_status"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tv_customer_status" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/layoutNote"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_customer_status">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edt_note"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/act_add_note"
-                android:textSize="15sp" />
-
-        </com.google.android.material.textfield.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 
 
-</ScrollView>
+</LinearLayout>
