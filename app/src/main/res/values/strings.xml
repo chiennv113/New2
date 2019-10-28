@@ -98,6 +98,26 @@
     <string name="titleInf">Thông tin</string>
     <string name="titleAll">Thống kê</string>
     <string name="loc">Lọc</string>
+    <string name="frg_danh_sach_da_xoa">Danh sách đã xóa</string>
+    <string name="frg_ds_themKey">Thêm key</string>
+    <string name="tk_ticket">Thống kê Ticket</string>
+    <string name="tl_ticket_done">Hoàn thành</string>
+    <string name="frg_ticket_chuaxuly">Chưa xử lý</string>
+    <string name="frg_ticket_dangxuly">Đang xử lý</string>
+    <string name="tk_kh_danhgia_ticket">Thống kê khách hàng đánh giá Ticket</string>
+    <string name="rat_hai_long">Rất hài lòng</string>
+    <string name="haiLong">Hài lòng</string>
+    <string name="tamDuoc">Tạm được</string>
+    <string name="binhthuong">Bình thường</string>
+    <string name="te">Tệ</string>
+    <string name="ratTe">Rất tệ</string>
+    <string name="themKey">Thêm key</string>
+    <string name="themTicket">Thêm ticket</string>
+    <string name="tenNH">Tên ngân hàng</string>
+    <string name="tenTK">Tên tài khoản</string>
+    <string name="maTK">Mã tài khoản</string>
+    <string name="tenNV">Tên NV</string>
+    <string name="haicham">:</string>
 
 
 </resources>

@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".Activity.AddCallActivity">
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -275,7 +276,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_obj_customer" />
 
-             <Spinner
+            <Spinner
                 android:id="@+id/spChosePhanMem"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -396,7 +397,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:text=":"
+                android:text="@string/haicham"
                 app:layout_constraintBottom_toBottomOf="@+id/edt_date_of_birth"
                 app:layout_constraintStart_toEndOf="@+id/edt_date_of_birth" />
 
