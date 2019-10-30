@@ -4,7 +4,7 @@ package com.example.anew.Adapter;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
+import android.view.ViewGroup;;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
@@ -17,7 +17,6 @@ import com.example.anew.Model.ModelListPhoneCall.ModelListPhoneCall;
 import com.example.anew.R;
 import com.example.anew.helper.ItemClickRv;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,8 +24,7 @@ import java.util.List;
 public class AdapterListCallPhone extends RecyclerView.Adapter<AdapterListCallPhone.ViewHolder> implements Filterable {
 
     private List<ModelListPhoneCall> modelListPhoneCalls;
-    private List<ModelListPhoneCall> modelListPhoneCallsFull;
-
+    private List<ModelListPhoneCall> mdFillter;
     private ItemClickRv mitemClickRv;
     private Context context;
 
@@ -35,7 +33,11 @@ public class AdapterListCallPhone extends RecyclerView.Adapter<AdapterListCallPh
         this.modelListPhoneCalls = modelListPhoneCalls;
         this.context = context;
         mitemClickRv = itemClickRv;
-        modelListPhoneCallsFull = new ArrayList<>(modelListPhoneCalls);
+    }
+
+    public void setSearchResult(List<ModelListPhoneCall> result) {
+        modelListPhoneCalls = result;
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -78,36 +80,38 @@ public class AdapterListCallPhone extends RecyclerView.Adapter<AdapterListCallPh
 
     @Override
     public Filter getFilter() {
-        return modelFilter;
-    }
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+                String charString = charSequence.toString();
+                if (charString.isEmpty()) {
+                    mdFillter = modelListPhoneCalls;
+                } else {
+                    List<ModelListPhoneCall> filteredList = new ArrayList<>();
+                    for (ModelListPhoneCall row : modelListPhoneCalls) {
 
-    private Filter modelFilter = new Filter() {
-        @Override
-        protected FilterResults performFiltering(CharSequence charSequence) {
-            List<ModelListPhoneCall> filterList = new ArrayList<>();
-            if (charSequence == null || charSequence.length() == 0) {
-                filterList.addAll(modelListPhoneCallsFull);
-            } else {
-                String filterPatterm = charSequence.toString().toLowerCase().trim();
-                for (ModelListPhoneCall item : modelListPhoneCallsFull) {
-                    if (item.getCustomer().getFullname().toLowerCase().contains(filterPatterm)) {
-                        filterList.add(item);
+                        // name match condition. this might differ depending on your requirement
+                        // here we are looking for name or phone number match
+                        if (row.getCustomer().getFullname().contains(charString.toLowerCase()) || row.getCustomer().getPhone1().contains(charSequence)) {
+                            filteredList.add(row);
+                        }
                     }
+
+                    mdFillter = filteredList;
                 }
+
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = mdFillter;
+                return filterResults;
             }
 
-            FilterResults results = new FilterResults();
-            results.values = filterList;
-            return results;
-        }
-
-        @Override
-        protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
-            modelListPhoneCalls.clear();
-            modelListPhoneCalls.addAll((List) filterResults.values);
-            notifyDataSetChanged();
-        }
-    };
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                mdFillter = (ArrayList<ModelListPhoneCall>) filterResults.values;
+                notifyDataSetChanged();
+            }
+        };
+    }
 
 
     class ViewHolder extends RecyclerView.ViewHolder {

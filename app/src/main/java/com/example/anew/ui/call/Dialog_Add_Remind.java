@@ -84,12 +84,11 @@ public class Dialog_Add_Remind extends DialogFragment {
         mTvSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String info = mEdtSearchCu.getText().toString().trim();
+                final String info = mEdtSearchCu.getText().toString().trim();
                 ApiClient.getInstance().search(info, "search_customer", cookie).enqueue(new Callback<Search>() {
                     @Override
                     public void onResponse(Call<Search> call, Response<Search> response) {
                         try {
-                            Toast.makeText(context, "Chưa nhập thông tin cần tìm kiếm", Toast.LENGTH_SHORT).show();
                             int id = response.body().getId();
 
                             SharePrefs.getInstance().put(Constans.ID_SEARCH, id);
@@ -98,7 +97,12 @@ public class Dialog_Add_Remind extends DialogFragment {
                             mTvEmail.setText("  (" + response.body().getEmail() + ")");
 
                         } catch (Exception e) {
-                            Toast.makeText(context, "" + "Thông tin nhập không khớp", Toast.LENGTH_SHORT).show();
+                            if (info.equals("")) {
+                                Toast.makeText(context, "" + "Chưa nhập thông tin tìm kiếm", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(context, "" + "Thông tin nhập không khớp", Toast.LENGTH_SHORT).show();
+
+                            }
                         }
 
                     }

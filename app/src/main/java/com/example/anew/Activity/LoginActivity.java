@@ -40,6 +40,7 @@ public class LoginActivity extends AppCompatActivity {
 
     String email;
     String password;
+    private ProgressDialog mProgress;
 
 
     @Override
@@ -52,15 +53,22 @@ public class LoginActivity extends AppCompatActivity {
         logins = new ArrayList<>();
 
 
-
+        mProgress = new ProgressDialog(LoginActivity.this);
+        mProgress.setTitle("Processing...");
+        mProgress.setMessage("Please wait...");
+        mProgress.setCancelable(false);
+        mProgress.setIndeterminate(true);
         mBtnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                mProgress.show();
                 if (checkValidation()) {
                     Log.e("user", "onClick: " + email);
                     if (CommonMethod.isNetworkAvailable(LoginActivity.this)) {
                         loginRetrofit2Api(email, password, "login");
+                        mProgress.dismiss();
                     } else {
+                        mProgress.dismiss();
                         CommonMethod.showAlert("Internet Connectivity Failure", LoginActivity.this);
                     }
 
