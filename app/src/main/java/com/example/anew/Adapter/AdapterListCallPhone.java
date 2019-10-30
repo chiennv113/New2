@@ -5,6 +5,8 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,12 +18,15 @@ import com.example.anew.R;
 import com.example.anew.helper.ItemClickRv;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 
-public class AdapterListCallPhone extends RecyclerView.Adapter<AdapterListCallPhone.ViewHolder> {
+public class AdapterListCallPhone extends RecyclerView.Adapter<AdapterListCallPhone.ViewHolder> implements Filterable {
 
     private List<ModelListPhoneCall> modelListPhoneCalls;
+    private List<ModelListPhoneCall> modelListPhoneCallsFull;
+
     private ItemClickRv mitemClickRv;
     private Context context;
 
@@ -30,6 +35,7 @@ public class AdapterListCallPhone extends RecyclerView.Adapter<AdapterListCallPh
         this.modelListPhoneCalls = modelListPhoneCalls;
         this.context = context;
         mitemClickRv = itemClickRv;
+        modelListPhoneCallsFull = new ArrayList<>(modelListPhoneCalls);
     }
 
     @NonNull
@@ -70,12 +76,45 @@ public class AdapterListCallPhone extends RecyclerView.Adapter<AdapterListCallPh
         return modelListPhoneCalls.size();
     }
 
+    @Override
+    public Filter getFilter() {
+        return modelFilter;
+    }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    private Filter modelFilter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence charSequence) {
+            List<ModelListPhoneCall> filterList = new ArrayList<>();
+            if (charSequence == null || charSequence.length() == 0) {
+                filterList.addAll(modelListPhoneCallsFull);
+            } else {
+                String filterPatterm = charSequence.toString().toLowerCase().trim();
+                for (ModelListPhoneCall item : modelListPhoneCallsFull) {
+                    if (item.getCustomer().getFullname().toLowerCase().contains(filterPatterm)) {
+                        filterList.add(item);
+                    }
+                }
+            }
+
+            FilterResults results = new FilterResults();
+            results.values = filterList;
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+            modelListPhoneCalls.clear();
+            modelListPhoneCalls.addAll((List) filterResults.values);
+            notifyDataSetChanged();
+        }
+    };
+
+
+    class ViewHolder extends RecyclerView.ViewHolder {
         private TextView tvName, tvPhone, tvContent;
         private ImageView img_del;
 
-        public ViewHolder(@NonNull View itemView) {
+        ViewHolder(@NonNull View itemView) {
             super(itemView);
             img_del = itemView.findViewById(R.id.icon_delete);
 //            tvCusfeel = itemView.findViewById(R.id.item_tv_customer_feel);
@@ -84,4 +123,6 @@ public class AdapterListCallPhone extends RecyclerView.Adapter<AdapterListCallPh
             tvContent = itemView.findViewById(R.id.tvContent);
         }
     }
+
+
 }

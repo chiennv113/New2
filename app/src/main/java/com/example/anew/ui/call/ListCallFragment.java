@@ -6,10 +6,15 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.DatePicker;
 import android.widget.ImageView;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,6 +23,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.SortedList;
 
 import com.example.anew.Activity.ItemListCallUserActivity;
 import com.example.anew.Adapter.AdapterListCallPhone;
@@ -31,6 +37,7 @@ import com.example.anew.utills.SharePrefs;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Comparator;
 import java.util.List;
 
 import retrofit2.Call;
@@ -165,6 +172,7 @@ public class ListCallFragment extends Fragment {
 
     }
 
+
     private void initView(View view) {
         mRv = view.findViewById(R.id.rv);
         mTvDateEnd = view.findViewById(R.id.tvDateEnd);
@@ -210,6 +218,29 @@ public class ListCallFragment extends Fragment {
             @Override
             public void onFailure(Call<List<ModelListPhoneCall>> call, Throwable t) {
 
+            }
+        });
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.main, menu);
+        MenuItem searchItem = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) searchItem.getActionView();
+
+        searchView.setImeOptions(EditorInfo.IME_ACTION_DONE);
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                adapter_list_call_phone_filter.getFilter().filter(s);
+                return false;
             }
         });
     }
