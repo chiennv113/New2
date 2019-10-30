@@ -12,7 +12,6 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-<<<<<<< HEAD
             android:layout_margin="8dp"
             android:layout_weight="3"
             android:orientation="vertical"
@@ -59,18 +58,9 @@
                 android:layout_height="wrap_content"/>
 
         </LinearLayout>
-=======
-            android:text="@string/tenNH" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/tenTK" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/maTK" />
->>>>>>> 50b69f20ab4542aa161a5de7ed18d929456eb031
+
+
     </LinearLayout>
 
 
