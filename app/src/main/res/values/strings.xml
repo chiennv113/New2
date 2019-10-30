@@ -27,6 +27,7 @@
     <string name="nav_menu_ticket">Ticket</string>
     <string name="nav_menu_sale">Sale</string>
     <string name="nav_menu_customer">Khách hàng</string>
+    <string name="nav_menu_staff">Nhân viên</string>
 
     <string name="tvTenKH">Tên</string>
     <string name="tvSdt">Số điện thoại</string>
@@ -118,6 +119,9 @@
     <string name="maTK">Mã tài khoản</string>
     <string name="tenNV">Tên NV</string>
     <string name="haicham">:</string>
+    <string name="staff">Nhân viên</string>
+    <string name="nav_menu_product">Sản Phẩm</string>
+    <string name="nav_menu_system">Hệ thống</string>
 
 
 </resources>

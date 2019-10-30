@@ -23,7 +23,24 @@
             android:id="@+id/nav_customer"
             android:icon="@drawable/ic_action_profile"
             android:title="@string/nav_menu_customer" />
+
+        <item
+            android:id="@+id/nav_Staff"
+            android:icon="@drawable/account_staff"
+            android:title="@string/nav_menu_staff" />
+
+        <item
+            android:id="@+id/nav_product"
+            android:icon="@drawable/product"
+            android:title="@string/nav_menu_product"/>
+
+        <item
+            android:id="@+id/nav_system"
+            android:icon="@drawable/settings_outline"
+            android:title="@string/nav_menu_system"/>
+
     </group>
+
 
 
 </menu>
