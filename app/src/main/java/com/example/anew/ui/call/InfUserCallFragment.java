@@ -33,6 +33,7 @@ public class InfUserCallFragment extends Fragment {
     private TextView mTvPhone;
     private TextView mTvSkype;
 
+
     public static Fragment newInstance(String phone) {
         Fragment fragment = new InfUserCallFragment();
         Bundle args = new Bundle();
@@ -46,14 +47,14 @@ public class InfUserCallFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         return inflater.inflate(R.layout.fragment_inf_user_call, container, false);
-
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        String cookie = SharePrefs.getInstance().get(Constans.COOKIE, String.class);
         initView(view);
+        String cookie = SharePrefs.getInstance().get(Constans.COOKIE, String.class);
+
         if (getArguments() != null) {
             String phone = getArguments().getString("ABC");
             ApiClient.getInstance().search(phone, "search_customer", cookie).enqueue(new Callback<Search>() {
@@ -63,11 +64,17 @@ public class InfUserCallFragment extends Fragment {
                         Log.e("GGG", "onResponse: " + response.body());
                         Log.e("GGG", "onResponse: " + response.body().getFullname());
 
-                        mTvFullName.setText(String.valueOf(response.body().getFullname()));
-                        mTvSkype.setText(String.valueOf(response.body().getSkype()));
-                        mTvPhone.setText(String.valueOf(response.body().getPhone1()));
-                        mTvAddress.setText(String.valueOf(response.body().getAddress()));
-                        mTvEmail.setText(String.valueOf(response.body().getEmail()));
+                        String name = response.body().getFullname();
+                        String email = response.body().getEmail();
+                        String skype = String.valueOf(response.body().getSkype());
+                        String phone = response.body().getPhone1();
+                        String add = String.valueOf(response.body().getAddress());
+
+                        mTvEmail.setText(email);
+                        mTvAddress.setText(add);
+                        mTvPhone.setText(phone);
+                        mTvFullName.setText(name);
+                        mTvSkype.setText(skype);
 
                     }
                 }
