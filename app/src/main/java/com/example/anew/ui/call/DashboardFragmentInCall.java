@@ -3,6 +3,7 @@ package com.example.anew.ui.call;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.anew.Adapter.AdapterTkTheoNV;
 import com.example.anew.Model.ModelCustomeFeelNew;
@@ -59,6 +61,7 @@ public class DashboardFragmentInCall extends Fragment {
     private RecyclerView mRvNV;
     private LinearLayoutManager linearLayoutManager;
     private AdapterTkTheoNV adapterTkTheoNV;
+    private SwipeRefreshLayout mSwipeRefresh;
 
 
     @Override
@@ -74,82 +77,69 @@ public class DashboardFragmentInCall extends Fragment {
         initView(view);
         LoadCustomerFeel();
 
+        mSwipeRefresh.setOnRefreshListener(() -> new Handler().postDelayed(() -> mSwipeRefresh.setRefreshing(false), 2000));
 
-        mTvDateEnd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Calendar c = Calendar.getInstance();
-                int mYear = c.get(Calendar.YEAR);
-                int mMonth = c.get(Calendar.MONTH);
-                int mDay = c.get(Calendar.DAY_OF_MONTH);
-                DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(),
-                        new DatePickerDialog.OnDateSetListener() {
-                            @Override
-                            public void onDateSet(DatePicker view, int year,
-                                                  int monthOfYear, int dayOfMonth) {
-                                mTvDateEnd.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
-                            }
-                        }, mYear, mMonth, mDay);
-                datePickerDialog.show();
-            }
+
+        mTvDateEnd.setOnClickListener(view14 -> {
+            Calendar c = Calendar.getInstance();
+            int mYear = c.get(Calendar.YEAR);
+            int mMonth = c.get(Calendar.MONTH);
+            int mDay = c.get(Calendar.DAY_OF_MONTH);
+            DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(),
+                    (view1, year, monthOfYear, dayOfMonth) -> mTvDateEnd.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year), mYear, mMonth, mDay);
+            datePickerDialog.show();
         });
 
-        mTvDateStart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Calendar c = Calendar.getInstance();
-                int mYear = c.get(Calendar.YEAR);
-                int mMonth = c.get(Calendar.MONTH);
-                int mDay = c.get(Calendar.DAY_OF_MONTH);
-                DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(),
-                        new DatePickerDialog.OnDateSetListener() {
-                            @Override
-                            public void onDateSet(DatePicker view, int year,
-                                                  int monthOfYear, int dayOfMonth) {
-                                mTvDateStart.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
-                            }
-                        }, mYear, mMonth, mDay);
-                datePickerDialog.show();
-            }
+        mTvDateStart.setOnClickListener(view12 -> {
+            Calendar c = Calendar.getInstance();
+            int mYear = c.get(Calendar.YEAR);
+            int mMonth = c.get(Calendar.MONTH);
+            int mDay = c.get(Calendar.DAY_OF_MONTH);
+            DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(),
+                    new DatePickerDialog.OnDateSetListener() {
+                        @Override
+                        public void onDateSet(DatePicker view12, int year,
+                                              int monthOfYear, int dayOfMonth) {
+                            mTvDateStart.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+                        }
+                    }, mYear, mMonth, mDay);
+            datePickerDialog.show();
         });
 
-        mBtnSend.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        mBtnSend.setOnClickListener(view13 -> {
 
-                if (mSpinerFeel.getSelectedItem().toString().equals("Tất cả")) {
-                    getDataTKCuocgoiBanthan(ConvertHelper.convertStringToTimestampMilisecond(mTvDateStart.getText().toString().trim()),
-                            ConvertHelper.convertStringToTimestampMilisecond(mTvDateEnd.getText().toString().trim()), cookie);
-                    thongKeCuocGoi(ConvertHelper.convertStringToTimestampMilisecond(mTvDateStart.getText().toString().trim()),
-                            ConvertHelper.convertStringToTimestampMilisecond(mTvDateEnd.getText().toString().trim()), cookie);
-                } else if (mSpinerFeel.getSelectedItem().toString().equals("Rất hài lòng")) {
-                    thongKeTheoDoHaiLong(ConvertHelper.convertStringToTimestampMilisecond(mTvDateStart.getText().toString().trim()),
-                            ConvertHelper.convertStringToTimestampMilisecond(mTvDateEnd.getText().toString().trim()),
-                            modelThongKeTheoDoHaiLongCuaKhachAdmins.get(0).getId(), cookie);
-                } else if (mSpinerFeel.getSelectedItem().toString().equals("Hài lòng")) {
-                    thongKeTheoDoHaiLong(ConvertHelper.convertStringToTimestampMilisecond(mTvDateStart.getText().toString().trim()),
-                            ConvertHelper.convertStringToTimestampMilisecond(mTvDateEnd.getText().toString().trim()),
-                            modelThongKeTheoDoHaiLongCuaKhachAdmins.get(1).getId(), cookie);
-                } else if (mSpinerFeel.getSelectedItem().toString().equals("Bình thường")) {
-                    thongKeTheoDoHaiLong(ConvertHelper.convertStringToTimestampMilisecond(mTvDateStart.getText().toString().trim()),
-                            ConvertHelper.convertStringToTimestampMilisecond(mTvDateEnd.getText().toString().trim()),
-                            modelThongKeTheoDoHaiLongCuaKhachAdmins.get(2).getId(), cookie);
-                } else if (mSpinerFeel.getSelectedItem().toString().equals("Tệ")) {
-                    thongKeTheoDoHaiLong(ConvertHelper.convertStringToTimestampMilisecond(mTvDateStart.getText().toString().trim()),
-                            ConvertHelper.convertStringToTimestampMilisecond(mTvDateEnd.getText().toString().trim()),
-                            modelThongKeTheoDoHaiLongCuaKhachAdmins.get(3).getId(), cookie);
-                } else if (mSpinerFeel.getSelectedItem().toString().equals("Rất tệ")) {
-                    thongKeTheoDoHaiLong(ConvertHelper.convertStringToTimestampMilisecond(mTvDateStart.getText().toString().trim()),
-                            ConvertHelper.convertStringToTimestampMilisecond(mTvDateEnd.getText().toString().trim()),
-                            modelThongKeTheoDoHaiLongCuaKhachAdmins.get(4).getId(), cookie);
-                } else {
-                    thongKeCuocGoi(ConvertHelper.convertStringToTimestampMilisecond(mTvDateStart.getText().toString().trim())
-                            , ConvertHelper.convertStringToTimestampMilisecond(mTvDateEnd.getText().toString().trim()), cookie);
-                }
-                getDataTKCuocgoiBanthan(ConvertHelper.convertStringToTimestampMilisecond(mTvDateStart.getText().toString().trim())
+            if (mSpinerFeel.getSelectedItem().toString().equals("Tất cả")) {
+                getDataTKCuocgoiBanthan(ConvertHelper.convertStringToTimestampMilisecond(mTvDateStart.getText().toString().trim()),
+                        ConvertHelper.convertStringToTimestampMilisecond(mTvDateEnd.getText().toString().trim()), cookie);
+                thongKeCuocGoi(ConvertHelper.convertStringToTimestampMilisecond(mTvDateStart.getText().toString().trim()),
+                        ConvertHelper.convertStringToTimestampMilisecond(mTvDateEnd.getText().toString().trim()), cookie);
+            } else if (mSpinerFeel.getSelectedItem().toString().equals("Rất hài lòng")) {
+                thongKeTheoDoHaiLong(ConvertHelper.convertStringToTimestampMilisecond(mTvDateStart.getText().toString().trim()),
+                        ConvertHelper.convertStringToTimestampMilisecond(mTvDateEnd.getText().toString().trim()),
+                        modelThongKeTheoDoHaiLongCuaKhachAdmins.get(0).getId(), cookie);
+            } else if (mSpinerFeel.getSelectedItem().toString().equals("Hài lòng")) {
+                thongKeTheoDoHaiLong(ConvertHelper.convertStringToTimestampMilisecond(mTvDateStart.getText().toString().trim()),
+                        ConvertHelper.convertStringToTimestampMilisecond(mTvDateEnd.getText().toString().trim()),
+                        modelThongKeTheoDoHaiLongCuaKhachAdmins.get(1).getId(), cookie);
+            } else if (mSpinerFeel.getSelectedItem().toString().equals("Bình thường")) {
+                thongKeTheoDoHaiLong(ConvertHelper.convertStringToTimestampMilisecond(mTvDateStart.getText().toString().trim()),
+                        ConvertHelper.convertStringToTimestampMilisecond(mTvDateEnd.getText().toString().trim()),
+                        modelThongKeTheoDoHaiLongCuaKhachAdmins.get(2).getId(), cookie);
+            } else if (mSpinerFeel.getSelectedItem().toString().equals("Tệ")) {
+                thongKeTheoDoHaiLong(ConvertHelper.convertStringToTimestampMilisecond(mTvDateStart.getText().toString().trim()),
+                        ConvertHelper.convertStringToTimestampMilisecond(mTvDateEnd.getText().toString().trim()),
+                        modelThongKeTheoDoHaiLongCuaKhachAdmins.get(3).getId(), cookie);
+            } else if (mSpinerFeel.getSelectedItem().toString().equals("Rất tệ")) {
+                thongKeTheoDoHaiLong(ConvertHelper.convertStringToTimestampMilisecond(mTvDateStart.getText().toString().trim()),
+                        ConvertHelper.convertStringToTimestampMilisecond(mTvDateEnd.getText().toString().trim()),
+                        modelThongKeTheoDoHaiLongCuaKhachAdmins.get(4).getId(), cookie);
+            } else {
+                thongKeCuocGoi(ConvertHelper.convertStringToTimestampMilisecond(mTvDateStart.getText().toString().trim())
                         , ConvertHelper.convertStringToTimestampMilisecond(mTvDateEnd.getText().toString().trim()), cookie);
-
             }
+            getDataTKCuocgoiBanthan(ConvertHelper.convertStringToTimestampMilisecond(mTvDateStart.getText().toString().trim())
+                    , ConvertHelper.convertStringToTimestampMilisecond(mTvDateEnd.getText().toString().trim()), cookie);
+
         });
 
         adapterTkTheoNV = new AdapterTkTheoNV(modelThongKeTheoNVAdmins, context);
@@ -259,6 +249,7 @@ public class DashboardFragmentInCall extends Fragment {
         mTvOldCall = view.findViewById(R.id.tvOldCall);
         mTvNewCall = view.findViewById(R.id.tvNewCall);
         mRvNV = view.findViewById(R.id.rvNV);
+        mSwipeRefresh = view.findViewById(R.id.swipeRefresh);
     }
 
     @Override

@@ -52,8 +52,12 @@ public class ItemListCallUserActivity extends AppCompatActivity {
         });
 
         Intent intent = getIntent();
-        String phone = intent.getStringExtra(Constans.PASS_PHONE);
-        addFragment(InfUserCallFragment.newInstance(phone));
+        String fullname = intent.getStringExtra("fullname");
+        String address = intent.getStringExtra("address");
+        String email = intent.getStringExtra("email");
+        String phone = intent.getStringExtra("phone");
+        String skype = intent.getStringExtra("skype");
+        addFragment(InfUserCallFragment.newInstance(fullname, address, email, phone, skype));
 
 
         view = findViewById(R.id.indicator);

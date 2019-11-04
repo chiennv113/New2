@@ -74,6 +74,26 @@
             android:layout_height="wrap_content">
 
             <TextView
+                android:id="@+id/textviewCity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_city"
+                app:layout_constraintStart_toEndOf="@+id/tv_city"
+                app:layout_constraintTop_toTopOf="@+id/tv_city" />
+
+            <ImageView
+                android:id="@+id/tvSearchCu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintBottom_toBottomOf="@+id/layoutPhone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/layoutPhone"
+                android:src="@drawable/account_search"
+                tools:ignore="ContentDescription" />
+
+            <TextView
                 android:id="@+id/tvDateOfBirth"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -94,20 +114,8 @@
                 android:id="@+id/tvRsName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                app:layout_constraintBottom_toBottomOf="@+id/tvSearchCu"
-                app:layout_constraintStart_toEndOf="@+id/tvSearchCu"
-                app:layout_constraintTop_toTopOf="@+id/tvSearchCu" />
-
-            <TextView
-                android:id="@+id/tvSearchCu"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:text="@string/dialog_tv_search"
-                app:layout_constraintBottom_toBottomOf="@+id/layoutPhone"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/tvSearchCu"
+                app:layout_constraintStart_toStartOf="@+id/layoutPhone"
                 app:layout_constraintTop_toBottomOf="@+id/layoutPhone" />
 
 
@@ -117,9 +125,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginEnd="48dp"
                 app:errorEnabled="true"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/tvSearchCu"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
@@ -219,13 +227,16 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/layoutSkype" />
 
-            <Spinner
+            <ImageView
                 android:id="@+id/spChoseCity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
+                android:src="@drawable/chevron_right"
+                app:layout_constraintBottom_toBottomOf="@+id/textviewCity"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_city" />
+                app:layout_constraintTop_toTopOf="@+id/textviewCity"
+                tools:ignore="ContentDescription" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/layoutAddress"

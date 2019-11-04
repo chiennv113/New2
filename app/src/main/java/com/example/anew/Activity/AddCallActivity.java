@@ -6,6 +6,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
@@ -36,6 +37,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import in.galaxyofandroid.spinerdialog.OnSpinerItemClick;
+import in.galaxyofandroid.spinerdialog.SpinnerDialog;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -45,7 +48,7 @@ public class AddCallActivity extends AppCompatActivity {
 
     private TextView mTvRsEmail;
     private TextView mTvRsName;
-    private TextView mTvSearchCu;
+    private ImageView mTvSearchCu;
     private ImageView mBtnCancel;
     private TextView mBtnSave;
     private TextInputLayout mLayoutPhone;
@@ -56,7 +59,7 @@ public class AddCallActivity extends AppCompatActivity {
     private TextInputEditText mEdtEmail;
     private TextInputEditText mEdtZalo;
     private TextInputEditText mEdtSkype;
-    private Spinner mSpChoseCity;
+    private ImageView mSpChoseCity;
     private TextInputEditText mEdtAddress;
     private TextView mEdtDateOfBirth;
     private Spinner mTvChoseDoiTuongKH;
@@ -68,9 +71,13 @@ public class AddCallActivity extends AppCompatActivity {
     private Spinner mTvChoseTTKH;
     private TextInputLayout mLayoutNote;
     private TextInputEditText mEdtNote;
+    SpinnerDialog spinnerDialog;
 
     private DatePickerDialog.OnDateSetListener mDateOfBirth;
     private TextView mTvDateOfBirth;
+
+    ArrayList<String> cityList = new ArrayList<>();
+    private TextView mTextviewCity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,8 +100,16 @@ public class AddCallActivity extends AppCompatActivity {
             }
         });
 
-
         LoadCity(cookie);
+        mSpChoseCity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                spinnerDialog.showSpinerDialog();
+                Log.e("GGG", "onClick: " + "GGG");
+            }
+        });
+
+
         LoadAllProduct(cookie);
         LoadCustomerType(cookie);
         LoadObjCustomer(cookie);
@@ -231,72 +246,76 @@ public class AddCallActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
-                String phone = mEdtPhone.getText().toString().trim();
-                String address = mEdtAddress.getText().toString().trim();
-                String birthday = mEdtDateOfBirth.getText().toString().trim();
-                final String content = mEdtContent.getText().toString().trim();
-                String email = mEdtEmail.getText().toString().trim();
-                String fullname = mEdtName.getText().toString().trim();
-                String note = mEdtNote.getText().toString().trim();
-                String skype = mEdtSkype.getText().toString().trim();
-                String zalo = mEdtZalo.getText().toString().trim();
-                String city = mSpChoseCity.getSelectedItem().toString();
-                String product = mSpChosePhanMem.getSelectedItem().toString();
-                String cus_type = mTvChoseLoaiKH.getSelectedItem().toString();
-                String obj_cus = mTvChoseDoiTuongKH.getSelectedItem().toString();
-                String source_cus = mTvChoseNguonKH.getSelectedItem().toString();
-                final String cus_feel = mTvChoseTTKH.getSelectedItem().toString();
+                try {
+                    String phone = mEdtPhone.getText().toString().trim();
+                    String address = mEdtAddress.getText().toString().trim();
+                    String birthday = mEdtDateOfBirth.getText().toString().trim();
+                    final String content = mEdtContent.getText().toString().trim();
+                    String email = mEdtEmail.getText().toString().trim();
+                    String fullname = mEdtName.getText().toString().trim();
+                    String note = mEdtNote.getText().toString().trim();
+                    String skype = mEdtSkype.getText().toString().trim();
+                    String zalo = mEdtZalo.getText().toString().trim();
+                    String city = mTextviewCity.getText().toString().trim();
+                    String product = mSpChosePhanMem.getSelectedItem().toString();
+                    String cus_type = mTvChoseLoaiKH.getSelectedItem().toString();
+                    String obj_cus = mTvChoseDoiTuongKH.getSelectedItem().toString();
+                    String source_cus = mTvChoseNguonKH.getSelectedItem().toString();
+                    final String cus_feel = mTvChoseTTKH.getSelectedItem().toString();
 
-                if (phone.equals("") || content.equals("") || fullname.equals("")) {
-                    Toast.makeText(AddCallActivity.this, "Chưa nhập đủ thông tin", Toast.LENGTH_SHORT).show();
-                } else {
-                    ApiClient.getInstance().addCallAndCus("add_register_phone_call",
-                            phone,
-                            address,
-                            birthday,
-                            city,
-                            content,
-                            source_cus,
-                            cus_feel,
-                            obj_cus,
-                            email,
-                            fullname,
-                            note,
-                            skype,
-                            product,
-                            cus_type,
-                            zalo,
-                            cookie).
-                            enqueue(new Callback<ModelAddCallAndCustomerNew>() {
-                                @Override
-                                public void onResponse(Call<ModelAddCallAndCustomerNew> call, Response<ModelAddCallAndCustomerNew> response) {
-                                    if (response.body().getMessage() != null && response.body().getMessage().equals("Đã thêm thành công")) {
-                                        Toast.makeText(AddCallActivity.this, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                                        finish();
-                                    } else {
-                                        int id = SharePrefs.getInstance().get(Constans.ID_CUSAFTERSEARCH, Integer.class);
-                                        ApiClient.getInstance().add("add_phone_call", id, content,
-                                                cus_feel, cookie).enqueue(new Callback<ModelAdd>() {
-                                            @Override
-                                            public void onResponse(Call<ModelAdd> call, Response<ModelAdd> response) {
-                                                Toast.makeText(AddCallActivity.this, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                                            }
+                    if (phone.equals("") || content.equals("") || fullname.equals("")) {
+                        Toast.makeText(AddCallActivity.this, "Chưa nhập đủ thông tin", Toast.LENGTH_SHORT).show();
+                    } else {
+                        ApiClient.getInstance().addCallAndCus("add_register_phone_call",
+                                phone,
+                                address,
+                                birthday,
+                                city,
+                                content,
+                                source_cus,
+                                cus_feel,
+                                obj_cus,
+                                email,
+                                fullname,
+                                note,
+                                skype,
+                                product,
+                                cus_type,
+                                zalo,
+                                cookie).
+                                enqueue(new Callback<ModelAddCallAndCustomerNew>() {
+                                    @Override
+                                    public void onResponse(Call<ModelAddCallAndCustomerNew> call, Response<ModelAddCallAndCustomerNew> response) {
+                                        if (response.body().getMessage() != null && response.body().getMessage().equals("Đã thêm thành công")) {
+                                            Toast.makeText(AddCallActivity.this, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                                            finish();
+                                        } else {
+                                            int id = SharePrefs.getInstance().get(Constans.ID_CUSAFTERSEARCH, Integer.class);
+                                            ApiClient.getInstance().add("add_phone_call", id, content,
+                                                    cus_feel, cookie).enqueue(new Callback<ModelAdd>() {
+                                                @Override
+                                                public void onResponse(Call<ModelAdd> call, Response<ModelAdd> response) {
+                                                    Toast.makeText(AddCallActivity.this, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                                                }
 
-                                            @Override
-                                            public void onFailure(Call<ModelAdd> call, Throwable t) {
+                                                @Override
+                                                public void onFailure(Call<ModelAdd> call, Throwable t) {
 
-                                            }
-                                        });
+                                                }
+                                            });
+                                        }
                                     }
-                                }
 
-                                @Override
-                                public void onFailure(Call<ModelAddCallAndCustomerNew> call, Throwable t) {
+                                    @Override
+                                    public void onFailure(Call<ModelAddCallAndCustomerNew> call, Throwable t) {
 
-                                }
-                            });
+                                    }
+                                });
 
-                    finish();
+                        finish();
+                    }
+                } catch (Exception e) {
+                    Log.e("GGG", "onClick: " + e.getMessage());
                 }
 
 
@@ -333,19 +352,24 @@ public class AddCallActivity extends AppCompatActivity {
         mLayoutNote = findViewById(R.id.layoutNote);
         mEdtNote = findViewById(R.id.edt_note);
         mTvDateOfBirth = findViewById(R.id.tvDateOfBirth);
+        mTextviewCity = findViewById(R.id.textviewCity);
     }
 
     private void LoadCity(String cookie) {
         ApiClient.getInstance().getCity("load_city", cookie).enqueue(new Callback<List<ModelLoadCity>>() {
             @Override
             public void onResponse(Call<List<ModelLoadCity>> call, Response<List<ModelLoadCity>> response) {
-                ArrayList<String> arrayList = new ArrayList<>();
+                cityList = new ArrayList<>();
                 if (response.isSuccessful() && response.body() != null) {
                     for (int i = 0; i < response.body().size(); i++) {
-                        arrayList.add(response.body().get(i).getName());
-                        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(AddCallActivity.this, android.R.layout.simple_spinner_item, arrayList);
-                        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                        mSpChoseCity.setAdapter(arrayAdapter);
+                        cityList.add(response.body().get(i).getName());
+                        spinnerDialog = new SpinnerDialog(AddCallActivity.this, cityList, "Select city");
+                        spinnerDialog.bindOnSpinerListener(new OnSpinerItemClick() {
+                            @Override
+                            public void onClick(String item, int position) {
+                                mTextviewCity.setText(item);
+                            }
+                        });
                     }
                 }
             }

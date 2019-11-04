@@ -1,49 +1,42 @@
 package com.example.anew.ui.call;
 
-import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
+import android.os.Handler;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
-import android.widget.DatePicker;
-import android.widget.Filter;
-import android.widget.Filterable;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.SearchView;
-import androidx.core.view.MenuItemCompat;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.SortedList;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.anew.Activity.ItemListCallUserActivity;
 import com.example.anew.Adapter.AdapterListCallPhone;
-import com.example.anew.Model.ModelListPhoneCall.ModelListPhoneCall;
+import com.example.anew.Model.ModelAddRemind;
+import com.example.anew.Model.ModelListPhoneCall.CallList;
+import com.example.anew.Model.ModelListPhoneCall.ModelListPhoneCallV2;
+import com.example.anew.Model.ModelSearchCu.Search;
 import com.example.anew.R;
 import com.example.anew.Retrofit.ApiClient;
 import com.example.anew.helper.ItemClickRv;
+import com.example.anew.utills.AppScrollListener;
 import com.example.anew.utills.Constans;
 import com.example.anew.utills.ConvertHelper;
 import com.example.anew.utills.SharePrefs;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Comparator;
 import java.util.List;
 
 import retrofit2.Call;
@@ -53,7 +46,7 @@ import retrofit2.Response;
 public class ListCallFragment extends Fragment {
 
     private RecyclerView mRv;
-    private List<ModelListPhoneCall> modelListPhoneCalls = new ArrayList<>();
+    private List<CallList> modelListPhoneCalls = new ArrayList<>();
     private LinearLayoutManager linearLayoutManager;
     private AdapterListCallPhone adapter_list_call_phone_filter;
     private TextView mTvDateEnd;
@@ -62,9 +55,17 @@ public class ListCallFragment extends Fragment {
     private Context context;
 
 
+    boolean isLoading = false;
+    private int OFFSET = 0;
+    private int TAKE = 10;
+
+    private SwipeRefreshLayout swipeRefreshLayout;
+    private ImageView mBtnSearch;
+    private EditText mEdtSearch;
+
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_listcall, container, false);
     }
 
@@ -81,6 +82,14 @@ public class ListCallFragment extends Fragment {
 
         final String cookie = SharePrefs.getInstance().get(Constans.COOKIE, String.class);
 
+        mBtnSearch.setOnClickListener(v -> {
+            if (mEdtSearch.getText().toString().trim().equals("")) {
+                Toast.makeText(context, "Chưa nhập thông tin tìm kiếm", Toast.LENGTH_SHORT).show();
+            } else {
+                showDialogSearch(cookie);
+            }
+        });
+
         adapter_list_call_phone_filter = new AdapterListCallPhone(modelListPhoneCalls, getContext(), new ItemClickRv() {
             @Override
             public void onClickCall(int id, String phone) {
@@ -91,90 +100,100 @@ public class ListCallFragment extends Fragment {
 
             @Override
             public void onItemClick(String phone) {
-                Intent intent = new Intent(getContext(), ItemListCallUserActivity.class);
-                intent.putExtra(Constans.PASS_PHONE, phone);
-                getContext().startActivity(intent);
-                ListCallFragment.class.getName();
+                ApiClient.getInstance().search(phone, "search_customer", cookie).enqueue(new Callback<Search>() {
+                    @Override
+                    public void onResponse(Call<Search> call, Response<Search> response) {
+                        if (response.body() != null) {
+                            Intent intent = new Intent(getContext(), ItemListCallUserActivity.class);
+                            intent.putExtra("fullname", response.body().getFullname());
+                            intent.putExtra("address", String.valueOf(response.body().getAddress()));
+                            intent.putExtra("email", response.body().getEmail());
+                            intent.putExtra("phone", response.body().getPhone1());
+                            intent.putExtra("skype", String.valueOf(response.body().getSkype()));
+                            getContext().startActivity(intent);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Search> call, Throwable t) {
+
+                    }
+                });
             }
         });
         mRv.setAdapter(adapter_list_call_phone_filter);
         linearLayoutManager = new LinearLayoutManager(getActivity());
         mRv.setLayoutManager(linearLayoutManager);
 
-        getDateHienTai(cookie);
-        mTvDateStart.setOnClickListener(new View.OnClickListener() {
+        mRv.addOnScrollListener(new AppScrollListener() {
             @Override
-            public void onClick(View view) {
-
-                Calendar c = Calendar.getInstance();
-                int mYear = c.get(Calendar.YEAR);
-                int mMonth = c.get(Calendar.MONTH);
-                int mDay = c.get(Calendar.DAY_OF_MONTH);
-                DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(),
-                        new DatePickerDialog.OnDateSetListener() {
-                            @Override
-                            public void onDateSet(DatePicker view, int year,
-                                                  int monthOfYear, int dayOfMonth) {
-                                mTvDateStart.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
-
-                            }
-                        }, mYear, mMonth, mDay);
-                datePickerDialog.show();
-
-            }
-        });
-
-        mTvDateEnd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Calendar c = Calendar.getInstance();
-                int mYear = c.get(Calendar.YEAR);
-                int mMonth = c.get(Calendar.MONTH);
-                int mDay = c.get(Calendar.DAY_OF_MONTH);
-
-                DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(),
-                        new DatePickerDialog.OnDateSetListener() {
-
-                            @Override
-                            public void onDateSet(DatePicker view, int year,
-                                                  int monthOfYear, int dayOfMonth) {
-                                mTvDateEnd.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
-                            }
-                        }, mYear, mMonth, mDay);
-                datePickerDialog.show();
-            }
-        });
-
-
-        mImgFilter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (mTvDateEnd.getText().toString().equals("") ||
-                        mTvDateStart.getText().toString().equals("") ||
-                        (mTvDateStart.getText().toString().equals("") && mTvDateEnd.getText().toString().equals(""))) {
-                    Toast.makeText(getActivity(), "" + getResources().getString(R.string.no_data_entered), Toast.LENGTH_SHORT).show();
-                } else {
-                    long date_start = ConvertHelper.convertStringToTimestampMilisecond(mTvDateStart.getText().toString());
-                    long date_end = ConvertHelper.convertStringToTimestampMilisecond(mTvDateEnd.getText().toString());
-
-                    ApiClient.getInstance().getListPhoneCall("ListPhoneCall", date_start, date_end, cookie).enqueue(new Callback<List<ModelListPhoneCall>>() {
-                        @Override
-                        public void onResponse(Call<List<ModelListPhoneCall>> call, Response<List<ModelListPhoneCall>> response) {
-                            modelListPhoneCalls.clear();
-                            modelListPhoneCalls.addAll(response.body());
-                            adapter_list_call_phone_filter.notifyDataSetChanged();
-
-                            if (response.body().size() == 0) {
-                                Toast.makeText(getContext(), "" + getResources().getString(R.string.no_data_in_this_time), Toast.LENGTH_SHORT).show();
-                            }
-                        }
-
-                        @Override
-                        public void onFailure(Call<List<ModelListPhoneCall>> call, Throwable t) {
-                        }
-                    });
+            public void onLoadMore() {
+                if (isLoading = true) {
+                    getListPhoneCall(ConvertHelper.convertStringToTimestampMilisecond(mTvDateStart.getText().toString()),
+                            ConvertHelper.convertStringToTimestampMilisecond(mTvDateEnd.getText().toString()), cookie, TAKE + OFFSET, OFFSET++);
                 }
             }
+        });
+
+        getDateHienTai(cookie);
+        mTvDateStart.setOnClickListener(view15 -> {
+            Calendar c = Calendar.getInstance();
+            int mYear = c.get(Calendar.YEAR);
+            int mMonth = c.get(Calendar.MONTH);
+            int mDay = c.get(Calendar.DAY_OF_MONTH);
+            DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(),
+                    (view14, year, monthOfYear, dayOfMonth) -> mTvDateStart.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year), mYear, mMonth, mDay);
+            datePickerDialog.show();
+
+        });
+
+        mTvDateEnd.setOnClickListener(view12 -> {
+            Calendar c = Calendar.getInstance();
+            int mYear = c.get(Calendar.YEAR);
+            int mMonth = c.get(Calendar.MONTH);
+            int mDay = c.get(Calendar.DAY_OF_MONTH);
+
+            DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(),
+                    (view1, year, monthOfYear, dayOfMonth) -> mTvDateEnd.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year), mYear, mMonth, mDay);
+            datePickerDialog.show();
+        });
+
+
+        mImgFilter.setOnClickListener(view13 -> {
+            if (mTvDateEnd.getText().toString().equals("") ||
+                    mTvDateStart.getText().toString().equals("") ||
+                    (mTvDateStart.getText().toString().equals("") && mTvDateEnd.getText().toString().equals(""))) {
+                Toast.makeText(getActivity(), "" + getResources().getString(R.string.no_data_entered), Toast.LENGTH_SHORT).show();
+            } else {
+                long date_start = ConvertHelper.convertStringToTimestampMilisecond(mTvDateStart.getText().toString());
+                long date_end = ConvertHelper.convertStringToTimestampMilisecond(mTvDateEnd.getText().toString());
+
+                ApiClient.getInstance().getListPhoneCall("ListPhoneCall_v2", date_start, date_end, TAKE, OFFSET, cookie)
+                        .enqueue(new Callback<ModelListPhoneCallV2>() {
+                            @Override
+                            public void onResponse(Call<ModelListPhoneCallV2> call, Response<ModelListPhoneCallV2> response) {
+                                modelListPhoneCalls.clear();
+                                modelListPhoneCalls.addAll(response.body().getCall());
+                                adapter_list_call_phone_filter.notifyDataSetChanged();
+
+                                if (response.body().getCall().size() == 0) {
+                                    Toast.makeText(getContext(), "" + getResources().getString(R.string.no_data_in_this_time), Toast.LENGTH_SHORT).show();
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<ModelListPhoneCallV2> call, Throwable t) {
+
+                            }
+                        });
+            }
+        });
+
+        swipeRefreshLayout.setOnRefreshListener(() -> {
+            long date_start = ConvertHelper.convertStringToTimestampMilisecond(mTvDateStart.getText().toString());
+            long date_end = ConvertHelper.convertStringToTimestampMilisecond(mTvDateEnd.getText().toString());
+            getListPhoneCall(date_start, date_end, cookie, TAKE, OFFSET);
+            new Handler().postDelayed(() -> swipeRefreshLayout.setRefreshing(false), 2000);
         });
 
     }
@@ -185,6 +204,9 @@ public class ListCallFragment extends Fragment {
         mTvDateEnd = view.findViewById(R.id.tvDateEnd);
         mTvDateStart = view.findViewById(R.id.tvDateStart);
         mImgFilter = view.findViewById(R.id.img_filter);
+        swipeRefreshLayout = view.findViewById(R.id.swipeRefresh);
+        mBtnSearch = view.findViewById(R.id.btnSearch);
+        mEdtSearch = view.findViewById(R.id.edtSearch);
     }
 
     private void getDateHienTai(String cookie) {
@@ -202,66 +224,58 @@ public class ListCallFragment extends Fragment {
             String startDate = "1/" + realMonth + "/" + year;
             String endDate = "31/" + realMonth + "/" + year;
             getListPhoneCall(ConvertHelper.convertStringToTimestampMilisecond(startDate),
-                    ConvertHelper.convertStringToTimestampMilisecond(endDate), cookie);
+                    ConvertHelper.convertStringToTimestampMilisecond(endDate), cookie, TAKE, OFFSET);
+
         } else {
             String startDate = "1/" + realMonth + "/" + year;
             String endDate = "30/" + realMonth + "/" + year;
             getListPhoneCall(ConvertHelper.convertStringToTimestampMilisecond(startDate),
-                    ConvertHelper.convertStringToTimestampMilisecond(endDate), cookie);
+                    ConvertHelper.convertStringToTimestampMilisecond(endDate), cookie, TAKE, OFFSET);
         }
-
-
     }
 
-    private void getListPhoneCall(long start, long end, String cookie) {
-        ApiClient.getInstance().getListPhoneCall("ListPhoneCall", start, end, cookie).enqueue(new Callback<List<ModelListPhoneCall>>() {
+    private void getListPhoneCall(long start, long end, String cookie, int take, int offset) {
+        ApiClient.getInstance().getListPhoneCall("ListPhoneCall_v2", start, end, take, offset, cookie)
+                .enqueue(new Callback<ModelListPhoneCallV2>() {
+                    @Override
+                    public void onResponse(Call<ModelListPhoneCallV2> call, Response<ModelListPhoneCallV2> response) {
+                        if (response.body() == null) return;
+
+                        modelListPhoneCalls.clear();
+                        modelListPhoneCalls.addAll(response.body().getCall());
+                        adapter_list_call_phone_filter.updateListCall(response.body().getCall());
+                    }
+
+                    @Override
+                    public void onFailure(Call<ModelListPhoneCallV2> call, Throwable t) {
+
+                    }
+                });
+    }
+
+    private void showDialogSearch(String cookie) {
+        ApiClient.getInstance().search(mEdtSearch.getText().toString().trim(), "search_customer", cookie).enqueue(new Callback<Search>() {
             @Override
-            public void onResponse(Call<List<ModelListPhoneCall>> call, Response<List<ModelListPhoneCall>> response) {
-                modelListPhoneCalls.clear();
-                modelListPhoneCalls.addAll(response.body());
-                adapter_list_call_phone_filter.notifyDataSetChanged();
+            public void onResponse(Call<Search> call, Response<Search> response) {
+                if (response.body().getFullname() == null && response.body().getPhone1() == null) {
+                    Toast.makeText(context, "Thông tin nhập không khớp", Toast.LENGTH_SHORT).show();
+                } else {
+                    Bundle args = new Bundle();
+                    args.putString("name", response.body().getFullname());
+                    args.putString("phone", response.body().getPhone1());
+                    args.putInt("id", response.body().getId());
+                    DialogSearchCall newFragment = new DialogSearchCall();
+                    newFragment.setArguments(args);
+                    newFragment.show(getActivity().getSupportFragmentManager(), "TAG");
+                }
             }
 
             @Override
-            public void onFailure(Call<List<ModelListPhoneCall>> call, Throwable t) {
+            public void onFailure(Call<Search> call, Throwable t) {
 
             }
         });
-    }
 
-    @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.main, menu);
-
-        MenuItem item = menu.findItem(R.id.action_search);
-        SearchView searchView = (SearchView) MenuItemCompat.getActionView(item);
-        MenuItemCompat.setOnActionExpandListener(item, new MenuItemCompat.OnActionExpandListener() {
-            @Override
-            public boolean onMenuItemActionExpand(MenuItem item) {
-                return false;
-            }
-
-            @Override
-            public boolean onMenuItemActionCollapse(MenuItem item) {
-                return false;
-            }
-        });
-
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                adapter_list_call_phone_filter.getFilter().filter(newText);
-                return false;
-            }
-        });
 
     }
-
-
 }

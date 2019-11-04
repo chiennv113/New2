@@ -1,43 +1,40 @@
 package com.example.anew.Adapter;
 
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;;
-import android.widget.Filter;
-import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.anew.Model.ModelListPhoneCall.ModelListPhoneCall;
+import com.example.anew.Model.ModelListPhoneCall.CallList;
+import com.example.anew.Model.ModelListPhoneCall.Customer;
+import com.example.anew.Model.ModelListPhoneCall.ModelListPhoneCallV2;
 import com.example.anew.R;
+import com.example.anew.helper.ILoadMore;
 import com.example.anew.helper.ItemClickRv;
 
-import java.util.ArrayList;
 import java.util.List;
 
+public class AdapterListCallPhone extends RecyclerView.Adapter<AdapterListCallPhone.ViewHolder> {
 
-public class AdapterListCallPhone extends RecyclerView.Adapter<AdapterListCallPhone.ViewHolder> implements Filterable {
+    private final int VIEW_TYPE_ITEM = 0, VIEW_TYPE_LOADING = 1;
 
-    private List<ModelListPhoneCall> modelListPhoneCalls;
-    private List<ModelListPhoneCall> mdFillter;
+    private List<CallList> modelListPhoneCalls;
     private ItemClickRv mitemClickRv;
     private Context context;
 
 
-    public AdapterListCallPhone(List<ModelListPhoneCall> modelListPhoneCalls, Context context, ItemClickRv itemClickRv) {
+    public AdapterListCallPhone(List<CallList> modelListPhoneCalls, Context context, ItemClickRv itemClickRv) {
         this.modelListPhoneCalls = modelListPhoneCalls;
         this.context = context;
         mitemClickRv = itemClickRv;
-    }
-
-    public void setSearchResult(List<ModelListPhoneCall> result) {
-        modelListPhoneCalls = result;
-        notifyDataSetChanged();
     }
 
     @NonNull
@@ -51,24 +48,29 @@ public class AdapterListCallPhone extends RecyclerView.Adapter<AdapterListCallPh
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
-        final ModelListPhoneCall modelListPhoneCall = modelListPhoneCalls.get(position);
+        final CallList modelListPhoneCall = modelListPhoneCalls.get(position);
         holder.tvPhone.setText(modelListPhoneCall.getCustomer().getPhone1());
         holder.tvName.setText(modelListPhoneCall.getCustomer().getFullname());
         holder.tvContent.setText(String.valueOf(modelListPhoneCall.getContent()));
 
-        holder.img_del.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        holder.img_del.setOnClickListener(view -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            builder.setTitle("Cuộc gọi");
+            builder.setMessage("Bạn có muốn thực hiện cuộc gọi tới số: "+modelListPhoneCall.getCustomer().getPhone1()+" không?");
+            builder.setCancelable(false);
+            builder.setPositiveButton("Gọi", (dialog, which) -> {
                 String phone = modelListPhoneCall.getCustomer().getPhone1();
                 mitemClickRv.onClickCall(position, phone);
-            }
+                dialog.dismiss();
+            })
+                    .setNegativeButton("Hủy", (dialog, which) -> dialog.dismiss());
+            AlertDialog alertDialog = builder.create();
+            alertDialog.show();
+
         });
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String phone = modelListPhoneCall.getCustomer().getPhone1();
-                mitemClickRv.onItemClick(phone);
-            }
+        holder.itemView.setOnClickListener(view -> {
+            String phone = modelListPhoneCall.getCustomer().getPhone1();
+            mitemClickRv.onItemClick(phone);
         });
     }
 
@@ -79,38 +81,8 @@ public class AdapterListCallPhone extends RecyclerView.Adapter<AdapterListCallPh
     }
 
     @Override
-    public Filter getFilter() {
-        return new Filter() {
-            @Override
-            protected FilterResults performFiltering(CharSequence charSequence) {
-                String charString = charSequence.toString();
-                if (charString.isEmpty()) {
-                    mdFillter = modelListPhoneCalls;
-                } else {
-                    List<ModelListPhoneCall> filteredList = new ArrayList<>();
-                    for (ModelListPhoneCall row : modelListPhoneCalls) {
-
-                        // name match condition. this might differ depending on your requirement
-                        // here we are looking for name or phone number match
-                        if (row.getCustomer().getFullname().contains(charString.toLowerCase()) || row.getCustomer().getPhone1().contains(charSequence)) {
-                            filteredList.add(row);
-                        }
-                    }
-
-                    mdFillter = filteredList;
-                }
-
-                FilterResults filterResults = new FilterResults();
-                filterResults.values = mdFillter;
-                return filterResults;
-            }
-
-            @Override
-            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
-                mdFillter = (ArrayList<ModelListPhoneCall>) filterResults.values;
-                notifyDataSetChanged();
-            }
-        };
+    public int getItemViewType(int position) {
+        return modelListPhoneCalls.get(position) == null ? VIEW_TYPE_LOADING : VIEW_TYPE_ITEM;
     }
 
 
@@ -121,11 +93,16 @@ public class AdapterListCallPhone extends RecyclerView.Adapter<AdapterListCallPh
         ViewHolder(@NonNull View itemView) {
             super(itemView);
             img_del = itemView.findViewById(R.id.icon_delete);
-//            tvCusfeel = itemView.findViewById(R.id.item_tv_customer_feel);
             tvName = itemView.findViewById(R.id.item_tv_name);
             tvPhone = itemView.findViewById(R.id.item_tv_phone);
             tvContent = itemView.findViewById(R.id.tvContent);
         }
+    }
+
+    public void updateListCall(List<CallList> listPhoneCalls) {
+        modelListPhoneCalls.clear();
+        modelListPhoneCalls.addAll(listPhoneCalls);
+        notifyDataSetChanged();
     }
 
 

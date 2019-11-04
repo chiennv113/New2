@@ -28,17 +28,16 @@
             <View
                 android:id="@+id/indicator"
                 android:layout_width="0dp"
-                android:layout_height="50dp"
-               />
+                android:layout_height="50dp" />
 
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tab_layout"
                 android:layout_width="wrap_content"
-                app:tabGravity="center"
                 android:layout_height="36dp"
                 android:layout_gravity="center"
                 android:background="@drawable/tab_layout_background"
                 app:tabBackground="@drawable/tab_layout_selector"
+                app:tabGravity="center"
                 app:tabIndicatorHeight="0dp"
                 app:tabMode="scrollable"
                 app:tabPaddingEnd="16dp"
@@ -51,10 +50,10 @@
         </FrameLayout>
 
         <androidx.viewpager.widget.ViewPager
-            android:background="@color/colorBackgroud"
             android:id="@+id/view_pager"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:background="@color/colorBackgroud" />
 
 
     </com.google.android.material.appbar.AppBarLayout>

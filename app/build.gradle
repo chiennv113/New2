@@ -17,6 +17,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
+    }
 }
 
 dependencies {
@@ -45,7 +49,10 @@ dependencies {
 
     implementation "androidx.recyclerview:recyclerview:$recyclerview_version"
     implementation "androidx.recyclerview:recyclerview-selection:$recyclerview_version"
+//library search Spiner
+    implementation 'com.github.MdFarhanRaja:SearchableSpinner:2.0'
 
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.0.0'
 
 
 }

@@ -13,6 +13,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,7 +42,7 @@ public class Dialog_Add_Remind extends DialogFragment {
     private TextView mTvEmail;
     private TextInputEditText mEdtContent;
     private TextView mTvChangeDate;
-    private TextView mTvSearch;
+    private ImageView mTvSearch;
     private Button mBtnOk;
     private Button mBtnCancel;
     private Context context;
@@ -49,6 +50,7 @@ public class Dialog_Add_Remind extends DialogFragment {
     private ArrayList<Integer> arrayList = new ArrayList();
 
     private IDialogClick iDialogClick;
+    private TextView mTvDate;
 
     void setOnClickPositive(IDialogClick iDialogClick) {
         this.iDialogClick = iDialogClick;
@@ -66,99 +68,62 @@ public class Dialog_Add_Remind extends DialogFragment {
         initView(view);
         final String cookie = SharePrefs.getInstance().get(Constans.COOKIE, String.class);
 
-        mBtnOk.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String content = mEdtContent.getText().toString().trim();
-                String timeConvert = mTvChangeDate.getText().toString().trim();
-                String search = mTvSearch.getText().toString().trim();
-                if (content.equals("") || search.equals("")) {
-                    Toast.makeText(context, "Chưa có nội dung", Toast.LENGTH_SHORT).show();
-                } else {
-                    int id = arrayList.get(0);
-                    iDialogClick.clickPositive(content, timeConvert, id);
-                }
+        mBtnOk.setOnClickListener(view15 -> {
+            String content = mEdtContent.getText().toString().trim();
+            String timeConvert = mTvChangeDate.getText().toString().trim();
+
+            if (content.equals("") || mTvName.getText().toString().trim().equals("") || mTvEmail.getText().toString().trim().equals("") ||
+                    mTvChangeDate.getText().toString().trim().equals("")) {
+                Toast.makeText(context, "Chưa nhập đủ", Toast.LENGTH_SHORT).show();
+            } else {
+                int id = arrayList.get(0);
+                iDialogClick.clickPositive(content, timeConvert, id);
+                Toast.makeText(context, "Thêm thành công", Toast.LENGTH_SHORT).show();
             }
         });
 
-        mTvSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                final String info = mEdtSearchCu.getText().toString().trim();
-                ApiClient.getInstance().search(info, "search_customer", cookie).enqueue(new Callback<Search>() {
-                    @Override
-                    public void onResponse(Call<Search> call, Response<Search> response) {
-                        try {
-                            int id = response.body().getId();
+        mTvSearch.setOnClickListener(view14 -> {
+            final String info = mEdtSearchCu.getText().toString().trim();
+            ApiClient.getInstance().search(info, "search_customer", cookie).enqueue(new Callback<Search>() {
+                @Override
+                public void onResponse(Call<Search> call, Response<Search> response) {
+                    try {
+                        int id = response.body().getId();
 
-                            SharePrefs.getInstance().put(Constans.ID_SEARCH, id);
-                            arrayList.add(id);
-                            mTvName.setText(response.body().getFullname());
-                            mTvEmail.setText("  (" + response.body().getEmail() + ")");
+                        SharePrefs.getInstance().put(Constans.ID_SEARCH, id);
+                        arrayList.add(id);
+                        mTvName.setText(response.body().getFullname());
+                        mTvEmail.setText("  (" + response.body().getEmail() + ")");
 
-                        } catch (Exception e) {
-                            if (info.equals("")) {
-                                Toast.makeText(context, "" + "Chưa nhập thông tin tìm kiếm", Toast.LENGTH_SHORT).show();
-                            } else {
-                                Toast.makeText(context, "" + "Thông tin nhập không khớp", Toast.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+                        if (info.equals("")) {
+                            Toast.makeText(context, "" + "Chưa nhập thông tin tìm kiếm", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(context, "" + "Thông tin nhập không khớp", Toast.LENGTH_SHORT).show();
 
-                            }
                         }
-
                     }
 
-                    @Override
-                    public void onFailure(Call<Search> call, Throwable t) {
-
-                    }
-                });
-            }
-        });
-
-        mTvChangeDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Calendar c = Calendar.getInstance();
-                int mYear = c.get(Calendar.YEAR);
-                int mMonth = c.get(Calendar.MONTH);
-                int mDay = c.get(Calendar.DAY_OF_MONTH);
-                DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(),
-                        new DatePickerDialog.OnDateSetListener() {
-                            @Override
-                            public void onDateSet(DatePicker view, int year,
-                                                  int monthOfYear, int dayOfMonth) {
-                                mTvChangeDate.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
-                            }
-                        }, mYear, mMonth, mDay);
-                datePickerDialog.show();
-            }
-        });
-
-        mBtnOk.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String content = mEdtContent.getText().toString().trim();
-                String timeConvert = mTvChangeDate.getText().toString().trim();
-                String search = mTvSearch.getText().toString().trim();
-                if (content.equals("") || search.equals("")) {
-                    Toast.makeText(context, "Chưa có nội dung", Toast.LENGTH_SHORT).show();
-                } else {
-                    if (arrayList.isEmpty()) {
-                        Toast.makeText(context, "Chưa nhập thông tin cần tìm kiếm", Toast.LENGTH_SHORT).show();
-                    } else {
-                        int id = SharePrefs.getInstance().get(Constans.ID_SEARCH, Integer.class);
-                        iDialogClick.clickPositive(content, timeConvert, id);
-                    }
                 }
-            }
+
+                @Override
+                public void onFailure(Call<Search> call, Throwable t) {
+
+                }
+            });
         });
 
-        mBtnCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dismiss();
-            }
+        mTvDate.setOnClickListener(view12 -> {
+            Calendar c = Calendar.getInstance();
+            int mYear = c.get(Calendar.YEAR);
+            int mMonth = c.get(Calendar.MONTH);
+            int mDay = c.get(Calendar.DAY_OF_MONTH);
+            DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(),
+                    (view1, year, monthOfYear, dayOfMonth) -> mTvChangeDate.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year), mYear, mMonth, mDay);
+            datePickerDialog.show();
         });
+
+        mBtnCancel.setOnClickListener(view13 -> dismiss());
     }
 
     public void onResume() {
@@ -181,6 +146,7 @@ public class Dialog_Add_Remind extends DialogFragment {
         mTvSearch = view.findViewById(R.id.tv_search);
         mBtnOk = view.findViewById(R.id.btn_ok);
         mBtnCancel = view.findViewById(R.id.btn_cancel);
+        mTvDate = view.findViewById(R.id.tv_date);
     }
 
 

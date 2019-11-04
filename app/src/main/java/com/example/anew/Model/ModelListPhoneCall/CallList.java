@@ -4,7 +4,7 @@ package com.example.anew.Model.ModelListPhoneCall;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class ModelListPhoneCall {
+public class CallList {
 
     @SerializedName("id")
     @Expose

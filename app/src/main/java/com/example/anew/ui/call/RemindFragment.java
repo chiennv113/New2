@@ -1,11 +1,11 @@
 package com.example.anew.ui.call;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -13,6 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.anew.Adapter.AdapterListCallRemind;
 import com.example.anew.Model.ModelAddRemind;
@@ -20,11 +21,11 @@ import com.example.anew.Model.ModelDeleteRemind;
 import com.example.anew.Model.ModelListPhoneCallRemind.ModelListPhoneCallRemind;
 import com.example.anew.R;
 import com.example.anew.Retrofit.ApiClient;
-import com.example.anew.helper.IDialogClick;
 import com.example.anew.helper.IRemoveRemid;
 import com.example.anew.utills.Constans;
 import com.example.anew.utills.ConvertHelper;
 import com.example.anew.utills.SharePrefs;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,11 +36,13 @@ import retrofit2.Response;
 
 public class RemindFragment extends Fragment implements IRemoveRemid {
     private RecyclerView mRv;
-    private Button mBtnAdd;
+    private FloatingActionButton mBtnAdd;
     private String cookie;
+
 
     private List<ModelListPhoneCallRemind> modelListPhoneCallReminds = new ArrayList<>();
     private AdapterListCallRemind adapter_list_call_remind;
+    private SwipeRefreshLayout mSwipeRefresh;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -54,17 +57,22 @@ public class RemindFragment extends Fragment implements IRemoveRemid {
         requestLoadPhoneRemid();
         initAdapter();
 
-        mBtnAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showDialogRemind();
-            }
+        mBtnAdd.setOnClickListener(v -> {
+            showDialogRemind();
         });
+
+        mSwipeRefresh.setOnRefreshListener(() -> {
+            requestLoadPhoneRemid();
+            new Handler().postDelayed(() -> mSwipeRefresh.setRefreshing(false), 2000);
+        });
+
+
     }
 
     private void initView(View view) {
         mRv = view.findViewById(R.id.rv);
         mBtnAdd = view.findViewById(R.id.btn_add);
+        mSwipeRefresh = view.findViewById(R.id.swipeRefresh);
     }
 
     private void initAdapter() {
@@ -75,23 +83,20 @@ public class RemindFragment extends Fragment implements IRemoveRemid {
 
     private void showDialogRemind() {
         final Dialog_Add_Remind dialog_add_remind = new Dialog_Add_Remind();
-        dialog_add_remind.setOnClickPositive(new IDialogClick() {
-            @Override
-            public void clickPositive(String content, String timeConvert, int id) {
-                long time = ConvertHelper.convertStringToTimestampMilisecond(timeConvert);
-                ApiClient.getInstance().addRemind("add_phone_remind", content, time, id, cookie).enqueue(new Callback<ModelAddRemind>() {
-                    @Override
-                    public void onResponse(Call<ModelAddRemind> call, Response<ModelAddRemind> response) {
-                        requestLoadPhoneRemid();
-                        dialog_add_remind.dismiss();
-                    }
+        dialog_add_remind.setOnClickPositive((content, timeConvert, id) -> {
+            long time = ConvertHelper.convertStringToTimestampMilisecond(timeConvert);
+            ApiClient.getInstance().addRemind("add_phone_remind", content, time, id, cookie).enqueue(new Callback<ModelAddRemind>() {
+                @Override
+                public void onResponse(Call<ModelAddRemind> call, Response<ModelAddRemind> response) {
+                    requestLoadPhoneRemid();
+                    dialog_add_remind.dismiss();
+                }
 
-                    @Override
-                    public void onFailure(Call<ModelAddRemind> call, Throwable t) {
+                @Override
+                public void onFailure(Call<ModelAddRemind> call, Throwable t) {
 
-                    }
-                });
-            }
+                }
+            });
         });
         dialog_add_remind.show(getChildFragmentManager(), null);
     }

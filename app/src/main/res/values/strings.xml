@@ -43,7 +43,7 @@
     <string name="act_add_edt_email">Email</string>
     <string name="act_add_edt_zalo">Zalo</string>
     <string name="act_add_edt_skype">Skype</string>
-    <string name="tv_city">Thành phố</string>
+    <string name="tv_city">Thành phố:</string>
     <string name="act_add_edt_address">Địa chỉ</string>
     <string name="act_add_edt_dateOfBirth">Ngày sinh</string>
     <string name="tv_soft_ware_care">Phần mềm quan tâm</string>

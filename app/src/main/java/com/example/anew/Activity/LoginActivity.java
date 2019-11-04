@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -38,6 +39,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText mEdtPass;
     private List<Login> logins;
 
+
     String email;
     String password;
     private ProgressDialog mProgress;
@@ -52,24 +54,26 @@ public class LoginActivity extends AppCompatActivity {
         mEdtUser.setText("app@ninjateam.vn");
         logins = new ArrayList<>();
 
-
         mProgress = new ProgressDialog(LoginActivity.this);
         mProgress.setTitle("Processing...");
         mProgress.setMessage("Please wait...");
         mProgress.setCancelable(false);
         mProgress.setIndeterminate(true);
+
         mBtnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 mProgress.show();
+
                 if (checkValidation()) {
                     Log.e("user", "onClick: " + email);
                     if (CommonMethod.isNetworkAvailable(LoginActivity.this)) {
                         loginRetrofit2Api(email, password, "login");
-                        mProgress.dismiss();
+//                        mProgress.dismiss();
                     } else {
-                        mProgress.dismiss();
                         CommonMethod.showAlert("Internet Connectivity Failure", LoginActivity.this);
+//                        mProgress.dismiss();
                     }
 
                 }

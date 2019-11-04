@@ -1,6 +1,8 @@
 package com.example.anew.Adapter;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -53,13 +55,21 @@ public class AdapterListCallRemind extends RecyclerView.Adapter<AdapterListCallR
             holder.tvRemindDate.setText(f.format(d));
         }
 
-        holder.imgDel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        holder.imgDel.setOnClickListener(view -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            builder.setTitle("Xóa nhắc nhở");
+            builder.setMessage("Bạn có muốn xóa không?");
+            builder.setCancelable(false);
+            builder.setPositiveButton("Xóa", (dialog, which) -> {
                 mitemClickRv.onItemClick(holder.getAdapterPosition(), modelListPhoneCallRemind.getId());
                 Log.e("GGG", "onClick: " + modelListPhoneCallRemind.getId());
-            }
+                dialog.dismiss();
+            })
+                    .setNegativeButton("Hủy", (dialog, which) -> dialog.dismiss());
+            AlertDialog alertDialog = builder.create();
+            alertDialog.show();
         });
+
 
     }
 
