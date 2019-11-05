@@ -42,18 +42,13 @@ public class MainActivity extends AppCompatActivity {
 
 
         FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, AddCallActivity.class));
-            }
-        });
+        fab.setOnClickListener(view -> startActivity(new Intent(MainActivity.this, AddCallActivity.class)));
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
 
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_ThongKe, R.id.nav_CuocGoi, R.id.nav_Ticket,
-                R.id.nav_Sale, R.id.nav_customer, R.id.nav_Staff,R.id.nav_product,R.id.nav_system)
+                R.id.nav_Sale, R.id.nav_customer, R.id.nav_Staff, R.id.nav_product, R.id.nav_system)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -64,8 +59,8 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         View headerView = navigationView.getHeaderView(0);
-        TextView nav_name = (TextView) headerView.findViewById(R.id.nav_tv_name);
-        TextView nav_email = (TextView) headerView.findViewById(R.id.nav_tv_email);
+        TextView nav_name = headerView.findViewById(R.id.nav_tv_name);
+        TextView nav_email = headerView.findViewById(R.id.nav_tv_email);
         if (bundle != null) {
             String name = bundle.getString("name");
             String email = bundle.getString("email");
@@ -75,7 +70,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-
 
 
     @Override

@@ -44,12 +44,7 @@ public class ItemListCallUserActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
+        toolbar.setNavigationOnClickListener(view -> finish());
 
         Intent intent = getIntent();
         String fullname = intent.getStringExtra("fullname");
@@ -70,16 +65,13 @@ public class ItemListCallUserActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
 
 
-        tabLayout.post(new Runnable() {
-            @Override
-            public void run() {
-                indicatorWidth = tabLayout.getWidth() / tabLayout.getTabCount();
+        tabLayout.post(() -> {
+            indicatorWidth = tabLayout.getWidth() / tabLayout.getTabCount();
 
-                //Assign new width
-                FrameLayout.LayoutParams indicatorParams = (FrameLayout.LayoutParams) view.getLayoutParams();
-                indicatorParams.width = indicatorWidth;
-                view.setLayoutParams(indicatorParams);
-            }
+            //Assign new width
+            FrameLayout.LayoutParams indicatorParams = (FrameLayout.LayoutParams) view.getLayoutParams();
+            indicatorParams.width = indicatorWidth;
+            view.setLayoutParams(indicatorParams);
         });
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 

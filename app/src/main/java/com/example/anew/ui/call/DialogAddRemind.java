@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,7 +35,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class Dialog_Add_Remind extends DialogFragment {
+public class DialogAddRemind extends DialogFragment {
     private TextInputEditText mEdtSearchCu;
     private TextView mTvName;
     private TextView mTvEmail;

@@ -24,10 +24,8 @@ class CommonMethod {
 
         final AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setMessage(message).setCancelable(false)
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
+                .setPositiveButton("OK", (dialog, id) -> {
 
-                    }
                 });
         try {
             builder.show();

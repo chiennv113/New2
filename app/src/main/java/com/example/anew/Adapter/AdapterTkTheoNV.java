@@ -11,16 +11,19 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.anew.Model.ModelTKTheoNV.ModelThongKeTheoNVAdmin;
 import com.example.anew.R;
+import com.example.anew.helper.IClickRv;
 
 import java.util.List;
 
 public class AdapterTkTheoNV extends RecyclerView.Adapter<AdapterTkTheoNV.ViewHolder> {
     private List<ModelThongKeTheoNVAdmin> modelThongKeTheoNVAdmins;
     private Context context;
+    IClickRv iClickRv;
 
-    public AdapterTkTheoNV(List<ModelThongKeTheoNVAdmin> modelThongKeTheoNVAdmins, Context context) {
+    public AdapterTkTheoNV(List<ModelThongKeTheoNVAdmin> modelThongKeTheoNVAdmins, Context context, IClickRv clickRv) {
         this.modelThongKeTheoNVAdmins = modelThongKeTheoNVAdmins;
         this.context = context;
+        iClickRv = clickRv;
     }
 
     @NonNull
@@ -40,6 +43,12 @@ public class AdapterTkTheoNV extends RecyclerView.Adapter<AdapterTkTheoNV.ViewHo
         holder.soCuocGoi.setText(String.valueOf(modelListPhoneCall.getStatistics().getPhone().size()));
         holder.khmoi.setText(String.valueOf(modelListPhoneCall.getStatistics().getCustomernew().size()));
         holder.khcu.setText(String.valueOf(modelListPhoneCall.getStatistics().getCustomerold().size()));
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                iClickRv.onClick(position);
+            }
+        });
     }
 
     @Override

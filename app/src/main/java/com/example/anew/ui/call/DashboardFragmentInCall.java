@@ -12,6 +12,7 @@ import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -28,6 +29,8 @@ import com.example.anew.Model.ModelTKTheoDoHaiLongKH.ModelThongKeTheoDoHaiLongCu
 import com.example.anew.Model.ModelTKTheoNV.ModelThongKeTheoNVAdmin;
 import com.example.anew.R;
 import com.example.anew.Retrofit.ApiClient;
+import com.example.anew.helper.IClickRv;
+import com.example.anew.helper.IClickShowDialogNV;
 import com.example.anew.utills.Constans;
 import com.example.anew.utills.ConvertHelper;
 import com.example.anew.utills.SharePrefs;
@@ -96,13 +99,7 @@ public class DashboardFragmentInCall extends Fragment {
             int mMonth = c.get(Calendar.MONTH);
             int mDay = c.get(Calendar.DAY_OF_MONTH);
             DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(),
-                    new DatePickerDialog.OnDateSetListener() {
-                        @Override
-                        public void onDateSet(DatePicker view12, int year,
-                                              int monthOfYear, int dayOfMonth) {
-                            mTvDateStart.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
-                        }
-                    }, mYear, mMonth, mDay);
+                    (view121, year, monthOfYear, dayOfMonth) -> mTvDateStart.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year), mYear, mMonth, mDay);
             datePickerDialog.show();
         });
 
@@ -142,7 +139,12 @@ public class DashboardFragmentInCall extends Fragment {
 
         });
 
-        adapterTkTheoNV = new AdapterTkTheoNV(modelThongKeTheoNVAdmins, context);
+        adapterTkTheoNV = new AdapterTkTheoNV(modelThongKeTheoNVAdmins, context, new IClickRv() {
+            @Override
+            public void onClick(int position) {
+                showdialog();
+            }
+        });
         mRvNV.setAdapter(adapterTkTheoNV);
         linearLayoutManager = new LinearLayoutManager(getActivity());
         mRvNV.setLayoutManager(linearLayoutManager);
@@ -327,5 +329,16 @@ public class DashboardFragmentInCall extends Fragment {
 
             }
         });
+    }
+
+    private void showdialog() {
+        final DialogItemNV dialogItemNV = new DialogItemNV();
+        dialogItemNV.setOnClickPositive(new IClickShowDialogNV() {
+            @Override
+            public void onClick() {
+
+            }
+        });
+        dialogItemNV.show(getChildFragmentManager(), null);
     }
 }

@@ -23,12 +23,12 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.anew.Activity.ItemListCallUserActivity;
 import com.example.anew.Adapter.AdapterListCallPhone;
-import com.example.anew.Model.ModelAddRemind;
 import com.example.anew.Model.ModelListPhoneCall.CallList;
 import com.example.anew.Model.ModelListPhoneCall.ModelListPhoneCallV2;
 import com.example.anew.Model.ModelSearchCu.Search;
 import com.example.anew.R;
 import com.example.anew.Retrofit.ApiClient;
+import com.example.anew.helper.ILoadMore;
 import com.example.anew.helper.ItemClickRv;
 import com.example.anew.utills.AppScrollListener;
 import com.example.anew.utills.Constans;
@@ -38,6 +38,7 @@ import com.example.anew.utills.SharePrefs;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.UUID;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -53,11 +54,8 @@ public class ListCallFragment extends Fragment {
     private TextView mTvDateStart;
     private ImageView mImgFilter;
     private Context context;
-
-
-    boolean isLoading = false;
-    private int OFFSET = 0;
-    private int TAKE = 10;
+    private int OFFSET = 0; // Lấy từ vị trí
+    private int TAKE = 10; // Lấy về số bản ghi
 
     private SwipeRefreshLayout swipeRefreshLayout;
     private ImageView mBtnSearch;
@@ -89,8 +87,10 @@ public class ListCallFragment extends Fragment {
                 showDialogSearch(cookie);
             }
         });
+        linearLayoutManager = new LinearLayoutManager(getActivity());
+        mRv.setLayoutManager(linearLayoutManager);
 
-        adapter_list_call_phone_filter = new AdapterListCallPhone(modelListPhoneCalls, getContext(), new ItemClickRv() {
+        adapter_list_call_phone_filter = new AdapterListCallPhone(modelListPhoneCalls, getContext(), mRv, new ItemClickRv() {
             @Override
             public void onClickCall(int id, String phone) {
                 Intent callIntent = new Intent(Intent.ACTION_CALL);
@@ -122,20 +122,31 @@ public class ListCallFragment extends Fragment {
             }
         });
         mRv.setAdapter(adapter_list_call_phone_filter);
-        linearLayoutManager = new LinearLayoutManager(getActivity());
-        mRv.setLayoutManager(linearLayoutManager);
 
-        mRv.addOnScrollListener(new AppScrollListener() {
+        getDateHienTai(cookie);
+
+        adapter_list_call_phone_filter.setLoadMore(new ILoadMore() {
             @Override
             public void onLoadMore() {
-                if (isLoading = true) {
-                    getListPhoneCall(ConvertHelper.convertStringToTimestampMilisecond(mTvDateStart.getText().toString()),
-                            ConvertHelper.convertStringToTimestampMilisecond(mTvDateEnd.getText().toString()), cookie, TAKE + OFFSET, OFFSET++);
+                if (modelListPhoneCalls.size() <= 1000) {
+                    modelListPhoneCalls.add(null);
+                    adapter_list_call_phone_filter.notifyItemInserted(modelListPhoneCalls.size() - 1);
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            modelListPhoneCalls.remove(modelListPhoneCalls.size() - 1);
+                            adapter_list_call_phone_filter.notifyItemRemoved(modelListPhoneCalls.size());
+                            getListPhoneCall(ConvertHelper.convertStringToTimestampMilisecond(mTvDateStart.getText().toString().trim()),
+                                    ConvertHelper.convertStringToTimestampMilisecond(mTvDateEnd.getText().toString().trim()), cookie, TAKE, OFFSET);
+                            adapter_list_call_phone_filter.notifyDataSetChanged();
+                            adapter_list_call_phone_filter.setLoader();
+                        }
+                    }, 3000);
                 }
             }
         });
 
-        getDateHienTai(cookie);
+
         mTvDateStart.setOnClickListener(view15 -> {
             Calendar c = Calendar.getInstance();
             int mYear = c.get(Calendar.YEAR);
@@ -240,7 +251,6 @@ public class ListCallFragment extends Fragment {
                     @Override
                     public void onResponse(Call<ModelListPhoneCallV2> call, Response<ModelListPhoneCallV2> response) {
                         if (response.body() == null) return;
-
                         modelListPhoneCalls.clear();
                         modelListPhoneCalls.addAll(response.body().getCall());
                         adapter_list_call_phone_filter.updateListCall(response.body().getCall());

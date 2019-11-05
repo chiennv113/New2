@@ -86,27 +86,14 @@ public class AddCallActivity extends AppCompatActivity {
         initView();
         final String cookie = SharePrefs.getInstance().get(Constans.COOKIE, String.class);
 
-        mBtnCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
+        mBtnCancel.setOnClickListener(view -> finish());
 
-        mTvSearchCu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                SearchCu(mEdtPhone.getText().toString().trim(), cookie);
-            }
-        });
+        mTvSearchCu.setOnClickListener(view -> SearchCu(mEdtPhone.getText().toString().trim(), cookie));
 
         LoadCity(cookie);
-        mSpChoseCity.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                spinnerDialog.showSpinerDialog();
-                Log.e("GGG", "onClick: " + "GGG");
-            }
+        mSpChoseCity.setOnClickListener(v -> {
+            spinnerDialog.showSpinerDialog();
+            Log.e("GGG", "onClick: " + "GGG");
         });
 
 
@@ -232,94 +219,87 @@ public class AddCallActivity extends AppCompatActivity {
             }
         });
 
-        mDateOfBirth = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                month = month + 1;
-                String date = day + "/" + month + "/" + year;
-                mTvDateOfBirth.setText(date);
-            }
+        mDateOfBirth = (datePicker, year, month, day) -> {
+            month = month + 1;
+            String date = day + "/" + month + "/" + year;
+            mTvDateOfBirth.setText(date);
         };
 
 
-        mBtnSave.setOnClickListener(new View.OnClickListener() {
+        mBtnSave.setOnClickListener(view -> {
+            try {
+                String phone = mEdtPhone.getText().toString().trim();
+                String address = mEdtAddress.getText().toString().trim();
+                String birthday = mEdtDateOfBirth.getText().toString().trim();
+                final String content = mEdtContent.getText().toString().trim();
+                String email = mEdtEmail.getText().toString().trim();
+                String fullname = mEdtName.getText().toString().trim();
+                String note = mEdtNote.getText().toString().trim();
+                String skype = mEdtSkype.getText().toString().trim();
+                String zalo = mEdtZalo.getText().toString().trim();
+                String city = mTextviewCity.getText().toString().trim();
+                String product = mSpChosePhanMem.getSelectedItem().toString();
+                String cus_type = mTvChoseLoaiKH.getSelectedItem().toString();
+                String obj_cus = mTvChoseDoiTuongKH.getSelectedItem().toString();
+                String source_cus = mTvChoseNguonKH.getSelectedItem().toString();
+                final String cus_feel = mTvChoseTTKH.getSelectedItem().toString();
 
-            @Override
-            public void onClick(View view) {
-                try {
-                    String phone = mEdtPhone.getText().toString().trim();
-                    String address = mEdtAddress.getText().toString().trim();
-                    String birthday = mEdtDateOfBirth.getText().toString().trim();
-                    final String content = mEdtContent.getText().toString().trim();
-                    String email = mEdtEmail.getText().toString().trim();
-                    String fullname = mEdtName.getText().toString().trim();
-                    String note = mEdtNote.getText().toString().trim();
-                    String skype = mEdtSkype.getText().toString().trim();
-                    String zalo = mEdtZalo.getText().toString().trim();
-                    String city = mTextviewCity.getText().toString().trim();
-                    String product = mSpChosePhanMem.getSelectedItem().toString();
-                    String cus_type = mTvChoseLoaiKH.getSelectedItem().toString();
-                    String obj_cus = mTvChoseDoiTuongKH.getSelectedItem().toString();
-                    String source_cus = mTvChoseNguonKH.getSelectedItem().toString();
-                    final String cus_feel = mTvChoseTTKH.getSelectedItem().toString();
+                if (phone.equals("") || content.equals("") || fullname.equals("")) {
+                    Toast.makeText(AddCallActivity.this, "Chưa nhập đủ thông tin", Toast.LENGTH_SHORT).show();
+                } else {
+                    ApiClient.getInstance().addCallAndCus("add_register_phone_call",
+                            phone,
+                            address,
+                            birthday,
+                            city,
+                            content,
+                            source_cus,
+                            cus_feel,
+                            obj_cus,
+                            email,
+                            fullname,
+                            note,
+                            skype,
+                            product,
+                            cus_type,
+                            zalo,
+                            cookie).
+                            enqueue(new Callback<ModelAddCallAndCustomerNew>() {
+                                @Override
+                                public void onResponse(Call<ModelAddCallAndCustomerNew> call, Response<ModelAddCallAndCustomerNew> response) {
+                                    if (response.body().getMessage() != null && response.body().getMessage().equals("Đã thêm thành công")) {
+                                        Toast.makeText(AddCallActivity.this, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                                        finish();
+                                    } else {
+                                        int id = SharePrefs.getInstance().get(Constans.ID_CUSAFTERSEARCH, Integer.class);
+                                        ApiClient.getInstance().add("add_phone_call", id, content,
+                                                cus_feel, cookie).enqueue(new Callback<ModelAdd>() {
+                                            @Override
+                                            public void onResponse(Call<ModelAdd> call, Response<ModelAdd> response) {
+                                                Toast.makeText(AddCallActivity.this, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                                            }
 
-                    if (phone.equals("") || content.equals("") || fullname.equals("")) {
-                        Toast.makeText(AddCallActivity.this, "Chưa nhập đủ thông tin", Toast.LENGTH_SHORT).show();
-                    } else {
-                        ApiClient.getInstance().addCallAndCus("add_register_phone_call",
-                                phone,
-                                address,
-                                birthday,
-                                city,
-                                content,
-                                source_cus,
-                                cus_feel,
-                                obj_cus,
-                                email,
-                                fullname,
-                                note,
-                                skype,
-                                product,
-                                cus_type,
-                                zalo,
-                                cookie).
-                                enqueue(new Callback<ModelAddCallAndCustomerNew>() {
-                                    @Override
-                                    public void onResponse(Call<ModelAddCallAndCustomerNew> call, Response<ModelAddCallAndCustomerNew> response) {
-                                        if (response.body().getMessage() != null && response.body().getMessage().equals("Đã thêm thành công")) {
-                                            Toast.makeText(AddCallActivity.this, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                                            finish();
-                                        } else {
-                                            int id = SharePrefs.getInstance().get(Constans.ID_CUSAFTERSEARCH, Integer.class);
-                                            ApiClient.getInstance().add("add_phone_call", id, content,
-                                                    cus_feel, cookie).enqueue(new Callback<ModelAdd>() {
-                                                @Override
-                                                public void onResponse(Call<ModelAdd> call, Response<ModelAdd> response) {
-                                                    Toast.makeText(AddCallActivity.this, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                                                }
+                                            @Override
+                                            public void onFailure(Call<ModelAdd> call, Throwable t) {
 
-                                                @Override
-                                                public void onFailure(Call<ModelAdd> call, Throwable t) {
-
-                                                }
-                                            });
-                                        }
+                                            }
+                                        });
                                     }
+                                }
 
-                                    @Override
-                                    public void onFailure(Call<ModelAddCallAndCustomerNew> call, Throwable t) {
+                                @Override
+                                public void onFailure(Call<ModelAddCallAndCustomerNew> call, Throwable t) {
 
-                                    }
-                                });
+                                }
+                            });
 
-                        finish();
-                    }
-                } catch (Exception e) {
-                    Log.e("GGG", "onClick: " + e.getMessage());
+                    finish();
                 }
-
-
+            } catch (Exception e) {
+                Log.e("GGG", "onClick: " + e.getMessage());
             }
+
+
         });
     }
 
@@ -364,12 +344,7 @@ public class AddCallActivity extends AppCompatActivity {
                     for (int i = 0; i < response.body().size(); i++) {
                         cityList.add(response.body().get(i).getName());
                         spinnerDialog = new SpinnerDialog(AddCallActivity.this, cityList, "Select city");
-                        spinnerDialog.bindOnSpinerListener(new OnSpinerItemClick() {
-                            @Override
-                            public void onClick(String item, int position) {
-                                mTextviewCity.setText(item);
-                            }
-                        });
+                        spinnerDialog.bindOnSpinerListener((item, position) -> mTextviewCity.setText(item));
                     }
                 }
             }
