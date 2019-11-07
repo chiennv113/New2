@@ -1,3 +1,5 @@
+
+
 package com.example.anew.Activity;
 
 
@@ -8,6 +10,7 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -35,6 +38,8 @@ public class ItemListCallUserActivity extends AppCompatActivity {
     View view;
     private int indicatorWidth;
 
+    FragmentTransaction fragmentTransaction;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,13 +51,24 @@ public class ItemListCallUserActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         toolbar.setNavigationOnClickListener(view -> finish());
 
-        Intent intent = getIntent();
-        String fullname = intent.getStringExtra("fullname");
-        String address = intent.getStringExtra("address");
-        String email = intent.getStringExtra("email");
-        String phone = intent.getStringExtra("phone");
-        String skype = intent.getStringExtra("skype");
-        addFragment(InfUserCallFragment.newInstance(fullname, address, email, phone, skype));
+//        Intent intent = getIntent();
+//        String name = intent.getStringExtra("name");
+//        String address = intent.getStringExtra("address");
+//        String email = intent.getStringExtra("email");
+//        String phone = intent.getStringExtra("phone");
+//        String skype = intent.getStringExtra("skype");
+
+        Bundle gameData = getIntent().getExtras();
+        if (gameData != null) {
+            String name = gameData.getString(Constans.NAME);
+            String address = gameData.getString(Constans.ADDRESS);
+            String email = gameData.getString(Constans.EMAIL);
+            String phone = gameData.getString(Constans.PHONE);
+            String sky = gameData.getString(Constans.SKYPE);
+            addFragment(InfUserCallFragment.newInstance(name, address, email, phone, sky));
+        } else if (gameData == null) {
+            Toast.makeText(this, "Bundle is null", Toast.LENGTH_SHORT).show();
+        }
 
 
         view = findViewById(R.id.indicator);

@@ -3,10 +3,12 @@ package com.example.anew.ui.call;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -14,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -33,6 +36,7 @@ import com.example.anew.helper.ItemClickRv;
 import com.example.anew.utills.AppScrollListener;
 import com.example.anew.utills.Constans;
 import com.example.anew.utills.ConvertHelper;
+import com.example.anew.utills.CustomTouchListener;
 import com.example.anew.utills.SharePrefs;
 
 import java.util.ArrayList;
@@ -104,13 +108,15 @@ public class ListCallFragment extends Fragment {
                     @Override
                     public void onResponse(Call<Search> call, Response<Search> response) {
                         if (response.body() != null) {
+                            Bundle data = new Bundle();
                             Intent intent = new Intent(getContext(), ItemListCallUserActivity.class);
-                            intent.putExtra("fullname", response.body().getFullname());
-                            intent.putExtra("address", String.valueOf(response.body().getAddress()));
-                            intent.putExtra("email", response.body().getEmail());
-                            intent.putExtra("phone", response.body().getPhone1());
-                            intent.putExtra("skype", String.valueOf(response.body().getSkype()));
-                            getContext().startActivity(intent);
+                            data.putString(Constans.NAME, response.body().getFullname());
+                            data.putString(Constans.ADDRESS, String.valueOf(response.body().getAddress()));
+                            data.putString(Constans.EMAIL, response.body().getEmail());
+                            data.putString(Constans.PHONE, response.body().getPhone1());
+                            data.putString(Constans.SKYPE, String.valueOf(response.body().getSkype()));
+                            intent.putExtras(data);
+                            startActivity(intent);
                         }
                     }
 
@@ -145,7 +151,10 @@ public class ListCallFragment extends Fragment {
                 }
             }
         });
-
+        @ColorInt int down = getResources().getColor(R.color.white);
+        @ColorInt int up = getResources().getColor(R.color.DarkOrange);
+        mTvDateStart.setOnTouchListener(new CustomTouchListener(down, up));
+        mTvDateEnd.setOnTouchListener(new CustomTouchListener(down, up));
 
         mTvDateStart.setOnClickListener(view15 -> {
             Calendar c = Calendar.getInstance();
@@ -288,4 +297,19 @@ public class ListCallFragment extends Fragment {
 
 
     }
+
+//    public class CustomTouchListener implements View.OnTouchListener {
+//        public boolean onTouch(View view, MotionEvent motionEvent) {
+//            switch (motionEvent.getAction()) {
+//                case MotionEvent.ACTION_DOWN:
+//                    ((TextView) view).setTextColor(0xFFFFFFFF); //white
+//                    break;
+//                case MotionEvent.ACTION_CANCEL:
+//                case MotionEvent.ACTION_UP:
+//                    ((TextView) view).setTextColor(getResources().getColor(R.color.DarkOrange)); //black
+//                    break;
+//            }
+//            return false;
+//        }
+//    }
 }

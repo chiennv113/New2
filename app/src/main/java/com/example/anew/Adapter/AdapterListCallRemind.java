@@ -9,12 +9,14 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.anew.Model.ModelListPhoneCallRemind.ModelListPhoneCallRemind;
 import com.example.anew.R;
 import com.example.anew.helper.IRemoveRemid;
+import com.example.anew.utills.CustomTouchListener;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -68,8 +70,6 @@ public class AdapterListCallRemind extends RecyclerView.Adapter<AdapterListCallR
             AlertDialog alertDialog = builder.create();
             alertDialog.show();
         });
-
-
     }
 
     @Override
@@ -78,7 +78,7 @@ public class AdapterListCallRemind extends RecyclerView.Adapter<AdapterListCallR
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView tvName, tvPhone, tvRemindDate,tvRemindTime;
+        private TextView tvName, tvPhone, tvRemindDate, tvRemindTime;
         private ImageView imgDel;
 
         public ViewHolder(@NonNull View itemView) {
