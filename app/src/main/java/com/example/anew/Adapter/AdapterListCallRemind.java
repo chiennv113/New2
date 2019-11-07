@@ -8,16 +8,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.anew.Model.ModelListPhoneCallRemind.ModelListPhoneCallRemind;
 import com.example.anew.R;
 import com.example.anew.helper.IRemoveRemid;
-import com.example.anew.utills.CustomTouchListener;
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -53,7 +49,6 @@ public class AdapterListCallRemind extends RecyclerView.Adapter<AdapterListCallR
             Date d = new Date((long) modelListPhoneCallRemind.getRemindTime() * 1000);
             DateFormat f = new SimpleDateFormat("dd/MM/yyyy HH:mm");
             holder.tvRemindDate.setText(f.format(d));
-
         }
 
         holder.imgDel.setOnClickListener(view -> {

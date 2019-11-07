@@ -38,8 +38,6 @@ public class ItemListCallUserActivity extends AppCompatActivity {
     View view;
     private int indicatorWidth;
 
-    FragmentTransaction fragmentTransaction;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,13 +48,6 @@ public class ItemListCallUserActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         toolbar.setNavigationOnClickListener(view -> finish());
-
-//        Intent intent = getIntent();
-//        String name = intent.getStringExtra("name");
-//        String address = intent.getStringExtra("address");
-//        String email = intent.getStringExtra("email");
-//        String phone = intent.getStringExtra("phone");
-//        String skype = intent.getStringExtra("skype");
 
         Bundle gameData = getIntent().getExtras();
         if (gameData != null) {
@@ -84,7 +75,6 @@ public class ItemListCallUserActivity extends AppCompatActivity {
         tabLayout.post(() -> {
             indicatorWidth = tabLayout.getWidth() / tabLayout.getTabCount();
 
-            //Assign new width
             FrameLayout.LayoutParams indicatorParams = (FrameLayout.LayoutParams) view.getLayoutParams();
             indicatorParams.width = indicatorWidth;
             view.setLayoutParams(indicatorParams);
@@ -96,7 +86,6 @@ public class ItemListCallUserActivity extends AppCompatActivity {
             public void onPageScrolled(int i, float positionOffset, int positionOffsetPx) {
                 FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) view.getLayoutParams();
 
-                //Multiply positionOffset with indicatorWidth to get translation
                 float translationOffset = (positionOffset + i) * indicatorWidth;
                 params.leftMargin = (int) translationOffset;
                 view.setLayoutParams(params);
@@ -154,7 +143,6 @@ public class ItemListCallUserActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_tb, menu);
         return true;
     }
