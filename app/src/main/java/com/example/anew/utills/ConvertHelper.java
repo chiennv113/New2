@@ -17,4 +17,16 @@ public class ConvertHelper {
         long time = date.getTime() / 1000;
         return time;
     }
+
+    public static long convertStringToTimestampDateAndTime(String string) {
+        DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        Date date = new Date();
+        try {
+            date = formatter.parse(string);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        long time = date.getTime() / 1000;
+        return time;
+    }
 }

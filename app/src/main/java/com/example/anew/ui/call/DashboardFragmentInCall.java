@@ -2,6 +2,7 @@ package com.example.anew.ui.call;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -21,6 +22,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.example.anew.Activity.TKTheoNVActivity;
 import com.example.anew.Adapter.AdapterTkTheoNV;
 import com.example.anew.Model.ModelCustomeFeelNew;
 import com.example.anew.Model.ModelTKCuocGoiAdmin.ModelThongKeCuocGoiAdmin;
@@ -142,7 +144,11 @@ public class DashboardFragmentInCall extends Fragment {
         adapterTkTheoNV = new AdapterTkTheoNV(modelThongKeTheoNVAdmins, context, new IClickRv() {
             @Override
             public void onClick(int position) {
-                showdialog();
+                Intent intent = new Intent(getContext(), TKTheoNVActivity.class);
+                intent.putExtra("position", position);
+                intent.putExtra("startdate", ConvertHelper.convertStringToTimestampMilisecond(mTvDateStart.getText().toString()));
+                intent.putExtra("enddate", ConvertHelper.convertStringToTimestampMilisecond(mTvDateEnd.getText().toString()));
+                startActivity(intent);
             }
         });
         mRvNV.setAdapter(adapterTkTheoNV);
@@ -331,14 +337,5 @@ public class DashboardFragmentInCall extends Fragment {
         });
     }
 
-    private void showdialog() {
-        final DialogItemNV dialogItemNV = new DialogItemNV();
-        dialogItemNV.setOnClickPositive(new IClickShowDialogNV() {
-            @Override
-            public void onClick() {
 
-            }
-        });
-        dialogItemNV.show(getChildFragmentManager(), null);
-    }
 }

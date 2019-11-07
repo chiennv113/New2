@@ -55,7 +55,7 @@ public class ListCallFragment extends Fragment {
     private ImageView mImgFilter;
     private Context context;
     private int OFFSET = 0; // Lấy từ vị trí
-    private int TAKE = 10; // Lấy về số bản ghi
+    private int TAKE = 50; // Lấy về số bản ghi
 
     private SwipeRefreshLayout swipeRefreshLayout;
     private ImageView mBtnSearch;
