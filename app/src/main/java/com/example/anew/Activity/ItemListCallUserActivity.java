@@ -3,13 +3,10 @@
 package com.example.anew.Activity;
 
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,9 +18,9 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.anew.R;
-import com.example.anew.ui.call.AllCallUserFragment;
+import com.example.anew.ui.call.TongHopCuocGoiFragment;
 import com.example.anew.ui.call.InfUserCallFragment;
-import com.example.anew.ui.call.TicketCallUserFragment;
+import com.example.anew.ui.call.TicketDaGuiFragment;
 import com.example.anew.utills.Constans;
 import com.google.android.material.tabs.TabLayout;
 
@@ -107,8 +104,8 @@ public class ItemListCallUserActivity extends AppCompatActivity {
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new InfUserCallFragment(), "Thông tin");
-        adapter.addFragment(new AllCallUserFragment(), "Thống kê");
-        adapter.addFragment(new TicketCallUserFragment(), "Ticket");
+        adapter.addFragment(new TongHopCuocGoiFragment(), "Tổng hợp cuộc gọi");
+        adapter.addFragment(new TicketDaGuiFragment(), "Ticket đã gửi");
         viewPager.setAdapter(adapter);
     }
 

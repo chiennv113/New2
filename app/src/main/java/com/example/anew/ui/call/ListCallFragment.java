@@ -42,6 +42,7 @@ import com.example.anew.utills.SharePrefs;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 import retrofit2.Call;
@@ -280,8 +281,11 @@ public class ListCallFragment extends Fragment {
                     Toast.makeText(context, "Thông tin nhập không khớp", Toast.LENGTH_SHORT).show();
                 } else {
                     Bundle args = new Bundle();
-                    args.putString("name", response.body().getFullname());
-                    args.putString("phone", response.body().getPhone1());
+                    args.putString(Constans.NAME, response.body().getFullname());
+                    args.putString(Constans.PHONE, response.body().getPhone1());
+                    args.putString(Constans.SKYPE, String.valueOf(Objects.requireNonNull(response).body().getSkype()));
+                    args.putString(Constans.EMAIL, response.body().getEmail());
+                    args.putString(Constans.ADDRESS, String.valueOf(Objects.requireNonNull(response).body().getAddress()));
                     args.putInt("id", response.body().getId());
                     DialogSearchCall newFragment = new DialogSearchCall();
                     newFragment.setArguments(args);

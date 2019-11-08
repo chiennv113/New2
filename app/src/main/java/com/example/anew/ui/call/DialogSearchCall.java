@@ -13,6 +13,7 @@ import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -23,6 +24,7 @@ import com.example.anew.Model.ModelAdd;
 import com.example.anew.R;
 import com.example.anew.Retrofit.ApiClient;
 import com.example.anew.utills.Constans;
+import com.example.anew.utills.CustomTouchListener;
 import com.example.anew.utills.SharePrefs;
 
 import retrofit2.Call;
@@ -47,21 +49,36 @@ public class DialogSearchCall extends DialogFragment {
         super.onViewCreated(view, savedInstanceState);
         initView(view);
 
-        mItem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), ItemListCallUserActivity.class);
-                startActivity(intent);
-            }
-        });
 
         Bundle mArgs = getArguments();
-        String name = mArgs.getString("name");
-        String phone = mArgs.getString("phone");
+        String name = mArgs.getString(Constans.NAME);
+        String phone = mArgs.getString(Constans.PHONE);
+        final String skype = mArgs.getString(Constans.SKYPE);
+        final String address = mArgs.getString(Constans.ADDRESS);
+        final String email = mArgs.getString(Constans.EMAIL);
         int id = mArgs.getInt("id");
         String cookie = SharePrefs.getInstance().get(Constans.COOKIE, String.class);
         mTvSđt.setText(phone);
         mTvName.setText(name);
+        mItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), ItemListCallUserActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString(Constans.NAME, mTvName.getText().toString().trim());
+                bundle.putString(Constans.PHONE, mTvSđt.getText().toString().trim());
+                bundle.putString(Constans.SKYPE, skype);
+                bundle.putString(Constans.ADDRESS, address);
+                bundle.putString(Constans.EMAIL, email);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
+
+        @ColorInt int down = getResources().getColor(R.color.white);
+        @ColorInt int up = getResources().getColor(R.color.DarkOrange);
+        mTvCancel.setOnTouchListener(new CustomTouchListener(down, up));
+        mTvAddCall.setOnTouchListener(new CustomTouchListener(down, up));
 
         mTvCancel.setOnClickListener(v -> dismiss());
 

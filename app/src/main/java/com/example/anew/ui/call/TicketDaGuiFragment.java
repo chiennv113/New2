@@ -1,7 +1,4 @@
 package com.example.anew.ui.call;
-
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 
 import android.view.LayoutInflater;
@@ -13,7 +10,7 @@ import androidx.fragment.app.Fragment;
 import com.example.anew.R;
 
 
-public class TicketCallUserFragment extends Fragment {
+public class TicketDaGuiFragment extends Fragment {
 
 
     @Override

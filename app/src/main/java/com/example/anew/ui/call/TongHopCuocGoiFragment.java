@@ -13,7 +13,7 @@ import androidx.fragment.app.Fragment;
 import com.example.anew.R;
 
 
-public class AllCallUserFragment extends Fragment {
+public class TongHopCuocGoiFragment extends Fragment {
 
 
     @Override

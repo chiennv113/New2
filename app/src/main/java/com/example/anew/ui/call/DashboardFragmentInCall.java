@@ -15,6 +15,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -35,6 +36,7 @@ import com.example.anew.helper.IClickRv;
 import com.example.anew.helper.IClickShowDialogNV;
 import com.example.anew.utills.Constans;
 import com.example.anew.utills.ConvertHelper;
+import com.example.anew.utills.CustomTouchListener;
 import com.example.anew.utills.SharePrefs;
 
 import java.util.ArrayList;
@@ -81,6 +83,11 @@ public class DashboardFragmentInCall extends Fragment {
         final String cookie = SharePrefs.getInstance().get(Constans.COOKIE, String.class);
         initView(view);
         LoadCustomerFeel();
+
+        @ColorInt int down = getResources().getColor(R.color.white);
+        @ColorInt int up = getResources().getColor(R.color.DarkOrange);
+        mTvDateStart.setOnTouchListener(new CustomTouchListener(down, up));
+        mTvDateEnd.setOnTouchListener(new CustomTouchListener(down, up));
 
         mSwipeRefresh.setOnRefreshListener(() -> new Handler().postDelayed(() -> mSwipeRefresh.setRefreshing(false), 2000));
 
@@ -160,8 +167,8 @@ public class DashboardFragmentInCall extends Fragment {
         int year = c.get(Calendar.YEAR);
         int day = c.get(Calendar.DAY_OF_MONTH);
 
-        mTvDateStart.setText("1" + "/" + (month + 1) + "/" + year);
-        mTvDateEnd.setText(day + "/" + (month + 1) + "/" + year);
+        mTvDateStart.setText("Date start: " + "1" + "/" + (month + 1) + "/" + year);
+        mTvDateEnd.setText("Date End: " + day + "/" + (month + 1) + "/" + year);
         int realMonth = month + 1;
         if (realMonth == 1 || realMonth == 3 || realMonth == 5 || realMonth == 7 || realMonth == 8 || realMonth == 10 || realMonth == 12) {
             String start = "1/" + realMonth + "/" + year;
@@ -223,18 +230,20 @@ public class DashboardFragmentInCall extends Fragment {
             public void onResponse(Call<List<ModelThongKeCuocGoiBanThan>> call, Response<List<ModelThongKeCuocGoiBanThan>> response) {
                 int demNew = 0;
                 int demOld = 0;
+                int demALl = 0;
                 if (response.isSuccessful() && response.body() != null) {
                     for (int i = 0; i < response.body().size(); i++) {
                         int a = response.body().get(i).getCustomernew().size();
                         int b = response.body().get(i).getCustomerold().size();
+                        int c = response.body().get(i).getPhone().size();
                         demNew = demNew + a;
                         demOld = demOld + b;
+                        demALl = demALl + c;
                     }
                 }
                 mTvOldMySelf.setText(String.valueOf(demOld));
                 mTvNewMyself.setText(String.valueOf(demNew));
-                int demAll = demNew + demOld;
-                mTvAllMySelf.setText(String.valueOf(demAll));
+                mTvAllMySelf.setText(String.valueOf(demALl));
             }
 
             @Override
