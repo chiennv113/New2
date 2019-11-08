@@ -15,6 +15,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".Activity.AddTicketActivity"></activity>
         <activity android:name=".Activity.TKTheoNVActivity"></activity>
         <activity android:name=".Activity.ItemListCallUserActivity" />
         <activity android:name=".Activity.AddCallActivity"></activity>
