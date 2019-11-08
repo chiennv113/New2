@@ -1,9 +1,11 @@
 package com.example.anew.ui.call;
 
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.graphics.Point;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -40,7 +42,6 @@ public class DialogAddRemind extends DialogFragment {
     private TextView mTvName;
     private TextView mTvEmail;
     private TextInputEditText mEdtContent;
-    private TextView mTvChangeDate;
     private ImageView mTvSearch;
     private Button mBtnOk;
     private Button mBtnCancel;
@@ -50,6 +51,9 @@ public class DialogAddRemind extends DialogFragment {
 
     private IDialogClick iDialogClick;
     private TextView mTvDate;
+    private TextView mTvTime;
+    private TextView mTvChangeDate;
+    private TextView mTvChangeTime;
 
     void setOnClickPositive(IDialogClick iDialogClick) {
         this.iDialogClick = iDialogClick;
@@ -68,15 +72,21 @@ public class DialogAddRemind extends DialogFragment {
         final String cookie = SharePrefs.getInstance().get(Constans.COOKIE, String.class);
 
         mBtnOk.setOnClickListener(view15 -> {
+
+            String date = mTvChangeDate.getText().toString().trim();
+            String time = mTvChangeTime.getText().toString().trim();
+            String result1 = date.concat(" ");
+            String result2 = result1.concat(time);
+            Log.e("GGG", "onViewCreated: "+result2 );
+
             String content = mEdtContent.getText().toString().trim();
-            String timeConvert = mTvChangeDate.getText().toString().trim();
 
             if (content.equals("") || mTvName.getText().toString().trim().equals("") || mTvEmail.getText().toString().trim().equals("") ||
                     mTvChangeDate.getText().toString().trim().equals("")) {
                 Toast.makeText(context, "Chưa nhập đủ", Toast.LENGTH_SHORT).show();
             } else {
                 int id = arrayList.get(0);
-                iDialogClick.clickPositive(content, timeConvert, id);
+                iDialogClick.clickPositive(content, result2, id);
                 Toast.makeText(context, "Thêm thành công", Toast.LENGTH_SHORT).show();
             }
         });
@@ -122,6 +132,15 @@ public class DialogAddRemind extends DialogFragment {
             datePickerDialog.show();
         });
 
+        mTvTime.setOnClickListener(v -> {
+            Calendar c = Calendar.getInstance();
+            int mHour = c.get(Calendar.HOUR_OF_DAY);
+            int mMinute = c.get(Calendar.MINUTE);
+            TimePickerDialog timePickerDialog = new TimePickerDialog(getActivity(),
+                    (view16, hourOfDay, minute) -> mTvChangeTime.setText(hourOfDay + ":" + minute), mHour, mMinute, false);
+            timePickerDialog.show();
+        });
+
         mBtnCancel.setOnClickListener(view13 -> dismiss());
     }
 
@@ -141,11 +160,13 @@ public class DialogAddRemind extends DialogFragment {
         mTvName = view.findViewById(R.id.tv_name);
         mTvEmail = view.findViewById(R.id.tv_email);
         mEdtContent = view.findViewById(R.id.edt_content);
-        mTvChangeDate = view.findViewById(R.id.tv_change_date);
         mTvSearch = view.findViewById(R.id.tv_search);
         mBtnOk = view.findViewById(R.id.btn_ok);
         mBtnCancel = view.findViewById(R.id.btn_cancel);
-        mTvDate = view.findViewById(R.id.tv_date);
+        mTvDate = view.findViewById(R.id.tvDate);
+        mTvTime = view.findViewById(R.id.tvTime);
+        mTvChangeDate = view.findViewById(R.id.tvChangeDate);
+        mTvChangeTime = view.findViewById(R.id.tvChangeTime);
     }
 
 

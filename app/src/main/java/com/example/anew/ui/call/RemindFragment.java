@@ -84,7 +84,7 @@ public class RemindFragment extends Fragment implements IRemoveRemid {
     private void showDialogRemind() {
         final DialogAddRemind dialog_add_remind = new DialogAddRemind();
         dialog_add_remind.setOnClickPositive((content, timeConvert, id) -> {
-            long time = ConvertHelper.convertStringToTimestampMilisecond(timeConvert);
+            long time = ConvertHelper.convertStringToTimestampDateAndTime(timeConvert);
             ApiClient.getInstance().addRemind("add_phone_remind", content, time, id, cookie).enqueue(new Callback<ModelAddRemind>() {
                 @Override
                 public void onResponse(Call<ModelAddRemind> call, Response<ModelAddRemind> response) {

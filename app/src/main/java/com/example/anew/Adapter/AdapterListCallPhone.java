@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,6 +21,7 @@ import com.example.anew.Model.ModelListPhoneCall.CallList;
 import com.example.anew.R;
 import com.example.anew.helper.ILoadMore;
 import com.example.anew.helper.ItemClickRv;
+import com.example.anew.utills.CustomTouchListener;
 
 import java.util.List;
 
@@ -74,8 +76,8 @@ public class AdapterListCallPhone extends RecyclerView.Adapter<RecyclerView.View
                 super.onScrolled(recyclerView, dx, dy);
                 totalItemCount = linearLayoutManager.getItemCount(); // Lấy tổng số lượng item đang có
                 lastVisibleItem = linearLayoutManager.findLastVisibleItemPosition(); // Lấy vị trí của item cuối cùng
-                Log.e("", "onScrolled: lastVisibleItem: "+lastVisibleItem);
-                Log.e("", "onScrolled: totalItemCount: "+totalItemCount);
+                Log.e("", "onScrolled: lastVisibleItem: " + lastVisibleItem);
+                Log.e("", "onScrolled: totalItemCount: " + totalItemCount);
 
                 if (!isLoading && totalItemCount <= (lastVisibleItem + visibleThreshold)) // Nếu không phải trạng thái loading và tổng số lượng item bé hơn hoặc bằng vị trí item cuối + số lượng item tối đa hiển thị
                 {
@@ -140,6 +142,7 @@ public class AdapterListCallPhone extends RecyclerView.Adapter<RecyclerView.View
                 String phone = modelListPhoneCall.getCustomer().getPhone1();
                 mitemClickRv.onItemClick(phone);
             });
+
         } else if (holder instanceof LoadingViewHolder) {
             LoadingViewHolder loadingViewHolder = (LoadingViewHolder) holder;
             loadingViewHolder.progressBar.setIndeterminate(true);

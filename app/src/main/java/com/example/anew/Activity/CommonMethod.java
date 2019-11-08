@@ -8,10 +8,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
 class CommonMethod {
-    public static final String DISPLAY_MESSAGE_ACTION =
-            "com.codecube.broking.gcm";
-
-    public static final String EXTRA_MESSAGE = "message";
 
     public  static boolean isNetworkAvailable(Context ctx) {
         ConnectivityManager connectivityManager

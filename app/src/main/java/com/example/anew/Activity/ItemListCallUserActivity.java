@@ -1,3 +1,5 @@
+
+
 package com.example.anew.Activity;
 
 
@@ -8,6 +10,7 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -46,13 +49,17 @@ public class ItemListCallUserActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         toolbar.setNavigationOnClickListener(view -> finish());
 
-        Intent intent = getIntent();
-        String fullname = intent.getStringExtra("fullname");
-        String address = intent.getStringExtra("address");
-        String email = intent.getStringExtra("email");
-        String phone = intent.getStringExtra("phone");
-        String skype = intent.getStringExtra("skype");
-        addFragment(InfUserCallFragment.newInstance(fullname, address, email, phone, skype));
+        Bundle gameData = getIntent().getExtras();
+        if (gameData != null) {
+            String name = gameData.getString(Constans.NAME);
+            String address = gameData.getString(Constans.ADDRESS);
+            String email = gameData.getString(Constans.EMAIL);
+            String phone = gameData.getString(Constans.PHONE);
+            String sky = gameData.getString(Constans.SKYPE);
+            addFragment(InfUserCallFragment.newInstance(name, address, email, phone, sky));
+        } else if (gameData == null) {
+            Toast.makeText(this, "Bundle is null", Toast.LENGTH_SHORT).show();
+        }
 
 
         view = findViewById(R.id.indicator);
@@ -68,7 +75,6 @@ public class ItemListCallUserActivity extends AppCompatActivity {
         tabLayout.post(() -> {
             indicatorWidth = tabLayout.getWidth() / tabLayout.getTabCount();
 
-            //Assign new width
             FrameLayout.LayoutParams indicatorParams = (FrameLayout.LayoutParams) view.getLayoutParams();
             indicatorParams.width = indicatorWidth;
             view.setLayoutParams(indicatorParams);
@@ -80,7 +86,6 @@ public class ItemListCallUserActivity extends AppCompatActivity {
             public void onPageScrolled(int i, float positionOffset, int positionOffsetPx) {
                 FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) view.getLayoutParams();
 
-                //Multiply positionOffset with indicatorWidth to get translation
                 float translationOffset = (positionOffset + i) * indicatorWidth;
                 params.leftMargin = (int) translationOffset;
                 view.setLayoutParams(params);
@@ -138,7 +143,6 @@ public class ItemListCallUserActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_tb, menu);
         return true;
     }

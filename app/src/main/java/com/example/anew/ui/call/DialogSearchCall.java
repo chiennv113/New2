@@ -1,8 +1,8 @@
 package com.example.anew.ui.call;
 
+import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -15,8 +15,10 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.DialogFragment;
 
+import com.example.anew.Activity.ItemListCallUserActivity;
 import com.example.anew.Model.ModelAdd;
 import com.example.anew.R;
 import com.example.anew.Retrofit.ApiClient;
@@ -32,18 +34,26 @@ public class DialogSearchCall extends DialogFragment {
     private TextView mTvName;
     private TextView mTvAddCall;
     private TextView mTvCancel;
+    private ConstraintLayout mItem;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.dialog_result_search, container);
-
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initView(view);
+
+        mItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), ItemListCallUserActivity.class);
+                startActivity(intent);
+            }
+        });
 
         Bundle mArgs = getArguments();
         String name = mArgs.getString("name");
@@ -75,6 +85,7 @@ public class DialogSearchCall extends DialogFragment {
         mTvName = view.findViewById(R.id.tvName);
         mTvAddCall = view.findViewById(R.id.tvAddCall);
         mTvCancel = view.findViewById(R.id.tvCancel);
+        mItem = view.findViewById(R.id.item);
     }
 
     public void onResume() {
