@@ -65,9 +65,4 @@ public class AdapterTKTungNV extends RecyclerView.Adapter<AdapterTKTungNV.ViewHo
         }
     }
 
-    public void updateData(List<Phone> list) {
-        modelThongKeTheoNVAdmins.clear();
-        modelThongKeTheoNVAdmins.addAll(list);
-        notifyDataSetChanged();
-    }
 }

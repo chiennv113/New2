@@ -7,7 +7,7 @@
     tools:context=".ui.call.TongHopCuocGoiFragment">
 
     <TextView
-        android:id="@+id/textView29"
+        android:id="@+id/textView58"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -15,11 +15,12 @@
         android:gravity="center"
         android:text="@string/cacCuocGoiVoiKH"
         android:textColor="@color/DarkOrange"
-        android:textSize="23sp"
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -27,6 +28,6 @@
         android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView29" />
+        app:layout_constraintTop_toBottomOf="@+id/textView58" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

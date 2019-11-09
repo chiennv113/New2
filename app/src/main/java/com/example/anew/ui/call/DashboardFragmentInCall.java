@@ -152,9 +152,11 @@ public class DashboardFragmentInCall extends Fragment {
             @Override
             public void onClick(int position) {
                 Intent intent = new Intent(getContext(), TKTheoNVActivity.class);
-                intent.putExtra("position", position);
-                intent.putExtra("startdate", ConvertHelper.convertStringToTimestampMilisecond(mTvDateStart.getText().toString()));
-                intent.putExtra("enddate", ConvertHelper.convertStringToTimestampMilisecond(mTvDateEnd.getText().toString()));
+                Bundle bundle = new Bundle();
+                bundle.putInt(Constans.POSITION, position);
+                bundle.putLong(Constans.DATE_START, ConvertHelper.convertStringToTimestampMilisecond(mTvDateStart.getText().toString()));
+                bundle.putLong(Constans.DATE_END, ConvertHelper.convertStringToTimestampMilisecond(mTvDateEnd.getText().toString()));
+                intent.putExtras(bundle);
                 startActivity(intent);
             }
         });
@@ -167,8 +169,8 @@ public class DashboardFragmentInCall extends Fragment {
         int year = c.get(Calendar.YEAR);
         int day = c.get(Calendar.DAY_OF_MONTH);
 
-        mTvDateStart.setText("Date start: " + "1" + "/" + (month + 1) + "/" + year);
-        mTvDateEnd.setText("Date End: " + day + "/" + (month + 1) + "/" + year);
+        mTvDateStart.setText("1" + "/" + (month + 1) + "/" + year);
+        mTvDateEnd.setText(day + "/" + (month + 1) + "/" + year);
         int realMonth = month + 1;
         if (realMonth == 1 || realMonth == 3 || realMonth == 5 || realMonth == 7 || realMonth == 8 || realMonth == 10 || realMonth == 12) {
             String start = "1/" + realMonth + "/" + year;

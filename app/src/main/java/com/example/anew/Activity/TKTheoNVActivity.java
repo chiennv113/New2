@@ -1,6 +1,4 @@
 package com.example.anew.Activity;
-
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.widget.ImageView;
@@ -42,20 +40,20 @@ public class TKTheoNVActivity extends AppCompatActivity {
         setContentView(R.layout.activity_tktheo_nv);
         initView();
         mBtnCancel.setOnClickListener(v -> finish());
-        Intent intent = getIntent();
-        int position = intent.getIntExtra("position", 0);
-        long datestart = intent.getLongExtra("startdate", 0);
-        long dateend = intent.getLongExtra("enddate", 0);
+        Bundle bundle = getIntent().getExtras();
+        int position = bundle.getInt(Constans.POSITION, 0);
+        long dastard = bundle.getLong(Constans.DATE_START, 0);
+        long dated = bundle.getLong(Constans.DATE_END, 0);
         linearLayoutManager = new LinearLayoutManager(this);
         adapterTKTungNV = new AdapterTKTungNV(phoneList, this);
         mRv.setAdapter(adapterTKTungNV);
         mRv.setLayoutManager(linearLayoutManager);
-        requestLoad(datestart, dateend, position);
+        requestLoad(dastard, dated, position);
 
         mSwipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                requestLoad(datestart, dateend, position);
+                requestLoad(dastard, dated, position);
                 new Handler().postDelayed(() -> mSwipeRefresh.setRefreshing(false), 2000);
             }
         });
@@ -68,8 +66,8 @@ public class TKTheoNVActivity extends AppCompatActivity {
         mSwipeRefresh = findViewById(R.id.swipeRefresh);
     }
 
-    public void requestLoad(long datestart, long dateend, int position) {
-        ApiClient.getInstance().tkTheoNV("EmployeesStatisticPhones", datestart, dateend, SharePrefs.getInstance().get(Constans.COOKIE, String.class))
+    public void requestLoad(long dastard, long dareen, int position) {
+        ApiClient.getInstance().tkTheoNV("EmployeesStatisticPhones", dastard, dareen, SharePrefs.getInstance().get(Constans.COOKIE, String.class))
                 .enqueue(new Callback<List<ModelThongKeTheoNVAdmin>>() {
                     @Override
                     public void onResponse(Call<List<ModelThongKeTheoNVAdmin>> call, Response<List<ModelThongKeTheoNVAdmin>> response) {

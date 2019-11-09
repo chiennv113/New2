@@ -10,4 +10,7 @@ public class Constans {
     public static final String EMAIL = "Constans.email";
     public static final String ADDRESS = "Constans.address";
     public static final String SKYPE = "Constans.skype";
+    public static final String POSITION = "Constans.postition";
+    public static final String DATE_START = "Constans.datestart";
+    public static final String DATE_END = "Constans.dateend";
 }
