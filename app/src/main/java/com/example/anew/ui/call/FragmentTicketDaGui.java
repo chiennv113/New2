@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment;
 import com.example.anew.R;
 
 
-public class TicketDaGuiFragment extends Fragment {
+public class FragmentTicketDaGui extends Fragment {
 
 
     @Override

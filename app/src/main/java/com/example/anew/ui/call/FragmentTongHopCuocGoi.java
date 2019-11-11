@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class TongHopCuocGoiFragment extends Fragment {
+public class FragmentTongHopCuocGoi extends Fragment {
 
     private AdapterCacCuocGoiVoiKH adapterCacCuocGoiVoiKH;
     private LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
