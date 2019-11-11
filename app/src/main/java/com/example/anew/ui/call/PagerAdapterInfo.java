@@ -1,6 +1,7 @@
 package com.example.anew.ui.call;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
@@ -49,6 +50,27 @@ public class PagerAdapterInfo extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        return mFragmentList.size();
+        return 3;
     }
+
+
+
+    @Nullable
+    @Override
+    public CharSequence getPageTitle(int position) {
+
+
+        String title = "";
+        switch (position){
+            case 0:
+                title = "Thông tin";
+                break;
+            case 1:
+                title = "Tổng hợp cuộc gọi";
+                break;
+            case 2:
+                title = "Ticket";
+                break;
+        }
+        return title;    }
 }
