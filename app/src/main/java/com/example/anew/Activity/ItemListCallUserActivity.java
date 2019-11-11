@@ -1,11 +1,10 @@
 package com.example.anew.Activity;
 
 
-import android.graphics.drawable.GradientDrawable;
+import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.LinearLayout;
+import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
@@ -22,12 +21,20 @@ public class ItemListCallUserActivity extends AppCompatActivity {
     private TabLayout tabLayout;
     private ViewPager pager;
     private PagerAdapterInfo adapter;
+    private ImageView mImgBack;
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_list_call_user);
         initView();
+        mImgBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         Bundle bundle = getIntent().getExtras();
         String name = bundle.getString(Constans.NAME);
         String address = bundle.getString(Constans.ADDRESS);
@@ -49,5 +56,6 @@ public class ItemListCallUserActivity extends AppCompatActivity {
     private void initView() {
         tabLayout = findViewById(R.id.tab_layout);
         pager = findViewById(R.id.view_pager);
+        mImgBack = findViewById(R.id.imgBack);
     }
 }

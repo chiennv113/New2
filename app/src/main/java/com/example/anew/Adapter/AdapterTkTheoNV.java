@@ -40,9 +40,9 @@ public class AdapterTkTheoNV extends RecyclerView.Adapter<AdapterTkTheoNV.ViewHo
         final ModelThongKeTheoNVAdmin modelListPhoneCall = modelThongKeTheoNVAdmins.get(position);
         holder.email.setText(modelListPhoneCall.getEmail());
         holder.name.setText(modelListPhoneCall.getFullname());
-        holder.soCuocGoi.setText(String.valueOf(modelListPhoneCall.getStatistics().getPhone().size()));
-        holder.khmoi.setText(String.valueOf(modelListPhoneCall.getStatistics().getCustomernew().size()));
-        holder.khcu.setText(String.valueOf(modelListPhoneCall.getStatistics().getCustomerold().size()));
+        holder.soCuocGoi.setText(String.valueOf("Số cuộc gọi: "+modelListPhoneCall.getStatistics().getPhone().size()));
+        holder.khmoi.setText(String.valueOf("Khách hàng mới: "+modelListPhoneCall.getStatistics().getCustomernew().size()));
+        holder.khcu.setText(String.valueOf("Khách hàng cũ: "+modelListPhoneCall.getStatistics().getCustomerold().size()));
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

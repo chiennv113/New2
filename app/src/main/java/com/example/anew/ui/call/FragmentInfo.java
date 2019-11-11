@@ -1,14 +1,10 @@
 package com.example.anew.ui.call;
 
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -54,11 +50,20 @@ public class FragmentInfo extends Fragment {
             String email = getArguments().getString("email");
             String phone = getArguments().getString("phone");
             String sky = getArguments().getString("skye");
+            if (address.equals("null")) {
+                mTvDiaChi.setText("");
+            } else {
+                mTvDiaChi.setText(address);
+            }
+
+            if (sky.equals("null")) {
+                mTvSky.setText("");
+            } else {
+                mTvSky.setText(sky);
+            }
             mTvFullName.setText(name);
-            mTvDiaChi.setText(address);
             mTvEm.setText(email);
             mTvSDT.setText(phone);
-            mTvSky.setText(sky);
         }
     }
 

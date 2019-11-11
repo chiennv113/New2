@@ -42,7 +42,7 @@
                 android:gravity="center"
                 android:text="@string/act_addCall"
                 android:textColor="@color/cardview_light_background"
-                android:textSize="24sp"
+                android:textSize="19sp"
                 android:textStyle="bold"
                 tools:ignore="PrivateResource" />
 
@@ -56,7 +56,7 @@
                 android:gravity="center"
                 android:text="@string/btn_save"
                 android:textColor="@color/cardview_light_background"
-                android:textSize="24sp"
+                android:textSize="19sp"
                 tools:ignore="PrivateResource" />
 
         </LinearLayout>
@@ -87,10 +87,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
+                android:src="@drawable/account_search"
                 app:layout_constraintBottom_toBottomOf="@+id/layoutPhone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/layoutPhone"
-                android:src="@drawable/account_search"
                 tools:ignore="ContentDescription" />
 
             <TextView
@@ -136,6 +136,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/act_add_edt_phone"
+                    android:inputType="number"
                     android:textSize="15sp" />
 
             </com.google.android.material.textfield.TextInputLayout>

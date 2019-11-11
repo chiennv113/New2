@@ -29,7 +29,7 @@ public class FragmentTongHopCuocGoi extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_all_call_user, container, false);
+        return inflater.inflate(R.layout.fragment_tong_hop_cuoc_goi, container, false);
     }
 
     @Override

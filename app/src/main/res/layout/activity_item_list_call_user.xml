@@ -6,22 +6,24 @@
     android:orientation="vertical">
 
     <androidx.appcompat.widget.Toolbar
-        android:background="@color/P_Accent"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-   <ImageView
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:src="@drawable/arrow_left"/>
+        android:layout_height="wrap_content"
+        android:background="@color/P_Accent">
 
-        <TextView
-            android:textStyle="bold"
-            android:textSize="19sp"
+        <ImageView
+            android:id="@+id/imgBack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Thông tin"
+            android:src="@drawable/arrow_left" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="48dp"
-            android:textColor="@color/cardview_light_background"/>
+            android:text="Thông tin"
+            android:textColor="@color/cardview_light_background"
+            android:textSize="19sp"
+            android:textStyle="bold" />
 
     </androidx.appcompat.widget.Toolbar>
 
@@ -31,7 +33,6 @@
         android:background="@color/P_Accent"
         android:gravity="center_horizontal"
         android:orientation="horizontal">
-
 
 
         <com.google.android.material.tabs.TabLayout

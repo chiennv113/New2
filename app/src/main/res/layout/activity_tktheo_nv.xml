@@ -16,19 +16,19 @@
             android:id="@+id/btnCancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_action_name"
+            android:src="@drawable/arrow_left"
             tools:ignore="ContentDescription" />
 
         <TextView
-            android:layout_marginStart="16dp"
-            android:id="@+id/nameNV"
+            android:id="@+id/nameNv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
+            android:layout_marginStart="48dp"
             android:textColor="@color/cardview_light_background"
-            android:textSize="24sp"
+            android:textSize="19sp"
             android:textStyle="bold"
             tools:ignore="PrivateResource" />
+
     </androidx.appcompat.widget.Toolbar>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout

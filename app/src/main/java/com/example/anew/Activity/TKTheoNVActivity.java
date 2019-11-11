@@ -1,4 +1,5 @@
 package com.example.anew.Activity;
+
 import android.os.Bundle;
 import android.os.Handler;
 import android.widget.ImageView;
@@ -61,7 +62,7 @@ public class TKTheoNVActivity extends AppCompatActivity {
 
     private void initView() {
         mBtnCancel = findViewById(R.id.btnCancel);
-        mNameNV = findViewById(R.id.nameNV);
+        mNameNV = findViewById(R.id.nameNv);
         mRv = findViewById(R.id.rv);
         mSwipeRefresh = findViewById(R.id.swipeRefresh);
     }
