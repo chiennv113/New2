@@ -423,6 +423,8 @@ public class AddCallActivity extends AppCompatActivity {
         });
     }
 
+//load
+
     private void LoadAllProduct(String cookie) {
         ApiClient.getInstance().getAllProduct("get_allProduct", cookie).enqueue(new Callback<List<ModelLoadAllProduct>>() {
             @Override

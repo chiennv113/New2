@@ -18,6 +18,17 @@ public class ModelLoadAllProduct {
     @SerializedName("description")
     @Expose
     private String description;
+    @SerializedName("type")
+    @Expose
+    private String type;
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 
     public Integer getId() {
         return id;
