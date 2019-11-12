@@ -6,6 +6,7 @@ import com.example.anew.Model.ModelAddRemind;
 import com.example.anew.Model.ModelCustomeFeelNew;
 import com.example.anew.Model.ModelDeleteCall;
 import com.example.anew.Model.ModelDeleteRemind;
+import com.example.anew.Model.ModelListCustomer.ModelListCustomer;
 import com.example.anew.Model.ModelListPhoneCall.CallList;
 import com.example.anew.Model.ModelListPhoneCall.Customer;
 import com.example.anew.Model.ModelListPhoneCall.ModelListPhoneCallV2;
@@ -119,11 +120,11 @@ public interface ServiceRetrofit {
     @POST("api/phoneapi")
     @FormUrlEncoded
     Call<ModelListPhoneCallV2> getListPhoneCall(@Field("option") String option,
-                                          @Field("date_start") long date_start,
-                                          @Field("date_end") long date_end,
-                                          @Field("take") int take,
-                                          @Field("offset") int offset,
-                                          @Header("Cookie") String cookie);
+                                                @Field("date_start") long date_start,
+                                                @Field("date_end") long date_end,
+                                                @Field("take") int take,
+                                                @Field("offset") int offset,
+                                                @Header("Cookie") String cookie);
 
     //Delete Call
     @POST("api/phoneapi")
@@ -192,4 +193,13 @@ public interface ServiceRetrofit {
                                                                 @Field("start") long start,
                                                                 @Field("end") long end,
                                                                 @Header("cookie") String cookie);
+
+    //Danh sách khách hàng
+    @POST("api/userapi")
+    @FormUrlEncoded
+    Call<ModelListCustomer> getListCustomer(@Field("active") int active,
+                                            @Field("take") int take,
+                                            @Field("from") int from,
+                                            @Field("option") String option,
+                                            @Header("cookie") String cookie);
 }
