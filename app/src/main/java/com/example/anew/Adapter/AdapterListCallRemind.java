@@ -90,4 +90,6 @@ public class AdapterListCallRemind extends RecyclerView.Adapter<AdapterListCallR
         modelListPhoneCallReminds.addAll(list);
         notifyDataSetChanged();
     }
+
+
 }
