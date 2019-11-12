@@ -9,18 +9,21 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.anew.Model.ModelSearchCu.Phonecall;
 import com.example.anew.R;
 
-import java.util.ArrayList;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class AdapterCacCuocGoiVoiKH extends RecyclerView.Adapter<AdapterCacCuocGoiVoiKH.ViewHolder> {
     private Context context;
-    private List<String> arrayList;
+    private List<Phonecall> modelphonecalls;
 
-    public AdapterCacCuocGoiVoiKH(Context context, List<String> arrayList) {
+    public AdapterCacCuocGoiVoiKH(Context context, List<Phonecall> phonecalls) {
         this.context = context;
-        this.arrayList = arrayList;
+        this.modelphonecalls = phonecalls;
     }
 
     @NonNull
@@ -34,15 +37,22 @@ public class AdapterCacCuocGoiVoiKH extends RecyclerView.Adapter<AdapterCacCuocG
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.tvThoiGian.setText(arrayList.get(position));
-        holder.tvNoiDung.setText(arrayList.get(position));
-        holder.tvNguoiGoi.setText(arrayList.get(position));
-        holder.tvGhiChu.setText(arrayList.get(position));
+        Phonecall phonecall = modelphonecalls.get(position);
+        Date d = new Date((long) phonecall.getCallTime() * 1000);
+        DateFormat f = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        holder.tvThoiGian.setText(f.format(d));
+
+        String nd1 = (phonecall.getContent()).replace("<p>", "");
+        String nd2 = nd1.replace("</p>", "");
+        holder.tvNoiDung.setText("Nội dung: " + nd2);
+
+        holder.tvNguoiGoi.setText("Người gọi: " + phonecall.getCallerId().getFullname());
+        holder.tvGhiChu.setText(("Ghi chú: " + phonecall.getNote()).replace("null", ""));
     }
 
     @Override
     public int getItemCount() {
-        return arrayList.size();
+        return modelphonecalls.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -55,5 +65,11 @@ public class AdapterCacCuocGoiVoiKH extends RecyclerView.Adapter<AdapterCacCuocG
             tvNoiDung = itemView.findViewById(R.id.tvNDInTH);
             tvThoiGian = itemView.findViewById(R.id.tvTGInTH);
         }
+    }
+
+    public void updateData(List<Phonecall> phonecalls) {
+        modelphonecalls.clear();
+        modelphonecalls.addAll(phonecalls);
+        notifyDataSetChanged();
     }
 }

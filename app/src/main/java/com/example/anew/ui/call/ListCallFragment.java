@@ -7,6 +7,7 @@ import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -117,6 +118,7 @@ public class ListCallFragment extends Fragment {
                             data.putString(Constans.EMAIL, response.body().getEmail());
                             data.putString(Constans.PHONE, response.body().getPhone1());
                             data.putString(Constans.SKYPE, String.valueOf(response.body().getSkype()));
+                            data.putInt(Constans.ID_CUSAFTERSEARCH, response.body().getId());
                             intent.putExtras(data);
                             startActivity(intent);
                         }

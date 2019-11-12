@@ -68,7 +68,7 @@ public class AddCallActivity extends AppCompatActivity {
     private TextInputEditText mEdtEmail;
     private TextInputEditText mEdtZalo;
     private TextInputEditText mEdtSkype;
-    private Button mSpChoseCity;
+    private ImageView mSpChoseCity;
     private TextInputEditText mEdtAddress;
     private TextView mEdtDateOfBirth;
     private Spinner mTvChoseDoiTuongKH;

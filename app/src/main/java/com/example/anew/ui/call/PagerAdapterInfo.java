@@ -15,19 +15,21 @@ public class PagerAdapterInfo extends FragmentStatePagerAdapter {
     private String address;
     private String skye;
     private String email;
+    private int idCus;
     private final List<Fragment> mFragmentList = new ArrayList<>();
 
     public PagerAdapterInfo(@NonNull FragmentManager fm) {
         super(fm);
     }
 
-    public void addFragment(Fragment fragment, String name, String phone, String address, String skye, String email) {
+    public void addFragment(Fragment fragment, String name, String phone, String address, String skye, String email,int idCus) {
         mFragmentList.add(fragment);
         this.name = name;
         this.address = address;
         this.phone = phone;
         this.skye = skye;
         this.email = email;
+        this.idCus = idCus;
     }
 
     @NonNull
@@ -36,10 +38,10 @@ public class PagerAdapterInfo extends FragmentStatePagerAdapter {
         Fragment frag = null;
         switch (position) {
             case 0:
-                frag = new FragmentInfo().newInstance(this.name, this.address, this.phone, this.skye, this.email);
+                frag = new FragmentInfo().newInstance(this.name, this.address, this.phone, this.skye, this.email,this.idCus);
                 break;
             case 1:
-                frag = new FragmentTongHopCuocGoi();
+                frag = new FragmentTongHopCuocGoi().newInstance1(this.phone);
                 break;
             case 2:
                 frag = new FragmentTicketDaGui();

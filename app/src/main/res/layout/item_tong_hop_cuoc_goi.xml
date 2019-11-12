@@ -43,9 +43,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
             android:text="Nội dung"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvGhiChuInTH" />
@@ -54,9 +52,10 @@
             android:id="@+id/tvTGInTH"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:text="Thời gian"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tvNguoiGoiInTH" />
+            app:layout_constraintTop_toBottomOf="@+id/tvNDInTH" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

@@ -20,9 +20,10 @@ public class FragmentInfo extends Fragment {
     private TextView mTvEm;
     private TextView mTvSDT;
     private TextView mTvSky;
+    private TextView mTvTaoNhacNho;
 
 
-    public Fragment newInstance(String name, String address, String phone, String skye, String email) {
+    public Fragment newInstance(String name, String address, String phone, String skye, String email, int idCus) {
         FragmentInfo fragmentInfo = new FragmentInfo();
         Bundle bundle = new Bundle();
         bundle.putString("name", name);
@@ -30,6 +31,7 @@ public class FragmentInfo extends Fragment {
         bundle.putString("phone", phone);
         bundle.putString("skye", skye);
         bundle.putString("email", email);
+        bundle.putInt("idCus", idCus);
         fragmentInfo.setArguments(bundle);
         return fragmentInfo;
     }
@@ -50,20 +52,24 @@ public class FragmentInfo extends Fragment {
             String email = getArguments().getString("email");
             String phone = getArguments().getString("phone");
             String sky = getArguments().getString("skye");
-            if (address.equals("null")) {
-                mTvDiaChi.setText("");
-            } else {
-                mTvDiaChi.setText(address);
-            }
+            int idcus = getArguments().getInt("idCus", 0);
 
-            if (sky.equals("null")) {
-                mTvSky.setText("");
-            } else {
-                mTvSky.setText(sky);
-            }
+            mTvDiaChi.setText(address.replace("null", ""));
+            mTvSky.setText(sky.replace("null", ""));
             mTvFullName.setText(name);
             mTvEm.setText(email);
             mTvSDT.setText(phone);
+
+            mTvTaoNhacNho.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Bundle args = new Bundle();
+                    args.putInt("key", idcus);
+                    DialogAddRemindInfo newFragment = new DialogAddRemindInfo();
+                    newFragment.setArguments(args);
+                    newFragment.show(getActivity().getSupportFragmentManager(), "TAG");
+                }
+            });
         }
     }
 
@@ -73,6 +79,7 @@ public class FragmentInfo extends Fragment {
         mTvEm = view.findViewById(R.id.tvEm);
         mTvSDT = view.findViewById(R.id.tvSDT);
         mTvSky = view.findViewById(R.id.tvSky);
+        mTvTaoNhacNho = view.findViewById(R.id.tvTaoNhacNho);
     }
 
 }
