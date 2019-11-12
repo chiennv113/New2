@@ -7,11 +7,13 @@ import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -63,7 +65,7 @@ public class ListCallFragment extends Fragment {
     private int TAKE = 50; // Lấy về số bản ghi
 
     private SwipeRefreshLayout swipeRefreshLayout;
-    private ImageView mBtnSearch;
+    private ImageButton mBtnSearch;
     private EditText mEdtSearch;
 
 
@@ -116,6 +118,7 @@ public class ListCallFragment extends Fragment {
                             data.putString(Constans.EMAIL, response.body().getEmail());
                             data.putString(Constans.PHONE, response.body().getPhone1());
                             data.putString(Constans.SKYPE, String.valueOf(response.body().getSkype()));
+                            data.putInt(Constans.ID_CUSAFTERSEARCH, response.body().getId());
                             intent.putExtras(data);
                             startActivity(intent);
                         }
@@ -132,26 +135,31 @@ public class ListCallFragment extends Fragment {
 
         getDateHienTai(cookie);
 
-        adapter_list_call_phone_filter.setLoadMore(new ILoadMore() {
-            @Override
-            public void onLoadMore() {
-                if (modelListPhoneCalls.size() <= 1000) {
-                    modelListPhoneCalls.add(null);
-                    adapter_list_call_phone_filter.notifyItemInserted(modelListPhoneCalls.size() - 1);
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            modelListPhoneCalls.remove(modelListPhoneCalls.size() - 1);
-                            adapter_list_call_phone_filter.notifyItemRemoved(modelListPhoneCalls.size());
-                            getListPhoneCall(ConvertHelper.convertStringToTimestampMilisecond(mTvDateStart.getText().toString().trim()),
-                                    ConvertHelper.convertStringToTimestampMilisecond(mTvDateEnd.getText().toString().trim()), cookie, TAKE, OFFSET);
-                            adapter_list_call_phone_filter.notifyDataSetChanged();
-                            adapter_list_call_phone_filter.setLoader();
-                        }
-                    }, 3000);
-                }
-            }
-        });
+
+//        adapter_list_call_phone_filter.setLoadMore(new ILoadMore() {
+//            @Override
+//            public void onLoadMore() {
+//                if (modelListPhoneCalls.size() <= 1000) {
+//                    modelListPhoneCalls.add(null);
+//                    adapter_list_call_phone_filter.notifyItemInserted(modelListPhoneCalls.size() - 1);
+//                    new Handler().postDelayed(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            modelListPhoneCalls.remove(modelListPhoneCalls.size() - 1);
+//                            adapter_list_call_phone_filter.notifyItemRemoved(modelListPhoneCalls.size());
+//                            for (int i = modelListPhoneCalls.size(); i < modelListPhoneCalls.size() + TAKE; i++) {
+//                                getListPhoneCall(ConvertHelper.convertStringToTimestampMilisecond(
+//                                        mTvDateStart.getText().toString().trim()),
+//                                        ConvertHelper.convertStringToTimestampMilisecond(mTvDateEnd.getText().toString().trim()),
+//                                        cookie, TAKE, TAKE + OFFSET);
+//                            }
+//                            adapter_list_call_phone_filter.notifyDataSetChanged();
+//                            adapter_list_call_phone_filter.setLoader();
+//                        }
+//                    }, 3000);
+//                }
+//            }
+//        });
         @ColorInt int down = getResources().getColor(R.color.white);
         @ColorInt int up = getResources().getColor(R.color.DarkOrange);
         mTvDateStart.setOnTouchListener(new CustomTouchListener(down, up));
@@ -301,19 +309,4 @@ public class ListCallFragment extends Fragment {
 
 
     }
-
-//    public class CustomTouchListener implements View.OnTouchListener {
-//        public boolean onTouch(View view, MotionEvent motionEvent) {
-//            switch (motionEvent.getAction()) {
-//                case MotionEvent.ACTION_DOWN:
-//                    ((TextView) view).setTextColor(0xFFFFFFFF); //white
-//                    break;
-//                case MotionEvent.ACTION_CANCEL:
-//                case MotionEvent.ACTION_UP:
-//                    ((TextView) view).setTextColor(getResources().getColor(R.color.DarkOrange)); //black
-//                    break;
-//            }
-//            return false;
-//        }
-//    }
 }

@@ -28,6 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:text="@string/tenNV"
+            android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/imageView35"
             app:layout_constraintTop_toTopOf="@+id/imageView35" />
 

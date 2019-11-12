@@ -6,14 +6,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.ImageButton;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.anew.Model.ModelListPhoneCallRemind.ModelListPhoneCallRemind;
 import com.example.anew.R;
 import com.example.anew.helper.IRemoveRemid;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -49,6 +51,7 @@ public class AdapterListCallRemind extends RecyclerView.Adapter<AdapterListCallR
             Date d = new Date((long) modelListPhoneCallRemind.getRemindTime() * 1000);
             DateFormat f = new SimpleDateFormat("dd/MM/yyyy HH:mm");
             holder.tvRemindDate.setText(f.format(d));
+            holder.tvContent.setText("Nội dung: " + modelListPhoneCallRemind.getRemindContent());
         }
 
         holder.imgDel.setOnClickListener(view -> {
@@ -73,8 +76,8 @@ public class AdapterListCallRemind extends RecyclerView.Adapter<AdapterListCallR
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView tvName, tvPhone, tvRemindDate, tvRemindTime;
-        private ImageView imgDel;
+        private TextView tvName, tvPhone, tvRemindDate, tvContent;
+        private ImageButton imgDel;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -82,6 +85,7 @@ public class AdapterListCallRemind extends RecyclerView.Adapter<AdapterListCallR
             tvPhone = itemView.findViewById(R.id.tv_phone);
             tvRemindDate = itemView.findViewById(R.id.tv_date_remind);
             imgDel = itemView.findViewById(R.id.imgDel);
+            tvContent = itemView.findViewById(R.id.tvNDInRemind);
         }
     }
 

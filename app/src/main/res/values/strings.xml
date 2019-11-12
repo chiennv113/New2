@@ -123,6 +123,9 @@
     <string name="nav_menu_product">Sản Phẩm</string>
     <string name="nav_menu_system">Hệ thống</string>
     <string name="cacCuocGoiVoiKH">Các cuộc gọi với khách hàng</string>
+    <string name="selectDate">Select Date:</string>
+    <string name="selectTime">Select Time:</string>
+    <string name="taoNhacNho">Tạo nhắc nhở</string>
 
 
 </resources>

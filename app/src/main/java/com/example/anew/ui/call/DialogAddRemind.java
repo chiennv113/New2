@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,7 +43,7 @@ public class DialogAddRemind extends DialogFragment {
     private TextView mTvName;
     private TextView mTvEmail;
     private TextInputEditText mEdtContent;
-    private ImageView mTvSearch;
+    private ImageButton mTvSearch;
     private Button mBtnOk;
     private Button mBtnCancel;
     private Context context;
@@ -77,8 +78,6 @@ public class DialogAddRemind extends DialogFragment {
             String time = mTvChangeTime.getText().toString().trim();
             String result1 = date.concat(" ");
             String result2 = result1.concat(time);
-            Log.e("GGG", "onViewCreated: "+result2 );
-
             String content = mEdtContent.getText().toString().trim();
 
             if (content.equals("") || mTvName.getText().toString().trim().equals("") || mTvEmail.getText().toString().trim().equals("") ||
@@ -98,8 +97,6 @@ public class DialogAddRemind extends DialogFragment {
                 public void onResponse(Call<Search> call, Response<Search> response) {
                     try {
                         int id = response.body().getId();
-
-                        SharePrefs.getInstance().put(Constans.ID_SEARCH, id);
                         arrayList.add(id);
                         mTvName.setText(response.body().getFullname());
                         mTvEmail.setText("  (" + response.body().getEmail() + ")");

@@ -1,7 +1,6 @@
 package com.example.anew.Adapter;
 
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.util.Log;
@@ -12,7 +11,6 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,7 +19,6 @@ import com.example.anew.Model.ModelListPhoneCall.CallList;
 import com.example.anew.R;
 import com.example.anew.helper.ILoadMore;
 import com.example.anew.helper.ItemClickRv;
-import com.example.anew.utills.CustomTouchListener;
 
 import java.util.List;
 
@@ -45,7 +42,7 @@ class ItemViewHolder extends RecyclerView.ViewHolder {
         img_del = itemView.findViewById(R.id.icon_delete);
         tvName = itemView.findViewById(R.id.item_tv_name);
         tvPhone = itemView.findViewById(R.id.item_tv_phone);
-        tvContent = itemView.findViewById(R.id.tvContent);
+        tvContent = itemView.findViewById(R.id.tvNDInRemind);
     }
 }
 
@@ -121,7 +118,10 @@ public class AdapterListCallPhone extends RecyclerView.Adapter<RecyclerView.View
             ItemViewHolder viewHolder = (ItemViewHolder) holder;
             viewHolder.tvPhone.setText(modelListPhoneCall.getCustomer().getPhone1());
             viewHolder.tvName.setText(modelListPhoneCall.getCustomer().getFullname());
-            viewHolder.tvContent.setText(String.valueOf(modelListPhoneCall.getContent()));
+            String abc = (String.valueOf(modelListPhoneCall.getContent())).replace("<p>", "");
+            String bcd = abc.replace("</p>", "");
+            String aaa = bcd.replace("&nbsp;","");
+            viewHolder.tvContent.setText(aaa);
 
             viewHolder.img_del.setOnClickListener(view -> {
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);

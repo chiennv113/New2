@@ -41,10 +41,11 @@ public class ItemListCallUserActivity extends AppCompatActivity {
         String skype = bundle.getString(Constans.SKYPE);
         String email = bundle.getString(Constans.EMAIL);
         String phone = bundle.getString(Constans.PHONE);
+        int idCus = bundle.getInt(Constans.ID_CUSAFTERSEARCH);
 
         adapter = new PagerAdapterInfo(this.getSupportFragmentManager());
         FragmentInfo fragmentInfo = new FragmentInfo();
-        adapter.addFragment(fragmentInfo, name, phone, address, skype, email);
+        adapter.addFragment(fragmentInfo, name, phone, address, skype, email, idCus);
         pager.setAdapter(adapter);
         tabLayout.setupWithViewPager(pager);
         pager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));

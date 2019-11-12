@@ -39,8 +39,10 @@ public class AdapterTKTungNV extends RecyclerView.Adapter<AdapterTKTungNV.ViewHo
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Phone phone = modelThongKeTheoNVAdmins.get(position);
         holder.tvDanhGia.setText(phone.getCustomerFeel().getName());
-        holder.tvGhiChu.setText("Ghi chú: "+phone.getNote());
-        holder.tvND.setText("Nội dung: "+phone.getContent());
+        holder.tvGhiChu.setText(phone.getNote());
+        String a = (phone.getContent()).replace("<p>", "");
+        String b = a.replace("</p>", "");
+        holder.tvND.setText("Nội dung: " + b);
         holder.tvNguoiNhan.setText(phone.getCustomerId().getFullname());
         Date d = new Date((long) phone.getCallTime() * 1000);
         DateFormat f = new SimpleDateFormat("dd/MM/yyyy");
