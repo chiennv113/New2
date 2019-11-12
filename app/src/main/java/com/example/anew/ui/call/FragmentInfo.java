@@ -1,10 +1,14 @@
 package com.example.anew.ui.call;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -70,6 +74,24 @@ public class FragmentInfo extends Fragment {
                     newFragment.show(getActivity().getSupportFragmentManager(), "TAG");
                 }
             });
+
+            mTvSDT.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    copyData();
+                    return false;
+                }
+            });
+
+            mTvEm.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    copyData();
+                    return false;
+                }
+            });
+
+
         }
     }
 
@@ -80,6 +102,13 @@ public class FragmentInfo extends Fragment {
         mTvSDT = view.findViewById(R.id.tvSDT);
         mTvSky = view.findViewById(R.id.tvSky);
         mTvTaoNhacNho = view.findViewById(R.id.tvTaoNhacNho);
+    }
+
+    public void copyData() {
+        ClipboardManager clipboard = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
+        ClipData clip = ClipData.newPlainText("abc", mTvSDT.getText().toString());
+        clipboard.setPrimaryClip(clip);
+        Toast.makeText(getActivity(), "Đã sao chép", Toast.LENGTH_SHORT).show();
     }
 
 }
