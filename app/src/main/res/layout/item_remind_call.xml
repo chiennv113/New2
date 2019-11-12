@@ -48,7 +48,8 @@
         app:layout_constraintStart_toEndOf="@+id/imageView8"
         app:layout_constraintTop_toBottomOf="@+id/tv_phone" />
 
-    <ImageView
+    <ImageButton
+        android:background="@drawable/hover_image"
         android:id="@+id/imgDel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

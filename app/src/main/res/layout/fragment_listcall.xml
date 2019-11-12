@@ -13,12 +13,12 @@
         android:orientation="horizontal">
 
         <TextView
-            android:textSize="20sp"
             android:id="@+id/tvDateEnd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/textview"
             android:textColor="@color/DarkOrange"
+            android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="@+id/tvDateStart"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -26,12 +26,12 @@
             app:layout_constraintTop_toTopOf="@+id/tvDateStart" />
 
         <TextView
-            android:textSize="20sp"
             android:id="@+id/tvDateStart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/textview"
             android:textColor="@color/DarkOrange"
+            android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="@+id/img_filter"
             app:layout_constraintEnd_toStartOf="@+id/tvDateEnd"
             app:layout_constraintHorizontal_bias="0.5"
@@ -57,11 +57,12 @@
         android:layout_height="wrap_content">
 
 
-        <ImageView
+        <ImageButton
             android:id="@+id/btnSearch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="32dp"
+            android:background="@drawable/hover_image"
             android:src="@drawable/account_search"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -83,10 +84,12 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="Autofill" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefresh"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv"
             android:layout_width="match_parent"

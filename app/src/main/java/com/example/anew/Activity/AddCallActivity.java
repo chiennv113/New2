@@ -9,12 +9,15 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.example.anew.Model.ModelAdd;
 import com.example.anew.Model.ModelAddCallAndCustomerNew;
@@ -44,11 +47,19 @@ import retrofit2.Response;
 public class AddCallActivity extends AppCompatActivity {
 
 
-    private TextView mTvRsEmail;
-    private TextView mTvRsName;
-    private ImageView mTvSearchCu;
+    SpinnerDialog spinnerDialog;
+
+    private DatePickerDialog.OnDateSetListener mDateOfBirth;
+    private TextView mTvDateOfBirth;
+
+    ArrayList<String> cityList = new ArrayList<>();
+
+    private TextView mTextviewCity;
     private ImageView mBtnCancel;
     private TextView mBtnSave;
+    private ImageButton mTvSearchCu;
+    private TextView mTvRsEmail;
+    private TextView mTvRsName;
     private TextInputLayout mLayoutPhone;
     private TextInputEditText mEdtPhone;
     private TextInputLayout mLayoutName;
@@ -57,7 +68,7 @@ public class AddCallActivity extends AppCompatActivity {
     private TextInputEditText mEdtEmail;
     private TextInputEditText mEdtZalo;
     private TextInputEditText mEdtSkype;
-    private ImageView mSpChoseCity;
+    private Button mSpChoseCity;
     private TextInputEditText mEdtAddress;
     private TextView mEdtDateOfBirth;
     private Spinner mTvChoseDoiTuongKH;
@@ -69,13 +80,6 @@ public class AddCallActivity extends AppCompatActivity {
     private Spinner mTvChoseTTKH;
     private TextInputLayout mLayoutNote;
     private TextInputEditText mEdtNote;
-    SpinnerDialog spinnerDialog;
-
-    private DatePickerDialog.OnDateSetListener mDateOfBirth;
-    private TextView mTvDateOfBirth;
-
-    ArrayList<String> cityList = new ArrayList<>();
-    private TextView mTextviewCity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,7 +97,6 @@ public class AddCallActivity extends AppCompatActivity {
             spinnerDialog.showSpinerDialog();
             Log.e("GGG", "onClick: " + "GGG");
         });
-
 
         LoadAllProduct(cookie);
         LoadCustomerType(cookie);
@@ -304,11 +307,13 @@ public class AddCallActivity extends AppCompatActivity {
 
     private void initView() {
 
-        mTvRsEmail = findViewById(R.id.tvRsEmail);
-        mTvRsName = findViewById(R.id.tvRsName);
-        mTvSearchCu = findViewById(R.id.tvSearchCu);
+        mTvDateOfBirth = findViewById(R.id.tvDateOfBirth);
+        mTextviewCity = findViewById(R.id.textviewCity);
         mBtnCancel = findViewById(R.id.btnCancel);
         mBtnSave = findViewById(R.id.btnSave);
+        mTvSearchCu = findViewById(R.id.tvSearchCu);
+        mTvRsEmail = findViewById(R.id.tvRsEmail);
+        mTvRsName = findViewById(R.id.tvRsName);
         mLayoutPhone = findViewById(R.id.layoutPhone);
         mEdtPhone = findViewById(R.id.edt_phone);
         mLayoutName = findViewById(R.id.layoutName);
@@ -329,8 +334,6 @@ public class AddCallActivity extends AppCompatActivity {
         mTvChoseTTKH = findViewById(R.id.tvChoseTTKH);
         mLayoutNote = findViewById(R.id.layoutNote);
         mEdtNote = findViewById(R.id.edt_note);
-        mTvDateOfBirth = findViewById(R.id.tvDateOfBirth);
-        mTextviewCity = findViewById(R.id.textviewCity);
     }
 
     private void LoadCity(String cookie) {

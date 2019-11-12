@@ -6,14 +6,17 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.anew.Model.ModelListPhoneCallRemind.ModelListPhoneCallRemind;
 import com.example.anew.R;
 import com.example.anew.helper.IRemoveRemid;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -74,7 +77,7 @@ public class AdapterListCallRemind extends RecyclerView.Adapter<AdapterListCallR
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         private TextView tvName, tvPhone, tvRemindDate, tvRemindTime;
-        private ImageView imgDel;
+        private ImageButton imgDel;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
