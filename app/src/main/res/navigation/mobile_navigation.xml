@@ -36,12 +36,6 @@
         tools:layout="@layout/fragment_customer" />
 
     <fragment
-        android:id="@+id/nav_Staff"
-        android:name="com.example.anew.ui.staff.StaffFragment"
-        android:label="@string/nav_menu_staff"
-        tools:layout="@layout/fragment_staff" />
-
-    <fragment
         android:id="@+id/nav_product"
         android:name="com.example.anew.ui.product.ProductFragment"
         android:label="@string/nav_menu_product"
@@ -52,8 +46,11 @@
         android:name="com.example.anew.ui.system.SystemFragment"
         android:label="@string/nav_menu_system"
         tools:layout="@layout/fragment_system" />
-
-
+    <fragment
+        android:id="@+id/nav_logout"
+        android:name="com.example.anew.ui.logout"
+        android:label="@string/action_logout"
+        tools:layout="@layout/fragment_logout" />
 
 
 </navigation>

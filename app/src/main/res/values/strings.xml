@@ -126,6 +126,8 @@
     <string name="selectDate">Select Date:</string>
     <string name="selectTime">Select Time:</string>
     <string name="taoNhacNho">Tạo nhắc nhở</string>
+    <string name="nav_menu_logout">Đăng xuất</string>
+    <string name="logout">Bạn có muốn đăng xuất</string>
 
 
 </resources>

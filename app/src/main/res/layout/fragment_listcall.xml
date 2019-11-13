@@ -7,6 +7,7 @@
     android:orientation="vertical">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:padding="8dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorGray2"
@@ -16,12 +17,10 @@
             android:id="@+id/tvDateEnd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
             android:text="@string/textview"
             android:textColor="@color/DarkOrange"
             android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="@+id/tvDateStart"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/tvDateStart"
             app:layout_constraintTop_toTopOf="@+id/tvDateStart" />
 
@@ -29,30 +28,27 @@
             android:id="@+id/tvDateStart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
             android:text="@string/textview"
             android:textColor="@color/DarkOrange"
             android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="@+id/img_filter"
-            app:layout_constraintEnd_toStartOf="@+id/tvDateEnd"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/img_filter"
-            app:layout_constraintTop_toTopOf="@+id/img_filter" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/img_filter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
             android:src="@drawable/filter_menu"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="ContentDescription" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_marginTop="8dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
