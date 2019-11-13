@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/imageView36"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tvCreateTimeInListTicket"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tvTitletInListTicket"
+            app:srcCompat="@drawable/ticket"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/tvTitletInListTicket"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="Tiêu đề"
+            app:layout_constraintEnd_toStartOf="@+id/tvStatusInListTicket"
+            app:layout_constraintStart_toEndOf="@+id/imageView36"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvProductInListTicket"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Sản phẩm"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/tvTitletInListTicket"
+            app:layout_constraintStart_toStartOf="@+id/tvTitletInListTicket"
+            app:layout_constraintTop_toBottomOf="@+id/tvTitletInListTicket" />
+
+        <TextView
+            android:id="@+id/tvCreateTimeInListTicket"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="Ngày tạo"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/tvTitletInListTicket"
+            app:layout_constraintStart_toStartOf="@+id/tvTypeInListTicket"
+            app:layout_constraintTop_toBottomOf="@+id/tvTypeInListTicket" />
+
+        <TextView
+            android:id="@+id/tvStatusInListTicket"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:text="Trạng thái"
+            app:layout_constraintBottom_toBottomOf="@+id/tvContentInListTicket"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tvProductInListTicket" />
+
+        <TextView
+            android:id="@+id/tvTypeInListTicket"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Loại"
+            app:layout_constraintEnd_toEndOf="@+id/tvProductInListTicket"
+            app:layout_constraintStart_toStartOf="@+id/tvContentInListTicket"
+            app:layout_constraintTop_toBottomOf="@+id/tvContentInListTicket" />
+
+        <TextView
+            android:id="@+id/tvContentInListTicket"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Nội dung"
+            app:layout_constraintEnd_toEndOf="@+id/tvProductInListTicket"
+            app:layout_constraintStart_toStartOf="@+id/tvProductInListTicket"
+            app:layout_constraintTop_toBottomOf="@+id/tvProductInListTicket" />
+
+        <ImageView
+            android:id="@+id/imgAccept"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/imgView"
+            app:layout_constraintEnd_toEndOf="@+id/tvStatusInListTicket"
+            app:srcCompat="@drawable/accept" />
+
+        <ImageView
+            android:id="@+id/imgView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tvTypeInListTicket"
+            app:layout_constraintEnd_toStartOf="@+id/imgAccept"
+            app:srcCompat="@drawable/eye" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>
