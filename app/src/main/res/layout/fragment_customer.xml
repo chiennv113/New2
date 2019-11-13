@@ -12,10 +12,11 @@
         android:layout_height="wrap_content"
         android:text="Tất cả"
         tools:layout_editor_absoluteX="300dp"
-        tools:layout_editor_absoluteY="19dp" />
+        tools:layout_editor_absoluteY="19dp"
+        tools:ignore="MissingConstraints" />
 
     <Spinner
-        android:id="@+id/spinner"
+        android:id="@+id/spCustomer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
@@ -24,6 +25,7 @@
         app:layout_constraintTop_toTopOf="@+id/textView29" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/cRv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"

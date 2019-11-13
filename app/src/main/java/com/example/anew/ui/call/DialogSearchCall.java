@@ -99,7 +99,7 @@ public class DialogSearchCall extends DialogFragment {
 
     private void initView(View view) {
         mTvSđt = view.findViewById(R.id.tvSđt);
-        mTvName = view.findViewById(R.id.tvName);
+        mTvName = view.findViewById(R.id.tvNameC);
         mTvAddCall = view.findViewById(R.id.tvAddCall);
         mTvCancel = view.findViewById(R.id.tvCancel);
         mItem = view.findViewById(R.id.item);

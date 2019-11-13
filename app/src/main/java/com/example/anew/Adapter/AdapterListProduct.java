@@ -4,17 +4,13 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.anew.Model.ModelListPhoneCallRemind.ModelListPhoneCallRemind;
 import com.example.anew.Model.ModelLoadAllProduct;
 import com.example.anew.R;
-import com.example.anew.ui.product.ProductFragment;
 
 import java.util.List;
 
@@ -67,7 +63,7 @@ public class AdapterListProduct extends RecyclerView.Adapter<AdapterListProduct.
         public ViewHoler(@NonNull View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.tvTitle);
-            name = itemView.findViewById(R.id.tvName);
+            name = itemView.findViewById(R.id.tvNameC);
             type = itemView.findViewById(R.id.tvType);
             description = itemView.findViewById(R.id.tvDescription);
         }
