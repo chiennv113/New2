@@ -14,10 +14,10 @@ public class Customer {
     private Integer userId;
     @SerializedName("customer_base")
     @Expose
-    private Integer customerBase;
+    private Object customerBase;
     @SerializedName("software_needed")
     @Expose
-    private Object softwareNeeded;
+    private String softwareNeeded;
     @SerializedName("service_needed")
     @Expose
     private Object serviceNeeded;
@@ -32,7 +32,7 @@ public class Customer {
     private Integer customerType;
     @SerializedName("status")
     @Expose
-    private Integer status;
+    private Object status;
 
     public Integer getId() {
         return id;
@@ -50,19 +50,19 @@ public class Customer {
         this.userId = userId;
     }
 
-    public Integer getCustomerBase() {
+    public Object getCustomerBase() {
         return customerBase;
     }
 
-    public void setCustomerBase(Integer customerBase) {
+    public void setCustomerBase(Object customerBase) {
         this.customerBase = customerBase;
     }
 
-    public Object getSoftwareNeeded() {
+    public String getSoftwareNeeded() {
         return softwareNeeded;
     }
 
-    public void setSoftwareNeeded(Object softwareNeeded) {
+    public void setSoftwareNeeded(String softwareNeeded) {
         this.softwareNeeded = softwareNeeded;
     }
 
@@ -98,11 +98,11 @@ public class Customer {
         this.customerType = customerType;
     }
 
-    public Integer getStatus() {
+    public Object getStatus() {
         return status;
     }
 
-    public void setStatus(Integer status) {
+    public void setStatus(Object status) {
         this.status = status;
     }
 

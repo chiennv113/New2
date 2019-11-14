@@ -11,7 +11,7 @@ public class User {
     private Integer id;
     @SerializedName("email")
     @Expose
-    private String email;
+    private Object email;
     @SerializedName("avatar")
     @Expose
     private Object avatar;
@@ -26,7 +26,7 @@ public class User {
     private Object phone2;
     @SerializedName("city")
     @Expose
-    private Object city;
+    private Integer city;
     @SerializedName("address")
     @Expose
     private Object address;
@@ -38,7 +38,7 @@ public class User {
     private Object skype;
     @SerializedName("zalo")
     @Expose
-    private Object zalo;
+    private String zalo;
     @SerializedName("zalo_id")
     @Expose
     private Object zaloId;
@@ -72,11 +72,11 @@ public class User {
         this.id = id;
     }
 
-    public String getEmail() {
+    public Object getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
+    public void setEmail(Object email) {
         this.email = email;
     }
 
@@ -112,11 +112,11 @@ public class User {
         this.phone2 = phone2;
     }
 
-    public Object getCity() {
+    public Integer getCity() {
         return city;
     }
 
-    public void setCity(Object city) {
+    public void setCity(Integer city) {
         this.city = city;
     }
 
@@ -144,11 +144,11 @@ public class User {
         this.skype = skype;
     }
 
-    public Object getZalo() {
+    public String getZalo() {
         return zalo;
     }
 
-    public void setZalo(Object zalo) {
+    public void setZalo(String zalo) {
         this.zalo = zalo;
     }
 
