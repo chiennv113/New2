@@ -24,6 +24,8 @@ import com.example.anew.Model.ModelTKCuocgoiBanThan.ModelThongKeCuocGoiBanThan;
 import com.example.anew.Model.ModelTKTheoDoHaiLongKH.ModelThongKeTheoDoHaiLongCuaKhachAdmin;
 import com.example.anew.Model.ModelTKTheoNV.ModelThongKeTheoNVAdmin;
 import com.example.anew.Model.ModelTKTheoTatcaDoHaiLong.ModelThongKeTheoTatCaDoHaiLongCuaKhachAdmin;
+import com.example.anew.Model.ModelTiepNhanTicket;
+import com.example.anew.Model.ModelViewTicketInDS.ModelViewTicketInDS;
 
 import java.util.List;
 
@@ -213,4 +215,17 @@ public interface ServiceRetrofit {
                                          @Field("from") int from,
                                          @Field("take") int take,
                                          @Header("cookie") String cookie);
+
+    //View Ticket in DS
+    @POST("api/ticketapi")
+    @FormUrlEncoded
+    Call<ModelViewTicketInDS> getView(@Field("id") int id,
+                                      @Field("option") String option,
+                                      @Header("cookie") String cookie);
+
+    @POST("api/ticketapi")
+    @FormUrlEncoded
+    Call<ModelTiepNhanTicket> acceptTicket(@Field("id") int id,
+                                      @Field("option") String option,
+                                      @Header("cookie") String cookie);
 }

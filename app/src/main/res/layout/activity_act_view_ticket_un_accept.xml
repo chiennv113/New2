@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Activity.ActViewTicketUnAccept">
+
+
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/P_Accent">
+
+        <ImageView
+            android:id="@+id/imgBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/arrow_left" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="48dp"
+            android:text="Xem Ticket"
+            android:textColor="@color/cardview_light_background"
+            android:textSize="19sp"
+            android:textStyle="bold" />
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/tvFullNameInViewTicket"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:text="Tên khách hàng"
+                        android:textColor="@color/colorBgEdt"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toEndOf="@+id/imageView38"
+                        app:layout_constraintTop_toTopOf="@+id/imageView38" />
+
+                    <TextView
+                        android:id="@+id/tvEmaiInViewTicket"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="16dp"
+                        android:text="Email"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/imageView38"
+                        app:layout_constraintTop_toBottomOf="@+id/imageView38" />
+
+                    <TextView
+                        android:id="@+id/tvPhoneInViewTicket"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Số điện thoại"
+                        app:layout_constraintBottom_toBottomOf="@+id/imageView38"
+                        app:layout_constraintStart_toStartOf="@+id/tvFullNameInViewTicket" />
+
+                    <ImageView
+                        android:id="@+id/imageView38"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/ic_account_circle_black_24dp" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cardView">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/imgSelectedInViewTicket"
+                        android:layout_width="96dp"
+                        android:layout_height="96dp"
+                        android:layout_marginStart="16dp"
+                        app:layout_constraintBottom_toBottomOf="@+id/imgInViewTicket"
+                        app:layout_constraintStart_toEndOf="@+id/imgInViewTicket"
+                        app:layout_constraintTop_toTopOf="@+id/imgInViewTicket" />
+
+                    <Button
+                        android:id="@+id/btnSendInViewTicket"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="16dp"
+                        android:background="@drawable/custom_btn_login"
+                        android:text="Gửi"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/tvSelectImgInViewTicket"
+                        app:layout_constraintTop_toBottomOf="@+id/tvSelectImgInViewTicket" />
+
+                    <EditText
+                        android:id="@+id/edtReply"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:ems="10"
+                        android:hint="Reply..."
+                        android:inputType="textPersonName"
+                        app:layout_constraintStart_toStartOf="@+id/imgInViewTicket"
+                        app:layout_constraintTop_toBottomOf="@+id/imgInViewTicket" />
+
+                    <TextView
+                        android:id="@+id/tvSelectImgInViewTicket"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="Chọn ảnh"
+                        android:textColor="@color/P_Accent"
+                        app:layout_constraintStart_toStartOf="@+id/edtReply"
+                        app:layout_constraintTop_toBottomOf="@+id/edtReply" />
+
+                    <ImageView
+                        android:id="@+id/imgInViewTicket"
+                        android:layout_width="96dp"
+                        android:layout_height="96dp"
+                        android:layout_marginTop="8dp"
+                        app:layout_constraintStart_toStartOf="@+id/tvContentInViewTicket"
+                        app:layout_constraintTop_toBottomOf="@+id/tvContentInViewTicket"
+                        app:srcCompat="@drawable/ticket" />
+
+                    <TextView
+                        android:id="@+id/tvUserTaoTicketInViewTicket"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:text="HQK đã tạo ticket #69"
+                        app:layout_constraintStart_toEndOf="@+id/imageView40"
+                        app:layout_constraintTop_toTopOf="@+id/imageView40" />
+
+                    <TextView
+                        android:id="@+id/tvContentInViewTicket"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="Nội dung"
+                        app:layout_constraintStart_toStartOf="@+id/tvTittleInViewTicket"
+                        app:layout_constraintTop_toBottomOf="@+id/tvTittleInViewTicket" />
+
+                    <TextView
+                        android:id="@+id/tvTittleInViewTicket"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="Tiêu đề"
+                        android:textColor="@color/colorBgEdt"
+                        app:layout_constraintStart_toStartOf="@+id/tvCreateTimeInViewTicket"
+                        app:layout_constraintTop_toBottomOf="@+id/tvCreateTimeInViewTicket" />
+
+                    <TextView
+                        android:id="@+id/tvCreateTimeInViewTicket"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="Create Time"
+                        app:layout_constraintStart_toStartOf="@+id/tvUserTaoTicketInViewTicket"
+                        app:layout_constraintTop_toBottomOf="@+id/tvUserTaoTicketInViewTicket" />
+
+                    <ImageView
+                        android:id="@+id/imageView40"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/ic_account_circle_black_24dp" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cardView2">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/textView74"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:text="Ghi chú của nhân viên"
+                        android:textColor="@color/colorBlue"
+                        android:textSize="19sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tvNoteInViewTicket"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="16dp"
+                        android:text="TextView"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/textView74"
+                        app:layout_constraintTop_toBottomOf="@+id/textView76" />
+
+                    <TextView
+                        android:id="@+id/textView76"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="16dp"
+                        android:background="@color/colorGray"
+                        android:text="TextView"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/textView74"
+                        app:layout_constraintTop_toBottomOf="@+id/textView74" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+
+</LinearLayout>

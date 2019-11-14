@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.anew.Model.ModelListTicket.Datum;
 import com.example.anew.R;
+import com.example.anew.helper.IClickListTicket;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -22,10 +23,13 @@ import java.util.List;
 public class AdapterListTicket extends RecyclerView.Adapter<AdapterListTicket.ViewHolder> {
     List<Datum> data;
     private Context context;
+    private IClickListTicket iClickListTicket;
 
-    public AdapterListTicket(List<Datum> data, Context context) {
+
+    public AdapterListTicket(List<Datum> data, Context context, IClickListTicket clickListTicket) {
         this.data = data;
         this.context = context;
+        iClickListTicket = clickListTicket;
     }
 
     @NonNull
@@ -55,14 +59,14 @@ public class AdapterListTicket extends RecyclerView.Adapter<AdapterListTicket.Vi
         holder.imgView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "Click View", Toast.LENGTH_SHORT).show();
+                iClickListTicket.onClickView(datum.getId());
             }
         });
 
         holder.imgAccept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "Click Accept", Toast.LENGTH_SHORT).show();
+                iClickListTicket.onClickAccept(datum.getId(), holder.getAdapterPosition());
             }
         });
     }

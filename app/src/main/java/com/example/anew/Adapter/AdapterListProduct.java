@@ -62,7 +62,7 @@ public class AdapterListProduct extends RecyclerView.Adapter<AdapterListProduct.
 
         public ViewHoler(@NonNull View itemView) {
             super(itemView);
-            title = itemView.findViewById(R.id.tvTitle);
+            title = itemView.findViewById(R.id.tvFullNameInViewTicket);
             name = itemView.findViewById(R.id.tvNameC);
             type = itemView.findViewById(R.id.tvType);
             description = itemView.findViewById(R.id.tvDescription);
