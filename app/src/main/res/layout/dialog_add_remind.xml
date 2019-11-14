@@ -73,7 +73,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
-        android:id="@+id/tvDate"
+        android:id="@+id/tvDateC"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -119,9 +119,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/tvDate"
-        app:layout_constraintStart_toEndOf="@+id/tvDate"
-        app:layout_constraintTop_toTopOf="@+id/tvDate" />
+        app:layout_constraintBottom_toBottomOf="@+id/tvDateC"
+        app:layout_constraintStart_toEndOf="@+id/tvDateC"
+        app:layout_constraintTop_toTopOf="@+id/tvDateC" />
 
     <TextView
         android:id="@+id/tvChangeTime"
@@ -138,7 +138,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="@string/selectTime"
-        app:layout_constraintStart_toStartOf="@+id/tvDate"
-        app:layout_constraintTop_toBottomOf="@+id/tvDate" />
+        app:layout_constraintStart_toStartOf="@+id/tvDateC"
+        app:layout_constraintTop_toBottomOf="@+id/tvDateC" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

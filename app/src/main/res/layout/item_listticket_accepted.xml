@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="8dp">
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="4"
+        android:padding="8dp">
+
+        <TextView
+            android:id="@+id/tv_Tieude"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Tieu de" />
+
+        <TextView
+            android:id="@+id/tv_LoaiTicket"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_Tieude"
+            android:text="Loai ticket" />
+
+        <TextView
+            android:id="@+id/tv_Trangthai"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_LoaiTicket"
+            android:text="Trang thai" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/eyeTicket"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/eye" />
+
+        <ImageView
+            android:layout_marginTop="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/eyeTicket"
+            android:src="@drawable/eye" />
+
+    </RelativeLayout>
+
+
+</LinearLayout>
