@@ -1,48 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp">
 
-    <ImageView
-        android:id="@+id/ivAvatar"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tvEmailC"
-        app:srcCompat="@drawable/account_staff" />
+        android:padding="16dp">
 
-    <TextView
-        android:id="@+id/tvNameC"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="TextView"
-        app:layout_constraintEnd_toEndOf="@+id/ivAvatar"
-        app:layout_constraintStart_toStartOf="@+id/ivAvatar"
-        app:layout_constraintTop_toBottomOf="@+id/ivAvatar" />
+        <ImageView
+            android:id="@+id/ivAvatar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tvDateC"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tvNameC"
+            app:layout_constraintVertical_bias="0.431"
+            app:srcCompat="@drawable/account_stafft" />
 
-    <TextView
-        android:id="@+id/tvEmailC"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="16dp"
-        android:text="TextView"
-        app:layout_constraintStart_toEndOf="@+id/ivAvatar"
-        app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/tvNameC"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:text="TextView"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/ivAvatar"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/tvPhoneC"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="TextView"
-        app:layout_constraintStart_toStartOf="@+id/tvEmailC"
-        app:layout_constraintTop_toBottomOf="@+id/tvEmailC" />
+        <TextView
+            android:id="@+id/tvEmailC"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="TextView"
+            app:layout_constraintStart_toStartOf="@+id/tvNameC"
+            app:layout_constraintTop_toBottomOf="@+id/tvNameC" />
+
+        <TextView
+            android:id="@+id/tvPhoneC"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="TextView"
+            app:layout_constraintStart_toStartOf="@+id/tvEmailC"
+            app:layout_constraintTop_toBottomOf="@+id/tvEmailC" />
 
     <TextView
         android:id="@+id/tvDateC"
@@ -54,3 +62,5 @@
         app:layout_constraintTop_toBottomOf="@+id/tvPhoneC" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

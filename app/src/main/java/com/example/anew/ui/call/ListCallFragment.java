@@ -3,13 +3,10 @@ package com.example.anew.ui.call;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -28,15 +25,12 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.anew.Activity.ItemListCallUserActivity;
 import com.example.anew.Adapter.AdapterListCallPhone;
-import com.example.anew.Model.ModelListCustomer.ModelListCustomer;
 import com.example.anew.Model.ModelListPhoneCall.CallList;
 import com.example.anew.Model.ModelListPhoneCall.ModelListPhoneCallV2;
 import com.example.anew.Model.ModelSearchCu.Search;
 import com.example.anew.R;
 import com.example.anew.Retrofit.ApiClient;
-import com.example.anew.helper.ILoadMore;
 import com.example.anew.helper.ItemClickRv;
-import com.example.anew.utills.AppScrollListener;
 import com.example.anew.utills.Constans;
 import com.example.anew.utills.ConvertHelper;
 import com.example.anew.utills.CustomTouchListener;
@@ -46,7 +40,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
-import java.util.UUID;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -186,19 +179,6 @@ public class ListCallFragment extends Fragment {
             DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(),
                     (view1, year, monthOfYear, dayOfMonth) -> mTvDateEnd.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year), mYear, mMonth, mDay);
             datePickerDialog.show();
-        });
-
-
-        ApiClient.getInstance().getListCustomer(0, 10, 0, "filter_customer", cookie).enqueue(new Callback<ModelListCustomer>() {
-            @Override
-            public void onResponse(Call<ModelListCustomer> call, Response<ModelListCustomer> response) {
-                Log.e("GGG", "onResponse: " + response.body());
-            }
-
-            @Override
-            public void onFailure(Call<ModelListCustomer> call, Throwable t) {
-
-            }
         });
 
 
