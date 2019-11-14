@@ -40,16 +40,17 @@
         android:gravity="center">
 
         <ImageView
-            android:id="@+id/eyeTicket"
+            android:id="@+id/viewTicket"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/eye" />
 
         <ImageView
+            android:id="@+id/tranferTicket"
             android:layout_marginTop="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/eyeTicket"
+            android:layout_below="@+id/viewTicket"
             android:src="@drawable/eye" />
 
     </RelativeLayout>
