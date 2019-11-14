@@ -13,4 +13,6 @@ public class Constans {
     public static final String POSITION = "Constans.postition";
     public static final String DATE_START = "Constans.datestart";
     public static final String DATE_END = "Constans.dateend";
+    public static final String TAG = "Constans.GGG";
+    public static final String ID_TICKET ="Constans.idTicket" ;
 }

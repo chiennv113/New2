@@ -423,7 +423,7 @@ public class AddCallActivity extends AppCompatActivity {
         });
     }
 
-//load
+
 
     private void LoadAllProduct(String cookie) {
         ApiClient.getInstance().getAllProduct("get_allProduct", cookie).enqueue(new Callback<List<ModelLoadAllProduct>>() {
@@ -446,6 +446,11 @@ public class AddCallActivity extends AppCompatActivity {
             }
         });
     }
+
+
+
+
+
 
     private void LoadCustomerFeel() {
         ApiClient.getInstance().getFeel("get_PhoneCallFeel").enqueue(new Callback<List<ModelCustomeFeelNew>>() {

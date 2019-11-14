@@ -5,7 +5,6 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.graphics.Point;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -129,7 +128,7 @@ public class DialogAddRemindInfo extends DialogFragment {
 
     private void initView(View view) {
         mEdtND = view.findViewById(R.id.edtND);
-        mTvDate = view.findViewById(R.id.tvDate);
+        mTvDate = view.findViewById(R.id.tvDateC);
         mTvTime = view.findViewById(R.id.tvTime);
         mTvCancel = view.findViewById(R.id.tvCancel);
         mTvSave = view.findViewById(R.id.tvSave);

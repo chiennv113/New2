@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.anew.Activity.LoginActivity;
 import com.example.anew.R;
+import com.example.anew.utills.SharePrefs;
 
 public class logout extends Fragment {
 
@@ -32,6 +33,7 @@ public class logout extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), LoginActivity.class);
+                SharePrefs.getInstance().clearCookie();
                 startActivity(intent);
             }
         });

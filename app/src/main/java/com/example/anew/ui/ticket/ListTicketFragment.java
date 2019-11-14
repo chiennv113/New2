@@ -1,7 +1,9 @@
 package com.example.anew.ui.ticket;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,11 +17,14 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.anew.Activity.ActViewTicketUnAccept;
 import com.example.anew.Adapter.AdapterListTicket;
 import com.example.anew.Model.ModelListTicket.Datum;
 import com.example.anew.Model.ModelListTicket.ModelListTickKet;
+import com.example.anew.Model.ModelTiepNhanTicket;
 import com.example.anew.R;
 import com.example.anew.Retrofit.ApiClient;
+import com.example.anew.helper.IClickListTicket;
 import com.example.anew.utills.Constans;
 import com.example.anew.utills.ConvertHelper;
 import com.example.anew.utills.SelectDate;
@@ -53,7 +58,6 @@ public class ListTicketFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_list_ticket, container, false);
     }
 
@@ -61,6 +65,8 @@ public class ListTicketFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initView(view);
+        fab = getActivity().findViewById(R.id.fab);
+        fab.hide();
         String cookie = SharePrefs.getInstance().get(Constans.COOKIE, String.class);
 
         mImgFilter.setOnClickListener(new View.OnClickListener() {
@@ -74,12 +80,35 @@ public class ListTicketFragment extends Fragment {
 
         linearLayoutManager = new LinearLayoutManager(getActivity());
         mRv.setLayoutManager(linearLayoutManager);
-        adapterListTicket = new AdapterListTicket(data, getActivity());
+        adapterListTicket = new AdapterListTicket(data, getActivity(), new IClickListTicket() {
+            @Override
+            public void onClickView(int id) {
+                Intent intent = new Intent(getActivity(), ActViewTicketUnAccept.class);
+                intent.putExtra(Constans.ID_TICKET, id);
+                startActivity(intent);
+            }
+
+            @Override
+            public void onClickAccept(int id, int position) {
+                ApiClient.getInstance().acceptTicket(id, "accept_unaccept_ticket", cookie).enqueue(new Callback<ModelTiepNhanTicket>() {
+                    @Override
+                    public void onResponse(Call<ModelTiepNhanTicket> call, Response<ModelTiepNhanTicket> response) {
+                        if (response.body() == null) return;
+                        Toast.makeText(getContext(), "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                        getDateHienTai(cookie);
+                    }
+
+                    @Override
+                    public void onFailure(Call<ModelTiepNhanTicket> call, Throwable t) {
+
+                    }
+                });
+            }
+        });
         mRv.setAdapter(adapterListTicket);
         getDateHienTai(cookie);
 
-        fab = getActivity().findViewById(R.id.fab);
-        fab.hide();
+
         mTvDateStart.setOnClickListener(view15 -> {
             SelectDate.select(getContext(), mTvDateStart);
         });
@@ -126,14 +155,22 @@ public class ListTicketFragment extends Fragment {
         }
     }
 
-    public void getListTicket(long dateStart, long dateEnd, int from, int take, String cookie) {
+    private void getListTicket(long dateStart, long dateEnd, int from, int take, String cookie) {
         ApiClient.getInstance().getListTicket(dateStart, dateEnd, "unaccept_ticket", from, take, cookie).enqueue(new Callback<ModelListTickKet>() {
             @Override
             public void onResponse(Call<ModelListTickKet> call, Response<ModelListTickKet> response) {
                 if (response.body() == null) return;
+<<<<<<< HEAD
                 data.clear();
                 data.addAll(response.body().getData());
                 adapterListTicket.updateData((List<Datum>) response.body().getData());
+=======
+                if (response.body().getData() != null) {
+                    data.clear();
+                    data.addAll(response.body().getData());
+                    adapterListTicket.updateData(response.body().getData());
+                }
+>>>>>>> c2149fe0e94b7624b6d6b6ffd857bcbc005bc729
             }
 
             @Override
@@ -143,15 +180,23 @@ public class ListTicketFragment extends Fragment {
         });
     }
 
-    public void filter(long dateStart, long dateEnd, int from, int take, String cookie) {
+    private void filter(long dateStart, long dateEnd, int from, int take, String cookie) {
         ApiClient.getInstance().getListTicket(dateStart, dateEnd, "unaccept_ticket", from, take, cookie).enqueue(new Callback<ModelListTickKet>() {
             @Override
             public void onResponse(Call<ModelListTickKet> call, Response<ModelListTickKet> response) {
                 if (response.body() == null) return;
+<<<<<<< HEAD
                 data.clear();
                 data.addAll(response.body().getData());
                 adapterListTicket.updateData((List<Datum>) response.body().getData());
                 if (response.body().getData().size() == 0) {
+=======
+                if (response.body().getData() != null) {
+                    data.clear();
+                    data.addAll(response.body().getData());
+                    adapterListTicket.updateData(response.body().getData());
+                } else if (response.body().getData().size() == 0) {
+>>>>>>> c2149fe0e94b7624b6d6b6ffd857bcbc005bc729
                     Toast.makeText(getContext(), "Không có ticket trong thời gian này", Toast.LENGTH_SHORT).show();
                 }
             }
