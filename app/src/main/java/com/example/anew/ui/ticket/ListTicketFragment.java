@@ -160,17 +160,17 @@ public class ListTicketFragment extends Fragment {
             @Override
             public void onResponse(Call<ModelListTickKet> call, Response<ModelListTickKet> response) {
                 if (response.body() == null) return;
-<<<<<<< HEAD
+
                 data.clear();
                 data.addAll(response.body().getData());
                 adapterListTicket.updateData((List<Datum>) response.body().getData());
-=======
+
                 if (response.body().getData() != null) {
                     data.clear();
                     data.addAll(response.body().getData());
                     adapterListTicket.updateData(response.body().getData());
                 }
->>>>>>> c2149fe0e94b7624b6d6b6ffd857bcbc005bc729
+
             }
 
             @Override
@@ -185,18 +185,18 @@ public class ListTicketFragment extends Fragment {
             @Override
             public void onResponse(Call<ModelListTickKet> call, Response<ModelListTickKet> response) {
                 if (response.body() == null) return;
-<<<<<<< HEAD
+
                 data.clear();
                 data.addAll(response.body().getData());
                 adapterListTicket.updateData((List<Datum>) response.body().getData());
                 if (response.body().getData().size() == 0) {
-=======
+
                 if (response.body().getData() != null) {
                     data.clear();
                     data.addAll(response.body().getData());
                     adapterListTicket.updateData(response.body().getData());
                 } else if (response.body().getData().size() == 0) {
->>>>>>> c2149fe0e94b7624b6d6b6ffd857bcbc005bc729
+
                     Toast.makeText(getContext(), "Không có ticket trong thời gian này", Toast.LENGTH_SHORT).show();
                 }
             }
