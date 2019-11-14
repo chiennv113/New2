@@ -73,7 +73,7 @@ public class CustomerFragment extends Fragment {
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, arrayList);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spCustomer.setAdapter(arrayAdapter);
-        
+
         btnSendC.setOnClickListener(viewl -> {
             if (spCustomer.getSelectedItem().toString().equals("Tất cả")) {
                 ListAllCustomer(cookie,null);
