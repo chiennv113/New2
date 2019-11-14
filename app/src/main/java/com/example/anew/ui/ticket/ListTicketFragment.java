@@ -17,6 +17,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.anew.Activity.ActAddNewTicket;
 import com.example.anew.Activity.ActViewTicketUnAccept;
 import com.example.anew.Adapter.AdapterListTicket;
 import com.example.anew.Model.ModelListTicket.Datum;
@@ -68,6 +69,14 @@ public class ListTicketFragment extends Fragment {
         fab = getActivity().findViewById(R.id.fab);
         fab.hide();
         String cookie = SharePrefs.getInstance().get(Constans.COOKIE, String.class);
+
+        mBtnAddTicket.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), ActAddNewTicket.class);
+                startActivity(intent);
+            }
+        });
 
         mImgFilter.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -205,9 +214,10 @@ public class ListTicketFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<ModelListTickKet> call, Throwable t) {}
+            public void onFailure(Call<ModelListTickKet> call, Throwable t) {
+            }
 
-            });
+        });
 
-        }
     }
+}
