@@ -12,6 +12,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.anew.Model.ModelListCustomer.User;
 import com.example.anew.R;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class AdapterListCustomer extends RecyclerView.Adapter<AdapterListCustomer.ViewHoler> {
@@ -39,6 +42,10 @@ public class AdapterListCustomer extends RecyclerView.Adapter<AdapterListCustome
         User user = users.get(position);
         holder.email.setText(user.getEmail());
         holder.name.setText(user.getFullname());
+   holder.phone.setText(String.valueOf(user.getPhone1()));
+        Date d = new Date((long) user.getCreateTime() * 1000);
+        DateFormat f = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        holder.date.setText(f.format(d));
 
 
     }
@@ -51,19 +58,15 @@ public class AdapterListCustomer extends RecyclerView.Adapter<AdapterListCustome
 
 
     public class ViewHoler extends RecyclerView.ViewHolder {
-        private TextView name, email, phone, address, skype, birthday, zalo, city,phone2;
+        private TextView name, email, phone, date;
 
         public ViewHoler(@NonNull View itemView) {
             super(itemView);
-            email = itemView.findViewById(R.id.tvEmailC);
             name = itemView.findViewById(R.id.tvNameC);
+            email = itemView.findViewById(R.id.tvEmailC);
             phone = itemView.findViewById(R.id.tvPhoneC);
-            address = itemView.findViewById(R.id.tvAddressC);
-            skype = itemView.findViewById(R.id.tvSkypeC);
-            birthday = itemView.findViewById(R.id.tvBirthdayC);
-            zalo = itemView.findViewById(R.id.tvZalo);
-            city = itemView.findViewById(R.id.tv_city);
-            phone2 = itemView.findViewById(R.id.tvPhone2C);
+            date = itemView.findViewById(R.id.tvDateC);
+
         }
 
     }

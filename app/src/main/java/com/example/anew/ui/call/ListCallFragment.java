@@ -28,6 +28,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.anew.Activity.ItemListCallUserActivity;
 import com.example.anew.Adapter.AdapterListCallPhone;
+import com.example.anew.Model.ModelListCustomer.ModelListCustomer;
 import com.example.anew.Model.ModelListPhoneCall.CallList;
 import com.example.anew.Model.ModelListPhoneCall.ModelListPhoneCallV2;
 import com.example.anew.Model.ModelSearchCu.Search;
@@ -185,6 +186,19 @@ public class ListCallFragment extends Fragment {
             DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(),
                     (view1, year, monthOfYear, dayOfMonth) -> mTvDateEnd.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year), mYear, mMonth, mDay);
             datePickerDialog.show();
+        });
+
+
+        ApiClient.getInstance().getListCustomer(0, 10, 0, "filter_customer", cookie).enqueue(new Callback<ModelListCustomer>() {
+            @Override
+            public void onResponse(Call<ModelListCustomer> call, Response<ModelListCustomer> response) {
+                Log.e("GGG", "onResponse: " + response.body());
+            }
+
+            @Override
+            public void onFailure(Call<ModelListCustomer> call, Throwable t) {
+
+            }
         });
 
 

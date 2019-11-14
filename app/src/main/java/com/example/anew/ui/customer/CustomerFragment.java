@@ -1,6 +1,7 @@
 package com.example.anew.ui.customer;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,12 +53,21 @@ public class CustomerFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         initView(view);
         final String cookie = SharePrefs.getInstance().get(Constans.COOKIE, String.class);
+        cRv.setLayoutManager(new LinearLayoutManager(getActivity()));
         adapter_List_Customer = new AdapterListCustomer(getActivity(), modelListCustomers);
         cRv.setAdapter(adapter_List_Customer);
-        cRv.setLayoutManager(new LinearLayoutManager(getActivity()));
-        ListAllCustomer(cookie);
-        adapter_List_Customer.notifyDataSetChanged();
+//        ListAllCustomer(cookie);
+        ApiClient.getInstance().getListCustomer(1, 10, 0, "filter_customer", cookie).enqueue(new Callback<ModelListCustomer>() {
+            @Override
+            public void onResponse(Call<ModelListCustomer> call, Response<ModelListCustomer> response) {
+                Log.e("GGG", "onResponse: " + response.body());
+            }
 
+            @Override
+            public void onFailure(Call<ModelListCustomer> call, Throwable t) {
+
+            }
+        });
 
     }
 
@@ -66,7 +76,9 @@ public class CustomerFragment extends Fragment {
         ApiClient.getInstance().getListCustomer(1, 5, 0, "filter_customer", cookie).enqueue(new Callback<ModelListCustomer>() {
             @Override
             public void onResponse(Call<ModelListCustomer> call, Response<ModelListCustomer> response) {
+                Log.e("GGG", "onResponse: " + response.body());
                 if (response.isSuccessful() && response.body() != null) {
+                    modelListCustomers.clear();
                     modelListCustomers.addAll(response.body().getUsers());
                     adapter_List_Customer.updateData(response.body().getUsers());
                 }
