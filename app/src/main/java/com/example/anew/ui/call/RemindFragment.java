@@ -120,7 +120,7 @@ public class RemindFragment extends Fragment implements IRemoveRemid {
 
     @Override
     public void onItemClick(int position, int id) {
-        ApiClient.getInstance().deleteRemind("delete_phone_remind", id, cookie).enqueue(new Callback<ModelDeleteRemind>() {
+        ApiClient.getInstance().deleteRemind("delete_phone_remind",id, cookie).enqueue(new Callback<ModelDeleteRemind>() {
             @Override
             public void onResponse(Call<ModelDeleteRemind> call, Response<ModelDeleteRemind> response) {
                 Log.e("GGG", "onResponse: " + response.code());
