@@ -7,17 +7,32 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.anew.Adapter.AdapterListTicket;
+import com.example.anew.Model.ModelListTicket.Datum;
+import com.example.anew.Model.ModelListTicket.ModelListTickKet;
 import com.example.anew.R;
+import com.example.anew.Retrofit.ApiClient;
+import com.example.anew.utills.Constans;
+import com.example.anew.utills.ConvertHelper;
 import com.example.anew.utills.SelectDate;
+import com.example.anew.utills.SharePrefs;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ListTicketFragment extends Fragment {
 
@@ -27,6 +42,13 @@ public class ListTicketFragment extends Fragment {
     private TextView mTvDateEnd;
     private RecyclerView mRv;
     private FloatingActionButton mBtnAddTicket;
+
+    private List<Datum> data = new ArrayList<>();
+    private AdapterListTicket adapterListTicket;
+    private LinearLayoutManager linearLayoutManager;
+    private int from = 0;
+    private int take = 50;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -39,6 +61,23 @@ public class ListTicketFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initView(view);
+        String cookie = SharePrefs.getInstance().get(Constans.COOKIE, String.class);
+
+        mImgFilter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                filter(ConvertHelper.convertStringToTimestampMilisecond(mTvDateStart.getText().toString().trim()),
+                        ConvertHelper.convertStringToTimestampMilisecond(mTvDateEnd.getText().toString().trim()),
+                        from, take, cookie);
+            }
+        });
+
+        linearLayoutManager = new LinearLayoutManager(getActivity());
+        mRv.setLayoutManager(linearLayoutManager);
+        adapterListTicket = new AdapterListTicket(data, getActivity());
+        mRv.setAdapter(adapterListTicket);
+        getDateHienTai(cookie);
+
         fab = getActivity().findViewById(R.id.fab);
         fab.hide();
         mTvDateStart.setOnClickListener(view15 -> {
@@ -48,6 +87,8 @@ public class ListTicketFragment extends Fragment {
         mTvDateEnd.setOnClickListener(view12 -> {
             SelectDate.select(getContext(), mTvDateEnd);
         });
+
+
     }
 
     private void initView(View view) {
@@ -56,5 +97,69 @@ public class ListTicketFragment extends Fragment {
         mTvDateEnd = view.findViewById(R.id.tvDateEnd);
         mRv = view.findViewById(R.id.rv);
         mBtnAddTicket = view.findViewById(R.id.btn_add_ticket);
+    }
+
+    private void getDateHienTai(String cookie) {
+
+        Calendar c = Calendar.getInstance();
+        int month = c.get(Calendar.MONTH);//+1
+        int year = c.get(Calendar.YEAR);
+        int day = c.get(Calendar.DAY_OF_MONTH);
+        mTvDateStart.setText("1" + "/" + (month + 1) + "/" + year);
+        mTvDateEnd.setText(day + "/" + (month + 1) + "/" + year);
+
+        int realMonth = month + 1;
+
+        if (realMonth == 1 || realMonth == 3 || realMonth == 5 || realMonth == 7 || realMonth == 8 || realMonth == 10 || realMonth == 12) {
+            String startDate = "1/" + realMonth + "/" + year;
+            String endDate = "31/" + realMonth + "/" + year;
+            getListTicket(ConvertHelper.convertStringToTimestampMilisecond(startDate),
+                    ConvertHelper.convertStringToTimestampMilisecond(endDate),
+                    from, take, cookie);
+
+        } else {
+            String startDate = "1/" + realMonth + "/" + year;
+            String endDate = "30/" + realMonth + "/" + year;
+            getListTicket(ConvertHelper.convertStringToTimestampMilisecond(startDate),
+                    ConvertHelper.convertStringToTimestampMilisecond(endDate),
+                    from, take, cookie);
+        }
+    }
+
+    public void getListTicket(long dateStart, long dateEnd, int from, int take, String cookie) {
+        ApiClient.getInstance().getListTicket(dateStart, dateEnd, "unaccept_ticket", from, take, cookie).enqueue(new Callback<ModelListTickKet>() {
+            @Override
+            public void onResponse(Call<ModelListTickKet> call, Response<ModelListTickKet> response) {
+                if (response.body() == null) return;
+                data.clear();
+                data.addAll(response.body().getData());
+                adapterListTicket.updateData(response.body().getData());
+            }
+
+            @Override
+            public void onFailure(Call<ModelListTickKet> call, Throwable t) {
+
+            }
+        });
+    }
+
+    public void filter(long dateStart, long dateEnd, int from, int take, String cookie) {
+        ApiClient.getInstance().getListTicket(dateStart, dateEnd, "unaccept_ticket", from, take, cookie).enqueue(new Callback<ModelListTickKet>() {
+            @Override
+            public void onResponse(Call<ModelListTickKet> call, Response<ModelListTickKet> response) {
+                if (response.body() == null) return;
+                data.clear();
+                data.addAll(response.body().getData());
+                adapterListTicket.updateData(response.body().getData());
+                if (response.body().getData().size() == 0) {
+                    Toast.makeText(getContext(), "Không có ticket trong thời gian này", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ModelListTickKet> call, Throwable t) {
+
+            }
+        });
     }
 }

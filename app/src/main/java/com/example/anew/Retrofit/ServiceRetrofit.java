@@ -11,6 +11,7 @@ import com.example.anew.Model.ModelListPhoneCall.CallList;
 import com.example.anew.Model.ModelListPhoneCall.Customer;
 import com.example.anew.Model.ModelListPhoneCall.ModelListPhoneCallV2;
 import com.example.anew.Model.ModelListPhoneCallRemind.ModelListPhoneCallRemind;
+import com.example.anew.Model.ModelListTicket.ModelListTickKet;
 import com.example.anew.Model.ModelLoadAllProduct;
 import com.example.anew.Model.ModelLoadCity;
 import com.example.anew.Model.ModelLoadCustomerType;
@@ -202,4 +203,14 @@ public interface ServiceRetrofit {
                                             @Field("from") int from,
                                             @Field("option") String option,
                                             @Header("cookie") String cookie);
+
+    //List ticket
+    @POST("api/ticketapi")
+    @FormUrlEncoded
+    Call<ModelListTickKet> getListTicket(@Field("date_start") long date_start,
+                                         @Field("date_end") long date_end,
+                                         @Field("option") String option,
+                                         @Field("from") int from,
+                                         @Field("take") int take,
+                                         @Header("cookie") String cookie);
 }
