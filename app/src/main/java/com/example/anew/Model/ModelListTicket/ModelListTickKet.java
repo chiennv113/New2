@@ -1,6 +1,7 @@
 
 package com.example.anew.Model.ModelListTicket;
 
+import java.util.Collection;
 import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -25,7 +26,7 @@ public class ModelListTickKet {
         this.message = message;
     }
 
-    public List<Datum> getData() {
+    public Collection<? extends Datum> getData() {
         return data;
     }
 

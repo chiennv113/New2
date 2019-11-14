@@ -133,7 +133,7 @@ public class ListTicketFragment extends Fragment {
                 if (response.body() == null) return;
                 data.clear();
                 data.addAll(response.body().getData());
-                adapterListTicket.updateData(response.body().getData());
+                adapterListTicket.updateData((List<Datum>) response.body().getData());
             }
 
             @Override
@@ -150,7 +150,7 @@ public class ListTicketFragment extends Fragment {
                 if (response.body() == null) return;
                 data.clear();
                 data.addAll(response.body().getData());
-                adapterListTicket.updateData(response.body().getData());
+                adapterListTicket.updateData((List<Datum>) response.body().getData());
                 if (response.body().getData().size() == 0) {
                     Toast.makeText(getContext(), "Không có ticket trong thời gian này", Toast.LENGTH_SHORT).show();
                 }
