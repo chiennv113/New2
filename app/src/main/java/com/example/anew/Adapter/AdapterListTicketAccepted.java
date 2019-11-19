@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.anew.Model.ModelListTicketAccepted.Datum;
 import com.example.anew.R;
+import com.example.anew.helper.IClickListTicketAccepted;
 
 import java.util.List;
 
@@ -19,9 +20,12 @@ public class AdapterListTicketAccepted extends RecyclerView.Adapter<AdapterListT
 
     List<Datum> data;
     private Context context;
-    public AdapterListTicketAccepted(List<Datum> data,Context context){
-        this.data=data;
-        this.context=context;
+    private IClickListTicketAccepted iClickListTicketAccepted, iClickTranfer;
+
+    public AdapterListTicketAccepted(List<Datum> data, Context context, IClickListTicketAccepted iClickListTicketAccepted) {
+        this.data = data;
+        this.context = context;
+        this.iClickListTicketAccepted = iClickListTicketAccepted;
     }
 
 
@@ -37,10 +41,22 @@ public class AdapterListTicketAccepted extends RecyclerView.Adapter<AdapterListT
 
     @Override
     public void onBindViewHolder(@NonNull AdapterListTicketAccepted.ViewHolder holder, int position) {
-        Datum datum=data.get(position);
-        holder.tvTieude.setText("Tieu de: "+datum.getTitle());
-        holder.tvLoai.setText("Loai: "+datum.getType());
-        holder.tvTrangthai.setText("Trang thai: "+datum.getStatus());
+        Datum datum = data.get(position);
+        holder.tvTieude.setText("Tieu de: " + datum.getTitle());
+        holder.tvLoai.setText("Loai: " + datum.getType());
+        holder.tvTrangthai.setText("Trang thai: " + datum.getStatus());
+        holder.viewTicket.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                iClickListTicketAccepted.onClickView(datum.getId());
+            }
+        });
+        holder.tranferTicket.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                iClickListTicketAccepted.onClickTranfer(datum.getId(), holder.getAdapterPosition());
+            }
+        });
 
 
     }
@@ -51,20 +67,21 @@ public class AdapterListTicketAccepted extends RecyclerView.Adapter<AdapterListT
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-                private TextView tvTieude,tvLoai,tvTrangthai;
-                private ImageView viewTicket,tranferTicket;
+        private TextView tvTieude, tvLoai, tvTrangthai;
+        private ImageView viewTicket, tranferTicket;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvTieude=itemView.findViewById(R.id.tv_Tieude);
-            tvLoai=itemView.findViewById(R.id.tv_LoaiTicket);
-            tvTrangthai=itemView.findViewById(R.id.tv_Trangthai);
-            viewTicket=itemView.findViewById(R.id.viewTicket);
-            tranferTicket=itemView.findViewById(R.id.tranferTicket);
+            tvTieude = itemView.findViewById(R.id.tv_Tieude);
+            tvLoai = itemView.findViewById(R.id.tv_LoaiTicket);
+            tvTrangthai = itemView.findViewById(R.id.tv_Trangthai);
+            viewTicket = itemView.findViewById(R.id.viewTicket);
+            tranferTicket = itemView.findViewById(R.id.tranferTicket);
 
         }
     }
-    public void updateData(List<Datum> list){
+
+    public void updateData(List<Datum> list) {
         data.clear();
         data.addAll(list);
         notifyDataSetChanged();

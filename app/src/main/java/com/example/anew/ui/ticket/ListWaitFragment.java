@@ -9,7 +9,9 @@ import androidx.fragment.app.Fragment;
 
 import com.example.anew.R;
 
+
 public class ListWaitFragment extends Fragment {
+
 
 
     @Override
@@ -18,4 +20,7 @@ public class ListWaitFragment extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_wait_ticket, container, false);
     }
+
+
+
 }

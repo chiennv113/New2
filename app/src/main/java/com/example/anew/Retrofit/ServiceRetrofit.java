@@ -12,6 +12,7 @@ import com.example.anew.Model.ModelListPhoneCall.Customer;
 import com.example.anew.Model.ModelListPhoneCall.ModelListPhoneCallV2;
 import com.example.anew.Model.ModelListPhoneCallRemind.ModelListPhoneCallRemind;
 import com.example.anew.Model.ModelListTicket.ModelListTickKet;
+import com.example.anew.Model.ModelListTicketAccepted.Example;
 import com.example.anew.Model.ModelLoadAllProduct;
 import com.example.anew.Model.ModelLoadCity;
 import com.example.anew.Model.ModelLoadCustomerType;
@@ -24,6 +25,7 @@ import com.example.anew.Model.ModelTKCuocgoiBanThan.ModelThongKeCuocGoiBanThan;
 import com.example.anew.Model.ModelTKTheoDoHaiLongKH.ModelThongKeTheoDoHaiLongCuaKhachAdmin;
 import com.example.anew.Model.ModelTKTheoNV.ModelThongKeTheoNVAdmin;
 import com.example.anew.Model.ModelTKTheoTatcaDoHaiLong.ModelThongKeTheoTatCaDoHaiLongCuaKhachAdmin;
+import com.example.anew.Model.ModelTicketNV.TicketNV;
 import com.example.anew.Model.ModelTiepNhanTicket;
 import com.example.anew.Model.ModelViewTicketInDS.ModelViewTicketInDS;
 
@@ -216,6 +218,15 @@ public interface ServiceRetrofit {
                                          @Field("take") int take,
                                          @Header("cookie") String cookie);
 
+    @POST("api/ticketapi")
+    @FormUrlEncoded
+    Call<Example> getTicketAccepted(@Field("date_start") long date_start,
+                                    @Field("date_end") long date_end,
+                                    @Field("option") String option,
+                                    @Field("from") int from,
+                                    @Field("take") int take,
+                                    @Header("cookie") String cookie);
+
     //View Ticket in DS
     @POST("api/ticketapi")
     @FormUrlEncoded
@@ -226,6 +237,13 @@ public interface ServiceRetrofit {
     @POST("api/ticketapi")
     @FormUrlEncoded
     Call<ModelTiepNhanTicket> acceptTicket(@Field("id") int id,
-                                      @Field("option") String option,
-                                      @Header("cookie") String cookie);
+                                           @Field("option") String option,
+                                           @Header("cookie") String cookie);
+
+
+    //Danhsach nhan vien nhan ticket
+    @POST("api/userapi")
+    @FormUrlEncoded
+    Call<TicketNV> ticketNV(@Field("option") String option,
+                            @Field("cookie") String cookie);
 }

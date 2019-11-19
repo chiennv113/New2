@@ -156,28 +156,29 @@ public class ListTicketFragment extends Fragment {
     }
 
     private void getListTicket(long dateStart, long dateEnd, int from, int take, String cookie) {
-        ApiClient.getInstance().getListTicket(dateStart, dateEnd, "unaccept_ticket", from, take, cookie).enqueue(new Callback<ModelListTickKet>() {
-            @Override
-            public void onResponse(Call<ModelListTickKet> call, Response<ModelListTickKet> response) {
-                if (response.body() == null) return;
+        ApiClient.getInstance().getListTicket(dateStart, dateEnd, "unaccept_ticket", from, take, cookie)
+                .enqueue(new Callback<ModelListTickKet>() {
+                    @Override
+                    public void onResponse(Call<ModelListTickKet> call, Response<ModelListTickKet> response) {
+                        if (response.body() == null) return;
 
-                data.clear();
-                data.addAll(response.body().getData());
-                adapterListTicket.updateData((List<Datum>) response.body().getData());
+                        data.clear();
+                        data.addAll(response.body().getData());
+                        adapterListTicket.updateData((List<Datum>) response.body().getData());
 
-                if (response.body().getData() != null) {
-                    data.clear();
-                    data.addAll(response.body().getData());
-                    adapterListTicket.updateData((List<Datum>) response.body().getData());
-                }
+                        if (response.body().getData() != null) {
+                            data.clear();
+                            data.addAll(response.body().getData());
+                            adapterListTicket.updateData((List<Datum>) response.body().getData());
+                        }
 
-            }
+                    }
 
-            @Override
-            public void onFailure(Call<ModelListTickKet> call, Throwable t) {
+                    @Override
+                    public void onFailure(Call<ModelListTickKet> call, Throwable t) {
 
-            }
-        });
+                    }
+                });
     }
 
     private void filter(long dateStart, long dateEnd, int from, int take, String cookie) {
@@ -205,9 +206,10 @@ public class ListTicketFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<ModelListTickKet> call, Throwable t) {}
+            public void onFailure(Call<ModelListTickKet> call, Throwable t) {
+            }
 
-            });
+        });
 
-        }
     }
+}

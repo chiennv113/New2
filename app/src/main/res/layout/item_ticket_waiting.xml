@@ -20,24 +20,38 @@
             android:padding="8dp">
 
             <TextView
-                android:id="@+id/tv_Tieude"
+                android:id="@+id/tv_TieudeTicketWating"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Tieu de" />
 
             <TextView
-                android:id="@+id/tv_LoaiTicket"
+                android:id="@+id/tv_NoidungTkWating"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_Tieude"
-                android:text="Loai ticket" />
+                android:layout_below="@+id/tv_TieudeTicketWating"
+                android:text="Noi dung" />
 
             <TextView
-                android:id="@+id/tv_Trangthai"
+                android:id="@+id/tv_LoaiTkWaiting"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_LoaiTicket"
+                android:layout_below="@+id/tv_NoidungTkWating"
+                android:text="Loai" />
+
+            <TextView
+                android:id="@+id/tv_TrangthaiTkWaiting"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_LoaiTkWaiting"
                 android:text="Trang thai" />
+
+            <TextView
+                android:id="@+id/tv_NgaytaoTkWaiting"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_TrangthaiTkWaiting"
+                android:text="Ngay tao" />
 
         </RelativeLayout>
 
@@ -48,18 +62,26 @@
             android:gravity="center">
 
             <ImageView
-                android:id="@+id/viewTicket"
+                android:id="@+id/viewTicketWaiting"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/eye" />
 
             <ImageView
-                android:id="@+id/tranferTicket"
+                android:id="@+id/acceptTicketWaiting"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/viewTicket"
+                android:layout_below="@+id/viewTicketWaiting"
                 android:layout_marginTop="5dp"
-                android:src="@drawable/tranfer" />
+                android:src="@drawable/ic_done_all_black_24dp" />
+
+            <ImageView
+                android:id="@+id/removeTicketWaiting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/acceptTicketWaiting"
+                android:layout_marginTop="5dp"
+                android:src="@drawable/delete" />
 
         </RelativeLayout>
 
