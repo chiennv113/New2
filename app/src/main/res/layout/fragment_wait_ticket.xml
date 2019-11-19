@@ -8,11 +8,7 @@
 
 
     <androidx.recyclerview.widget.RecyclerView
-<<<<<<< HEAD
-        android:id="@+id/mRv"
-=======
-        android:id="@+id/rvTicketWait"
->>>>>>> 15ae9647a476021cfcaa31e2fb2056f552b3ca27
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
