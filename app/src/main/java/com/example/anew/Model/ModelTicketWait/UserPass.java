@@ -1,17 +1,17 @@
 
-package com.example.anew.Model.ModelListCustomer;
+package com.example.anew.Model.ModelTicketWait;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class User {
+public class UserPass {
 
     @SerializedName("id")
     @Expose
     private Integer id;
     @SerializedName("email")
     @Expose
-    private Object email;
+    private String email;
     @SerializedName("avatar")
     @Expose
     private Object avatar;
@@ -26,16 +26,16 @@ public class User {
     private Object phone2;
     @SerializedName("city")
     @Expose
-    private Integer city;
+    private Object city;
     @SerializedName("address")
     @Expose
-    private Object address;
+    private String address;
     @SerializedName("birthday")
     @Expose
-    private Object birthday;
+    private String birthday;
     @SerializedName("skype")
     @Expose
-    private Object skype;
+    private String skype;
     @SerializedName("zalo")
     @Expose
     private String zalo;
@@ -44,7 +44,7 @@ public class User {
     private Object zaloId;
     @SerializedName("user_type")
     @Expose
-    private UserType userType;
+    private Integer userType;
     @SerializedName("user_active")
     @Expose
     private Integer userActive;
@@ -53,16 +53,13 @@ public class User {
     private Integer createTime;
     @SerializedName("create_user")
     @Expose
-    private Integer createUser;
+    private Object createUser;
     @SerializedName("is_user")
     @Expose
     private Integer isUser;
     @SerializedName("code_email")
     @Expose
     private Object codeEmail;
-    @SerializedName("customer")
-    @Expose
-    private Customer customer;
 
     public Integer getId() {
         return id;
@@ -72,11 +69,11 @@ public class User {
         this.id = id;
     }
 
-    public Object getEmail() {
+    public String getEmail() {
         return email;
     }
 
-    public void setEmail(Object email) {
+    public void setEmail(String email) {
         this.email = email;
     }
 
@@ -112,35 +109,35 @@ public class User {
         this.phone2 = phone2;
     }
 
-    public Integer getCity() {
+    public Object getCity() {
         return city;
     }
 
-    public void setCity(Integer city) {
+    public void setCity(Object city) {
         this.city = city;
     }
 
-    public Object getAddress() {
+    public String getAddress() {
         return address;
     }
 
-    public void setAddress(Object address) {
+    public void setAddress(String address) {
         this.address = address;
     }
 
-    public Object getBirthday() {
+    public String getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(Object birthday) {
+    public void setBirthday(String birthday) {
         this.birthday = birthday;
     }
 
-    public Object getSkype() {
+    public String getSkype() {
         return skype;
     }
 
-    public void setSkype(Object skype) {
+    public void setSkype(String skype) {
         this.skype = skype;
     }
 
@@ -160,11 +157,11 @@ public class User {
         this.zaloId = zaloId;
     }
 
-    public UserType getUserType() {
+    public Integer getUserType() {
         return userType;
     }
 
-    public void setUserType(UserType userType) {
+    public void setUserType(Integer userType) {
         this.userType = userType;
     }
 
@@ -184,11 +181,11 @@ public class User {
         this.createTime = createTime;
     }
 
-    public Integer getCreateUser() {
+    public Object getCreateUser() {
         return createUser;
     }
 
-    public void setCreateUser(Integer createUser) {
+    public void setCreateUser(Object createUser) {
         this.createUser = createUser;
     }
 
@@ -206,14 +203,6 @@ public class User {
 
     public void setCodeEmail(Object codeEmail) {
         this.codeEmail = codeEmail;
-    }
-
-    public Customer getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
     }
 
 }

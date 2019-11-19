@@ -1,6 +1,7 @@
 package com.example.anew.Activity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -16,7 +17,10 @@ import com.example.anew.R;
 import com.example.anew.Retrofit.ApiClient;
 import com.example.anew.utills.Constans;
 import com.example.anew.utills.SharePrefs;
+import com.squareup.picasso.Picasso;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -45,7 +49,6 @@ public class ActViewTicketUnAccept extends AppCompatActivity {
     private TextView mTvNoteInViewTicket;
     private ImageView mImgBack;
 
-    private List<Base64> base64s = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,14 +72,29 @@ public class ActViewTicketUnAccept extends AppCompatActivity {
                 mTvPhoneInViewTicket.setText(response.body().getData().getUsers().getPhone1());
                 mTvTittleInViewTicket.setText(response.body().getData().getTitle());
                 mTvUserTaoTicketInViewTicket.setText(response.body().getData().getUsers().getFullname() + " Đã tạo ticket " + "#" + idTicket);
-                mTvNoteInViewTicket.setText(response.body().getData().getNote());
-                mTvContentInViewTicket.setText(response.body().getData().getContents());
+
+                String content1 = (response.body().getData().getContents()).replace("<p>", "");
+                String content = content1.replace("</p>", "");
+                mTvContentInViewTicket.setText(content);
+
+                String note1 = (response.body().getData().getNote()).replace("<p>", "");
+                String note = note1.replace("</p>", "");
+                mTvNoteInViewTicket.setText(note);
+
                 Date d = new Date((long) response.body().getData().getCreateTime() * 1000);
                 DateFormat f = new SimpleDateFormat("dd/MM/yyyy HH:mm");
                 mTvCreateTimeInViewTicket.setText(f.format(d));
 
-                Log.e("GGG", "onResponse: " + response.body().getData().getImages());
-
+                if (response.body().getData().getImages() != null) {
+                    String imgLoad = response.body().getData().getImages();
+                    String imgReal = imgLoad.replace("\\", "");
+                    String imgReal1 = imgReal.replace("[\"", "");
+                    String imgReal2 = imgReal1.replace("\"]", "");
+                    String domain = "https://crm.phanmemninja.com/";
+                    String imgReal3 = domain + imgReal2;
+                    Picasso.get().load(imgReal3).into(mImgInViewTicket);
+                    Log.e("GGG", "Kết quả: " + imgReal3);
+                }
             }
 
             @Override

@@ -128,6 +128,7 @@
     <string name="taoNhacNho">Tạo nhắc nhở</string>
     <string name="nav_menu_logout">Đăng xuất</string>
     <string name="logout">Bạn có muốn đăng xuất</string>
+    <string name="act_addNewTicket">Thêm Ticket</string>
 
 
 </resources>

@@ -40,12 +40,12 @@ public class AdapterListCustomer extends RecyclerView.Adapter<AdapterListCustome
     @Override
     public void onBindViewHolder(@NonNull ViewHoler holder, int position) {
         User user = users.get(position);
-        holder.email.setText(user.getEmail());
-        holder.name.setText(user.getFullname());
-   holder.phone.setText(String.valueOf(user.getPhone1()));
+        holder.email.setText("Email: "+user.getEmail());
+        holder.name.setText("Họ và tên: "+ user.getFullname());
+        holder.phone.setText("Số điện thoại: "+ (user.getPhone1()));
         Date d = new Date((long) user.getCreateTime() * 1000);
         DateFormat f = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-        holder.date.setText(f.format(d));
+        holder.date.setText("Ngày tạo: "+f.format(d));
 
 
     }

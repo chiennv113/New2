@@ -6,9 +6,7 @@ import com.example.anew.Model.ModelAddRemind;
 import com.example.anew.Model.ModelCustomeFeelNew;
 import com.example.anew.Model.ModelDeleteCall;
 import com.example.anew.Model.ModelDeleteRemind;
-import com.example.anew.Model.ModelListCustomer.ModelListCustomer;
-import com.example.anew.Model.ModelListPhoneCall.CallList;
-import com.example.anew.Model.ModelListPhoneCall.Customer;
+import com.example.anew.Model.ModelListCustomer.ModelListCustomerV2;
 import com.example.anew.Model.ModelListPhoneCall.ModelListPhoneCallV2;
 import com.example.anew.Model.ModelListPhoneCallRemind.ModelListPhoneCallRemind;
 import com.example.anew.Model.ModelListTicket.ModelListTickKet;
@@ -25,7 +23,11 @@ import com.example.anew.Model.ModelTKCuocgoiBanThan.ModelThongKeCuocGoiBanThan;
 import com.example.anew.Model.ModelTKTheoDoHaiLongKH.ModelThongKeTheoDoHaiLongCuaKhachAdmin;
 import com.example.anew.Model.ModelTKTheoNV.ModelThongKeTheoNVAdmin;
 import com.example.anew.Model.ModelTKTheoTatcaDoHaiLong.ModelThongKeTheoTatCaDoHaiLongCuaKhachAdmin;
+
 import com.example.anew.Model.ModelTicketNV.TicketNV;
+
+import com.example.anew.Model.ModelTicketWait.ModelWaitingReceiveTicket;
+
 import com.example.anew.Model.ModelTiepNhanTicket;
 import com.example.anew.Model.ModelViewTicketInDS.ModelViewTicketInDS;
 
@@ -202,11 +204,11 @@ public interface ServiceRetrofit {
     //Danh sách khách hàng
     @POST("api/userapi")
     @FormUrlEncoded
-    Call<ModelListCustomer> getListCustomer(@Field("active") int active,
-                                            @Field("take") int take,
-                                            @Field("from") int from,
-                                            @Field("option") String option,
-                                            @Header("cookie") String cookie);
+    Call<ModelListCustomerV2> getListCustomer(@Field("active") Integer active,
+                                              @Field("take") int take,
+                                              @Field("from") int from,
+                                              @Field("option") String option,
+                                              @Header("cookie") String cookie);
 
     //List ticket
     @POST("api/ticketapi")
@@ -239,11 +241,16 @@ public interface ServiceRetrofit {
     Call<ModelTiepNhanTicket> acceptTicket(@Field("id") int id,
                                            @Field("option") String option,
                                            @Header("cookie") String cookie);
-
-
-    //Danhsach nhan vien nhan ticket
+            //danh sach nv nhan ticket
     @POST("api/userapi")
     @FormUrlEncoded
     Call<TicketNV> ticketNV(@Field("option") String option,
                             @Field("cookie") String cookie);
+
+    @POST("api/ticketapi")
+    @FormUrlEncoded
+    Call<ModelWaitingReceiveTicket> getListWaitTicket(@Field("option") String option,
+                                                 @Header("cookie") String cookie);
+
+
 }

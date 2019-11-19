@@ -9,11 +9,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
@@ -33,7 +31,6 @@ import com.example.anew.Model.ModelTKTheoNV.ModelThongKeTheoNVAdmin;
 import com.example.anew.R;
 import com.example.anew.Retrofit.ApiClient;
 import com.example.anew.helper.IClickRv;
-import com.example.anew.helper.IClickShowDialogNV;
 import com.example.anew.utills.Constans;
 import com.example.anew.utills.ConvertHelper;
 import com.example.anew.utills.CustomTouchListener;
@@ -260,7 +257,7 @@ public class DashboardFragmentInCall extends Fragment {
         mTvDateStart = view.findViewById(R.id.tvDateStart);
         mTvDateEnd = view.findViewById(R.id.tvDateEnd);
         mSpinerFeel = view.findViewById(R.id.spinerFeel);
-        mBtnSend = view.findViewById(R.id.btnSend);
+        mBtnSend = view.findViewById(R.id.btnSendC);
         mTvAllMySelf = view.findViewById(R.id.tvAllMySelf);
         mTvOldMySelf = view.findViewById(R.id.tvOldMySelf);
         mTvNewMyself = view.findViewById(R.id.tvNewMyself);

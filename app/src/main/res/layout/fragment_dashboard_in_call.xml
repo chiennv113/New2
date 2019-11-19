@@ -21,9 +21,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:text="@string/loc"
-                app:layout_constraintBottom_toBottomOf="@+id/btnSend"
-                app:layout_constraintEnd_toStartOf="@+id/btnSend"
-                app:layout_constraintTop_toTopOf="@+id/btnSend" />
+                app:layout_constraintBottom_toBottomOf="@+id/btnSendC"
+                app:layout_constraintEnd_toStartOf="@+id/btnSendC"
+                app:layout_constraintTop_toTopOf="@+id/btnSendC" />
 
             <TextView
                 android:id="@+id/tvDateEnd"
@@ -57,7 +57,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
-                android:id="@+id/btnSend"
+                android:id="@+id/btnSendC"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
