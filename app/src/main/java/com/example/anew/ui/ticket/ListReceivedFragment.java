@@ -17,7 +17,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.anew.Activity.ActViewTicketUnAccept;
 import com.example.anew.Adapter.AdapterListTicketAccepted;
-import com.example.anew.Model.ModelListTicket.ModelListTickKet;
 import com.example.anew.Model.ModelListTicketAccepted.Datum;
 import com.example.anew.Model.ModelListTicketAccepted.Example;
 import com.example.anew.R;

@@ -56,7 +56,7 @@ public class AdapterListTicket extends RecyclerView.Adapter<AdapterListTicket.Vi
         DateFormat f = new SimpleDateFormat("dd/MM/yyyy");
         holder.tvCreatTime.setText("Ngày tạo: " + f.format(d));
 
-        holder.imgView.setOnClickListener(new View.OnClickListener() {
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 iClickListTicket.onClickView(datum.getId());
@@ -78,7 +78,7 @@ public class AdapterListTicket extends RecyclerView.Adapter<AdapterListTicket.Vi
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         private TextView tvTittle, tvProduct, tvContent, tvType, tvStatus, tvCreatTime;
-        private ImageView imgAccept, imgView;
+        private ImageView imgAccept;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -89,7 +89,6 @@ public class AdapterListTicket extends RecyclerView.Adapter<AdapterListTicket.Vi
             tvType = itemView.findViewById(R.id.tvTypeInListTicket);
             tvStatus = itemView.findViewById(R.id.tvStatusInListTicket);
             imgAccept = itemView.findViewById(R.id.imgAccept);
-            imgView = itemView.findViewById(R.id.imgView);
         }
     }
 

@@ -72,6 +72,27 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <TextView
+                android:id="@+id/tvNameRsSearch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toStartOf="@+id/tvEmailRsSearch"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayout9" />
+
+            <TextView
+                android:id="@+id/tvEmailRsSearch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="italic"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/tvNameRsSearch"
+                app:layout_constraintTop_toTopOf="@+id/tvNameRsSearch" />
+
             <ImageView
                 android:id="@+id/imgSelectProductinAddNewTicket"
                 android:layout_width="wrap_content"
@@ -219,7 +240,7 @@
                 android:layout_weight="1"
                 android:text="Loại: "
                 app:layout_constraintStart_toStartOf="@+id/textInputLayout9"
-                app:layout_constraintTop_toBottomOf="@+id/textInputLayout9" />
+                app:layout_constraintTop_toBottomOf="@+id/tvNameRsSearch" />
 
             <TextView
                 android:id="@+id/textView9"

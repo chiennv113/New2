@@ -194,24 +194,18 @@ public class ListTicketFragment extends Fragment {
         ApiClient.getInstance().getListTicket(dateStart, dateEnd, "unaccept_ticket", from, take, cookie).enqueue(new Callback<ModelListTickKet>() {
             @Override
             public void onResponse(Call<ModelListTickKet> call, Response<ModelListTickKet> response) {
-                if (response.body() == null) return;
 
-                data.clear();
-                data.addAll(response.body().getData());
-                adapterListTicket.updateData((List<Datum>) response.body().getData());
-                if (response.body().getData().size() == 0) {
-
-                    if (response.body().getData() != null) {
+                if (response.body() != null) {
+                    if (response.body().getMessage().equals("Lấy tickets thành công")) {
                         data.clear();
                         data.addAll(response.body().getData());
                         adapterListTicket.updateData((List<Datum>) response.body().getData());
-                    } else if (response.body().getData().size() == 0) {
-
+                    } else if (response.body().getMessage().equals("Không có ticket mới")) {
+                        data.clear();
+                        adapterListTicket.notifyDataSetChanged();
                         Toast.makeText(getContext(), "Không có ticket trong thời gian này", Toast.LENGTH_SHORT).show();
                     }
                 }
-
-
             }
 
             @Override

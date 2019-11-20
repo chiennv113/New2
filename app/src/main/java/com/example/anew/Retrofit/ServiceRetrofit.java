@@ -2,6 +2,7 @@ package com.example.anew.Retrofit;
 
 import com.example.anew.Model.ModelAdd;
 import com.example.anew.Model.ModelAddCallAndCustomerNew;
+import com.example.anew.Model.ModelAddNewTicket;
 import com.example.anew.Model.ModelAddRemind;
 import com.example.anew.Model.ModelCustomeFeelNew;
 import com.example.anew.Model.ModelDeleteCall;
@@ -31,14 +32,22 @@ import com.example.anew.Model.ModelTicketWait.ModelWaitingReceiveTicket;
 import com.example.anew.Model.ModelTiepNhanTicket;
 import com.example.anew.Model.ModelViewTicketInDS.ModelViewTicketInDS;
 
+import java.io.File;
 import java.util.List;
+import java.util.Observable;
 
+import okhttp3.MultipartBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
+import retrofit2.Response;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Header;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface ServiceRetrofit {
@@ -46,7 +55,10 @@ public interface ServiceRetrofit {
 
     //Login
     @POST("api/userapi")
-    Call<Login> createUser(@Body Login login);
+    @FormUrlEncoded
+    Call<Login> createUser(@Field("email") String email,
+                           @Field("password") String password,
+                           @Field("option") String option);
 
 
     //Search
@@ -241,7 +253,8 @@ public interface ServiceRetrofit {
     Call<ModelTiepNhanTicket> acceptTicket(@Field("id") int id,
                                            @Field("option") String option,
                                            @Header("cookie") String cookie);
-            //danh sach nv nhan ticket
+
+    //danh sach nv nhan ticket
     @POST("api/userapi")
     @FormUrlEncoded
     Call<TicketNV> ticketNV(@Field("option") String option,
@@ -250,7 +263,20 @@ public interface ServiceRetrofit {
     @POST("api/ticketapi")
     @FormUrlEncoded
     Call<ModelWaitingReceiveTicket> getListWaitTicket(@Field("option") String option,
-                                                 @Header("cookie") String cookie);
+                                                      @Header("cookie") String cookie);
 
+    //Tao ticket
+    @POST("api/ticketapi")
+    @Multipart
+    Call<ResponseBody> addTicket(@Part("title") String title,
+                                 @Part("type") int type,
+                                 @Part("ticket_condition") int ticket_condition,
+                                 @Part("contents") String content,
+                                 @Part("note") String note,
+                                 @Part("user_id") int user_id,
+                                 @Part("product") int product,
+                                 @Part("option") String option,
+                                 @Part MultipartBody.Part images,
+                                 @Header("cookie") String cookie);
 
 }

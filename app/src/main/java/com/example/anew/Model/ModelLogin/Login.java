@@ -6,15 +6,15 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class Login {
-String email;
-String password;
-String option;
-
-public Login(String email, String password, String option){
-    this.email = email;
-    this.password = password;
-    this.option = option;
-}
+//String email;
+//String password;
+//String option;
+//
+//public Login(String email, String password, String option){
+//    this.email = email;
+//    this.password = password;
+//    this.option = option;
+//}
     @SerializedName("message")
     @Expose
     private String message;

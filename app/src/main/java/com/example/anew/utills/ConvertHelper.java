@@ -1,5 +1,8 @@
 package com.example.anew.utills;
 
+import android.graphics.Bitmap;
+
+import java.io.ByteArrayOutputStream;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -28,5 +31,11 @@ public class ConvertHelper {
         }
         long time = date.getTime() / 1000;
         return time;
+    }
+
+    public static byte[] convertBitmapToByteArray(Bitmap bitmap) {
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        return stream.toByteArray();
     }
 }
