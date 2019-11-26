@@ -1,9 +1,8 @@
 package com.example.anew.ui.ticket;
 
-import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.anew.Activity.ActAddNewTicket;
 import com.example.anew.Activity.ActViewTicketUnAccept;
@@ -54,6 +54,7 @@ public class ListTicketFragment extends Fragment {
     private LinearLayoutManager linearLayoutManager;
     private int from = 0;
     private int take = 50;
+    private SwipeRefreshLayout mSwipeRefresh;
 
 
     @Override
@@ -69,6 +70,14 @@ public class ListTicketFragment extends Fragment {
         fab = getActivity().findViewById(R.id.fab);
         fab.hide();
         String cookie = SharePrefs.getInstance().get(Constans.COOKIE, String.class);
+
+        mSwipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getDateHienTai(cookie);
+                new Handler().postDelayed(() -> mSwipeRefresh.setRefreshing(false), 2000);
+            }
+        });
 
         mBtnAddTicket.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -135,6 +144,7 @@ public class ListTicketFragment extends Fragment {
         mTvDateEnd = view.findViewById(R.id.tvDateEnd);
         mRv = view.findViewById(R.id.rv);
         mBtnAddTicket = view.findViewById(R.id.btn_add_ticket);
+        mSwipeRefresh = view.findViewById(R.id.swipeRefresh);
     }
 
     private void getDateHienTai(String cookie) {

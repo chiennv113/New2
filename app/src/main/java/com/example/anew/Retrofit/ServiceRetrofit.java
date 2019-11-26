@@ -37,6 +37,7 @@ import java.util.List;
 import java.util.Observable;
 
 import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Response;
@@ -267,16 +268,16 @@ public interface ServiceRetrofit {
 
     //Tao ticket
     @POST("api/ticketapi")
-    @Multipart
-    Call<ResponseBody> addTicket(@Part("title") String title,
-                                 @Part("type") int type,
-                                 @Part("ticket_condition") int ticket_condition,
-                                 @Part("contents") String content,
-                                 @Part("note") String note,
-                                 @Part("user_id") int user_id,
-                                 @Part("product") int product,
-                                 @Part("option") String option,
-                                 @Part MultipartBody.Part images,
-                                 @Header("cookie") String cookie);
+    @FormUrlEncoded
+    Call<ModelAddNewTicket> addTicket(@Field("title") String title,
+                                      @Field("type") Integer type,
+                                      @Field("ticket_condition") Integer ticket_condition,
+                                      @Field("contents") String content,
+                                      @Field("note") String note,
+                                      @Field("user_id") Integer user_id,
+                                      @Field("product") Integer product,
+                                      @Field("option") String option,
+                                      @Field("images") File img,
+                                      @Header("cookie") String cookie);
 
 }
