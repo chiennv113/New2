@@ -6,6 +6,20 @@
     android:layout_height="match_parent">
 
 
+    <EditText
+        android:id="@+id/edtSearchC"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="64dp"
+        android:ems="10"
+        android:hint="Nhập số điện thoại tìm kiếm"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toStartOf="@+id/btnSearch"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnSendC" />
+
     <ImageView
         android:id="@+id/btnSendC"
         android:layout_width="wrap_content"
@@ -17,11 +31,23 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/filter_menu" />
 
+    <ImageButton
+        android:id="@+id/btnSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/hover_image"
+        app:layout_constraintBottom_toBottomOf="@+id/edtSearchC"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/edtSearchC"
+        app:srcCompat="@drawable/account_search" />
+
     <Spinner
         android:id="@+id/spCustomer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
+        android:layout_marginEnd="2dp"
         app:layout_constraintBottom_toBottomOf="@+id/btnSendC"
         app:layout_constraintEnd_toStartOf="@+id/btnSendC"
         app:layout_constraintTop_toTopOf="@+id/btnSendC" />
@@ -31,11 +57,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnSendC">
+        app:layout_constraintTop_toBottomOf="@+id/btnSearch">
 
     </androidx.recyclerview.widget.RecyclerView>
 </androidx.constraintlayout.widget.ConstraintLayout>
